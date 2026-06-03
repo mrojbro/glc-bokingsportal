@@ -35,6 +35,12 @@ jobs:
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
 
+      - name: Verify portal build (not README)
+        run: |
+          test -f dist/index.html
+          grep -q 'id="root"' dist/index.html
+          test -f dist/.nojekyll
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

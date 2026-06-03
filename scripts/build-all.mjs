@@ -40,6 +40,15 @@ for (const app of apps) {
   })
 }
 
+// Prevent GitHub Pages from running Jekyll on the deployed artifact
+fs.writeFileSync(path.join(distRoot, '.nojekyll'), '')
+
+const indexHtml = fs.readFileSync(path.join(distRoot, 'index.html'), 'utf8')
+if (!indexHtml.includes('id="root"')) {
+  console.error('dist/index.html does not look like the portal app. Check the portal build.')
+  process.exit(1)
+}
+
 console.log('\nAll apps built into dist/')
 
 function normalizeBase(value) {

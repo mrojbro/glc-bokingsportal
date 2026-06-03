@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { HubHomeLink } from '../../../shared/hub-link/HubHomeLink.tsx'
 import { FileUpload } from './components/FileUpload'
 import { MottKolliViktChart } from './components/MottKolliViktChart'
 import { OutputSummary } from './components/OutputSummary'
@@ -146,13 +147,16 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">
       <header className="border-b border-[var(--color-border)] bg-[var(--color-surface-elevated)]">
-        <div className="mx-auto max-w-[1800px] px-4 py-5 sm:px-6">
-          <h1 className="text-2xl font-bold tracking-tight text-[var(--color-text)]">
-            Ewerman — Bokning
-          </h1>
-          <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-            All bearbetning sker lokalt i webbläsaren.
-          </p>
+        <div className="mx-auto flex max-w-[1800px] flex-wrap items-start justify-between gap-4 px-4 py-5 sm:px-6">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-[var(--color-text)]">
+              Ewerman — Bokning
+            </h1>
+            <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+              All bearbetning sker lokalt i webbläsaren.
+            </p>
+          </div>
+          <HubHomeLink />
         </div>
       </header>
 
