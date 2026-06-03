@@ -1,0 +1,21 @@
+{
+  "name": "glc-bokingsportal",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "node scripts/dev-hub.mjs",
+    "dev:fast": "node scripts/dev-hub.mjs --skip-build",
+    "ports:free": "node scripts/free-ports.mjs",
+    "dev:vite": "node scripts/dev.mjs",
+    "dev:portal": "npm run dev -w @glc-bokingsportal/portal",
+    "dev:kaka": "npm run dev -w @glc-bokingsportal/kaka",
+    "dev:ewerman": "npm run dev -w @glc-bokingsportal/ewerman",
+    "dev:lars-goran": "npm run dev -w @glc-bokingsportal/lars-goran",
+    "build": "node scripts/build-all.mjs",
+    "preview": "node scripts/preview-local.mjs"
+  }
+}
