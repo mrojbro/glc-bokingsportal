@@ -1,6 +1,21 @@
 # GLC Bokingsportal
 
-Monorepo for GLC booking tools. The landing page links to each customer-specific app.
+Monorepo for GLC booking tools. One hub links to each customer app (Kåkå, Ewerman, Lars-Göran, and more).
+
+## Live site (after GitHub Pages is enabled)
+
+**https://mrojbro.github.io/glc-bokingsportal/**
+
+| URL | App |
+|-----|-----|
+| `/` | Portal (start here) |
+| `/kaka/` | Kåkå |
+| `/ewerman/` | Ewerman |
+| `/lars-goran/` | Lars-Göran |
+
+The GitHub repo page (`github.com/mrojbro/glc-bokingsportal`) only shows this README — not the booking tools.
+
+Enable Pages: **Settings → Pages → Source: GitHub Actions**, then re-run the deploy workflow. See [DEPLOY.md](./DEPLOY.md).
 
 ## Structure
 
@@ -9,27 +24,28 @@ apps/
   portal/              Hub — booking cards (start here)
   kaka/                Kåkå CSV → Excel transform
   ewerman/             Ewerman Excel transform
+  lars-goran/          Lars-Göran (PrimeLog export)
   broderna-hanssons/   Kommer snart
   coop-matkassar/      Kommer snart
   coop-distribution/   Kommer snart
   coop-frukt/          Kommer snart
   comforta/            Kommer snart
-  lars-goran/          Kommer snart
 ```
 
 ## Run locally
 
 ```bash
 npm install
-npm run dev              # build + serve hub on :5173 (recommended — all links work)
-npm run dev -- --skip-build   # reuse dist/ after first build
-npm run dev:vite         # live reload on :5173/:5174/:5175 (Öppna opens those ports)
+npm run dev              # build + serve hub on :5173 (recommended)
+npm run dev:fast         # reuse dist/ after first build
+npm run dev:vite         # live reload (separate ports per app)
 npm run dev:portal
 npm run dev:kaka
 npm run dev:ewerman
+npm run dev:lars-goran
 ```
 
-Build everything into one `dist/` folder (GitHub Pages or IIS):
+Build for GitHub Pages / IIS:
 
 ```bash
 npm run build
@@ -43,17 +59,12 @@ npm run preview
 
 Open **http://localhost:4173/**
 
-If `npm run dev` says port 5173 is in use and picks another port, stop old servers (Ctrl+C in other terminals) or run:
+If port 5173 is busy:
 
 ```bash
 npm run ports:free
 npm run dev
 ```
-
-Then use **http://localhost:5173/** only.
-
-> `npm run preview` rebuilds with base path `/` for localhost.  
-> `npm run build` uses `/glc-bokingsportal/` for GitHub Pages (rename repo to match).
 
 ## Deploy
 
