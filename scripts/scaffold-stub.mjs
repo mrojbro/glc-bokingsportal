@@ -7,7 +7,6 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
 const stubs = [
   { slug: 'broderna-hanssons', title: 'Bröderna Hanssons' },
   { slug: 'coop-matkassar', title: 'Coop Matkassar' },
-  { slug: 'coop-distribution', title: 'Coop Distribution' },
   { slug: 'coop-frukt', title: 'Coop Frukt' },
   { slug: 'comforta', title: 'Comforta' },
   { slug: 'lars-goran', title: 'Lars-Göran' },

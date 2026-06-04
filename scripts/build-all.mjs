@@ -14,7 +14,6 @@ const apps = [
   { name: 'ewerman', segment: 'ewerman' },
   { name: 'broderna-hanssons', segment: 'broderna-hanssons' },
   { name: 'coop-matkassar', segment: 'coop-matkassar' },
-  { name: 'coop-distribution', segment: 'coop-distribution' },
   { name: 'coop-frukt', segment: 'coop-frukt' },
   { name: 'comforta', segment: 'comforta' },
   { name: 'lars-goran', segment: 'lars-goran' },

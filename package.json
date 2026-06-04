@@ -15,6 +15,7 @@
     "dev:kaka": "npm run dev -w @glc-bokingsportal/kaka",
     "dev:ewerman": "npm run dev -w @glc-bokingsportal/ewerman",
     "dev:lars-goran": "npm run dev -w @glc-bokingsportal/lars-goran",
+    "dev:coop-matkassar": "npm run dev -w @glc-bokingsportal/coop-matkassar",
     "build": "node scripts/build-all.mjs",
     "preview": "node scripts/preview-local.mjs"
   }
