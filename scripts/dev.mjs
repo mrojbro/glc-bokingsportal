@@ -11,6 +11,7 @@ const workspaces = [
   '@glc-bokingsportal/ewerman',
   '@glc-bokingsportal/lars-goran',
   '@glc-bokingsportal/coop-matkassar',
+  '@glc-bokingsportal/coop-frukt',
 ]
 
 console.log('Starting GLC Bokingsportal (portal + ready tools)…\n')
@@ -19,6 +20,7 @@ console.log('Kåkå:           http://localhost:5174/kaka/')
 console.log('Ewerman:        http://localhost:5175/ewerman/')
 console.log('Lars-Göran:     http://localhost:5176/lars-goran/')
 console.log('Coop Matkassar: http://localhost:5177/coop-matkassar/')
+console.log('Coop Frukt:      http://localhost:5178/coop-frukt/')
 console.log('(Hub card links use these ports in dev:vite mode.)\n')
 
 const hubDevEnv = { VITE_HUB_DEV: '1' }

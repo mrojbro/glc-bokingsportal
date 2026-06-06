@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process'
 
-const ports = (process.argv[2] ?? '5173,5174,5175,5176,5177')
+const ports = (process.argv[2] ?? '5173,5174,5175,5176,5177,5178')
   .split(',')
   .map((p) => Number.parseInt(p.trim(), 10))
   .filter((p) => Number.isFinite(p))

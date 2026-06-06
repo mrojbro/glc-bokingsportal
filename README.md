@@ -13,6 +13,7 @@ Monorepo for GLC booking tools. One hub links to each customer app (Kåkå, Ewer
 | `/ewerman/` | Ewerman |
 | `/lars-goran/` | Lars-Göran |
 | `/coop-matkassar/` | Coop Matkassar |
+| `/coop-frukt/` | Coop Frukt |
 
 The GitHub repo page (`github.com/mrojbro/glc-bokingsportal`) only shows this README — not the booking tools.
 
@@ -27,8 +28,8 @@ apps/
   ewerman/             Ewerman Excel transform
   lars-goran/          Lars-Göran (PrimeLog export)
   coop-matkassar/      Coop Matkassar (ruttexport)
+  coop-frukt/          Coop Frukt (bokning + ekipage)
   broderna-hanssons/   Kommer snart
-  coop-frukt/          Kommer snart
   comforta/            Kommer snart
 ```
 
@@ -44,6 +45,7 @@ npm run dev:kaka
 npm run dev:ewerman
 npm run dev:lars-goran
 npm run dev:coop-matkassar
+npm run dev:coop-frukt
 ```
 
 Build for GitHub Pages / IIS:

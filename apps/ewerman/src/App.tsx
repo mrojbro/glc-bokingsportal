@@ -35,7 +35,8 @@ export default function App() {
       (col) =>
         col === 'Leveransadress 1' ||
         col === 'Leveransadress 3' ||
-        col === 'Leveransadress 4',
+        col === 'Leveransadress 4' ||
+        col === 'Företagskod',
     )
     if (requiredMissing.length > 0) {
       setError(
