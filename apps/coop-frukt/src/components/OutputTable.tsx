@@ -11,6 +11,16 @@ import type { OutputRow } from '../types'
 const ROW_NUM_WIDTH = 48
 const ACTION_COL_WIDTH = 88
 
+/** Empty values here usually mean a missing tid- or resurs-register match. */
+const REGISTER_REMINDER_COLUMNS: OutputColumn[] = [
+  'Latest Requested Time (Unloading Location)',
+  'Resurs',
+]
+
+function needsRegisterReminder(column: OutputColumn, value: string): boolean {
+  return REGISTER_REMINDER_COLUMNS.includes(column) && !value.trim()
+}
+
 interface OutputTableProps {
   rows: OutputRow[]
   onCellChange: (rowIndex: number, column: OutputColumn, value: string) => void
@@ -71,19 +81,35 @@ export function OutputTable({ rows, onCellChange, onDeleteRow }: OutputTableProp
                 <td className="sticky left-0 z-10 border-r border-[var(--color-border-subtle)] bg-[var(--color-surface-card)] px-2 py-1 text-[var(--color-text-muted)]">
                   {rowIndex + 1}
                 </td>
-                {visibleColumns.map((col) => (
-                  <td
-                    key={col}
-                    className="overflow-hidden border-r border-[var(--color-border-subtle)] p-0"
-                  >
-                    <input
-                      type="text"
-                      value={row[col]}
-                      onChange={(e) => onCellChange(rowIndex, col, e.target.value)}
-                      className="w-full min-w-0 border-0 bg-transparent px-2 py-1.5 text-[var(--color-text)] outline-none focus:bg-[var(--color-accent-dim)] focus:ring-1 focus:ring-[var(--color-accent)]/50"
-                    />
-                  </td>
-                ))}
+                {visibleColumns.map((col) => {
+                  const missingRegister = needsRegisterReminder(col, row[col])
+
+                  return (
+                    <td
+                      key={col}
+                      className={
+                        'overflow-hidden border-r border-[var(--color-border-subtle)] p-0 ' +
+                        (missingRegister
+                          ? 'bg-[var(--color-warning)]/[0.12]'
+                          : '')
+                      }
+                    >
+                      <input
+                        type="text"
+                        value={row[col]}
+                        onChange={(e) =>
+                          onCellChange(rowIndex, col, e.target.value)
+                        }
+                        className="w-full min-w-0 border-0 bg-transparent px-2 py-1.5 text-[var(--color-text)] outline-none focus:bg-[var(--color-accent-dim)] focus:ring-1 focus:ring-[var(--color-accent)]/50"
+                        aria-label={
+                          missingRegister
+                            ? `${OUTPUT_COLUMN_LABELS[col]} saknas – kontrollera registret`
+                            : OUTPUT_COLUMN_LABELS[col]
+                        }
+                      />
+                    </td>
+                  )
+                })}
                 <td className="sticky right-0 border-l border-[var(--color-border-subtle)] bg-[var(--color-surface-card)] px-2 py-1">
                   <button
                     type="button"

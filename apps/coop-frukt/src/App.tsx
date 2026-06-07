@@ -3,6 +3,9 @@ import { HubHomeLink } from '../../../shared/hub-link/HubHomeLink.tsx'
 import { ConsigneeRegisterEditor } from './components/ConsigneeRegisterEditor'
 import { ResursRegisterEditor } from './components/ResursRegisterEditor'
 import { TidRegisterEditor } from './components/TidRegisterEditor'
+import { EmailRegisterEditor } from './components/EmailRegisterEditor'
+import { MejladdresserRow } from './components/MejladdresserRow'
+import { EmailReminderDialog } from './components/EmailReminderDialog'
 import { EkipageConsigneeSummary } from './components/EkipageConsigneeSummary'
 import { EkipagePdfPanel } from './components/EkipagePdfPanel'
 import { EkipageSummary } from './components/EkipageSummary'
@@ -22,11 +25,15 @@ import {
   type EditableRegisterEntry,
 } from './register/consigneeRegister'
 import {
+  buildResursRegisterLookup,
   fromEditableResursRegister,
+  lookupResurs,
   toEditableResursRegister,
   type EditableResursRegisterEntry,
 } from './register/resursRegister'
 import {
+  applyTidLookup,
+  buildTidRegisterLookup,
   fromEditableTidRegister,
   toEditableTidRegister,
   type EditableTidRegisterEntry,
@@ -34,6 +41,7 @@ import {
 import { CONSIGNEE_REGISTER } from './register/consigneeRegisterData'
 import { RESURS_REGISTER } from './register/resursRegisterData'
 import { TID_REGISTER } from './register/tidRegisterData'
+import { EMAIL_REGISTER } from './register/emailRegisterData'
 import { createBlankOutputRow, transformInputRows } from './transform'
 import type { OutputColumn } from './constants'
 import type { EkipageConsigneeCountRow, EkipagePdfRow, EkipageSummaryRow } from './types/register'
@@ -64,6 +72,8 @@ export default function App() {
   const [registerOpen, setRegisterOpen] = useState(false)
   const [resursRegisterOpen, setResursRegisterOpen] = useState(false)
   const [tidRegisterOpen, setTidRegisterOpen] = useState(false)
+  const [emailAddresses, setEmailAddresses] = useState<string[]>(EMAIL_REGISTER)
+  const [emailRegisterOpen, setEmailRegisterOpen] = useState(false)
   const [outputRows, setOutputRows] = useState<OutputRow[]>([])
   const [ekipageSummary, setEkipageSummary] = useState<EkipageSummaryRow[]>([])
   const [ekipageConsigneeSummary, setEkipageConsigneeSummary] = useState<
@@ -78,6 +88,8 @@ export default function App() {
   const [warning, setWarning] = useState<string | null>(null)
   const [inputRowCount, setInputRowCount] = useState(0)
   const [parsedRows, setParsedRows] = useState<InputRow[]>([])
+  const [pdfDownloaded, setPdfDownloaded] = useState(false)
+  const [showEmailReminder, setShowEmailReminder] = useState(false)
 
   const runTransform = useCallback(
     (rows: InputRow[], fileLabel: string, rowCount: number) => {
@@ -97,6 +109,7 @@ export default function App() {
       setEkipageSummary(summary)
       setEkipageConsigneeSummary(consigneeSummary)
       setPdfRows(reportRows)
+      setPdfDownloaded(false)
 
       if (unmatchedConsignees.length > 0) {
         const preview = unmatchedConsignees.slice(0, 5).join(', ')
@@ -173,6 +186,7 @@ export default function App() {
       setEkipageSummary([])
       setEkipageConsigneeSummary([])
       setPdfRows([])
+      setPdfDownloaded(false)
       setInputRowCount(0)
       setParsedRows([])
 
@@ -200,6 +214,7 @@ export default function App() {
     setEkipageSummary([])
     setEkipageConsigneeSummary([])
     setPdfRows([])
+    setPdfDownloaded(false)
     setInputRowCount(0)
     setParsedRows([])
 
@@ -237,6 +252,10 @@ export default function App() {
     [parsedRows, runTransform, sourceLabel],
   )
 
+  const handleEmailRegisterChange = useCallback((next: string[]) => {
+    setEmailAddresses(next)
+  }, [])
+
   const handleTidRegisterChange = useCallback(
     (next: EditableTidRegisterEntry[]) => {
       setTidRegister(next)
@@ -251,12 +270,33 @@ export default function App() {
   const handleCellChange = useCallback(
     (rowIndex: number, column: OutputColumn, value: string) => {
       setOutputRows((prev) =>
-        prev.map((row, i) =>
-          i === rowIndex ? { ...row, [column]: value } : row,
-        ),
+        prev.map((row, i) => {
+          if (i !== rowIndex) return row
+          const next = { ...row, [column]: value }
+          if (
+            column === 'Consigne address' ||
+            column === 'Latest Requested Date (Unloading Location)' ||
+            column === 'Butiksnr'
+          ) {
+            const deliveryDate = next['Latest Requested Date (Unloading Location)']
+            const resursLookup = buildResursRegisterLookup(
+              fromEditableResursRegister(resursRegister),
+            )
+            next.Resurs = lookupResurs(
+              resursLookup,
+              next['Consigne address'],
+              deliveryDate,
+            )
+            applyTidLookup(
+              buildTidRegisterLookup(fromEditableTidRegister(tidRegister)),
+              next,
+            )
+          }
+          return next
+        }),
       )
     },
-    [],
+    [resursRegister, tidRegister],
   )
 
   const handleDeleteRow = useCallback((rowIndex: number) => {
@@ -270,14 +310,22 @@ export default function App() {
   const handleDownloadPdf = useCallback(() => {
     if (pdfRows.length === 0) return
     downloadEkipagePdf(pdfRows)
+    setPdfDownloaded(true)
   }, [pdfRows])
 
   const handleDownload = useCallback(() => {
+    if (outputRows.length === 0 || !pdfDownloaded) return
+    setShowEmailReminder(true)
+  }, [outputRows.length, pdfDownloaded])
+
+  const handleConfirmDownload = useCallback(() => {
+    setShowEmailReminder(false)
     if (outputRows.length === 0) return
     downloadOutputExcel(outputRows)
   }, [outputRows])
 
   const hasOutput = outputRows.length > 0
+  const xlsxWaitingForPdf = hasOutput && !pdfDownloaded
 
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">
@@ -301,7 +349,7 @@ export default function App() {
             1. Register
           </h2>
           <div className="space-y-4">
-            <div className="grid gap-4 xl:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               <ConsigneeRegisterEditor
                 part="card"
                 entries={register}
@@ -313,6 +361,7 @@ export default function App() {
                     if (next) {
                       setResursRegisterOpen(false)
                       setTidRegisterOpen(false)
+                      setEmailRegisterOpen(false)
                     }
                     return next
                   })
@@ -329,6 +378,7 @@ export default function App() {
                     if (next) {
                       setRegisterOpen(false)
                       setTidRegisterOpen(false)
+                      setEmailRegisterOpen(false)
                     }
                     return next
                   })
@@ -345,6 +395,24 @@ export default function App() {
                     if (next) {
                       setRegisterOpen(false)
                       setResursRegisterOpen(false)
+                      setEmailRegisterOpen(false)
+                    }
+                    return next
+                  })
+                }}
+              />
+              <EmailRegisterEditor
+                part="card"
+                addresses={emailAddresses}
+                onChange={handleEmailRegisterChange}
+                open={emailRegisterOpen}
+                onToggleOpen={() => {
+                  setEmailRegisterOpen((open) => {
+                    const next = !open
+                    if (next) {
+                      setRegisterOpen(false)
+                      setResursRegisterOpen(false)
+                      setTidRegisterOpen(false)
                     }
                     return next
                   })
@@ -376,6 +444,15 @@ export default function App() {
                 onChange={handleTidRegisterChange}
                 open={tidRegisterOpen}
                 onToggleOpen={() => setTidRegisterOpen(false)}
+              />
+            )}
+            {emailRegisterOpen && (
+              <EmailRegisterEditor
+                part="panel"
+                addresses={emailAddresses}
+                onChange={handleEmailRegisterChange}
+                open={emailRegisterOpen}
+                onToggleOpen={() => setEmailRegisterOpen(false)}
               />
             )}
           </div>
@@ -438,14 +515,17 @@ export default function App() {
         </section>
 
         {ekipageSummary.length > 0 && (
-          <section className="grid gap-4 lg:grid-cols-3">
-            <EkipageSummary rows={ekipageSummary} />
-            <EkipageConsigneeSummary rows={ekipageConsigneeSummary} />
-            <EkipagePdfPanel
-              ekipageCount={ekipageSummary.length}
-              onDownload={handleDownloadPdf}
-              disabled={pdfRows.length === 0}
-            />
+          <section className="space-y-4">
+            <div className="grid gap-4 lg:grid-cols-3">
+              <EkipageSummary rows={ekipageSummary} />
+              <EkipageConsigneeSummary rows={ekipageConsigneeSummary} />
+              <EkipagePdfPanel
+                ekipageCount={ekipageSummary.length}
+                onDownload={handleDownloadPdf}
+                disabled={pdfRows.length === 0}
+              />
+            </div>
+            <MejladdresserRow addresses={emailAddresses} />
           </section>
         )}
 
@@ -485,8 +565,13 @@ export default function App() {
           <button
             type="button"
             onClick={handleDownload}
-            disabled={!hasOutput}
-            className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0d1117] transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+            disabled={!hasOutput || !pdfDownloaded}
+            className={
+              'rounded-lg px-4 py-2 text-sm font-semibold transition-all disabled:cursor-not-allowed ' +
+              (xlsxWaitingForPdf
+                ? 'animate-pulse border-2 border-[var(--color-warning)] bg-[var(--color-warning)]/15 text-[var(--color-warning)]'
+                : 'bg-[var(--color-accent)] text-[#0d1117] disabled:opacity-40')
+            }
           >
             Ladda ner .xlsx
           </button>
@@ -495,8 +580,18 @@ export default function App() {
               Minst en utrad krävs för nedladdning.
             </p>
           )}
+          {xlsxWaitingForPdf && (
+            <p className="mt-2 text-xs text-[var(--color-warning)]">
+              Ladda ner PDF först (ovan) innan du kan ladda ner .xlsx.
+            </p>
+          )}
         </section>
       </main>
+
+      <EmailReminderDialog
+        open={showEmailReminder}
+        onConfirm={handleConfirmDownload}
+      />
     </div>
   )
 }

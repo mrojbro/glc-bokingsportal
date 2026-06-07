@@ -18,18 +18,18 @@ export function EkipageConsigneeSummary({ rows }: EkipageConsigneeSummaryProps) 
         {rows.map((row) => (
           <li
             key={row.ekipage}
-            className="flex flex-wrap items-baseline justify-between gap-2 text-sm"
+            className="grid grid-cols-[1fr_auto] items-baseline gap-x-3 text-sm"
           >
             <span className="text-[var(--color-text)]">{row.ekipage}</span>
-            <span className="font-medium tabular-nums text-[var(--color-accent)]">
+            <span className="text-right font-medium tabular-nums text-[var(--color-accent)]">
               {row.consigneeCount}
             </span>
           </li>
         ))}
       </ul>
-      <div className="mt-3 flex flex-wrap items-baseline justify-between gap-2 border-t border-[var(--color-border-subtle)] pt-3 text-sm">
+      <div className="mt-3 grid grid-cols-[1fr_auto] items-baseline gap-x-3 border-t border-[var(--color-border-subtle)] px-0 pt-3 text-sm">
         <span className="font-medium text-[var(--color-text-muted)]">Totalt</span>
-        <span className="font-semibold tabular-nums text-[var(--color-text)]">
+        <span className="text-right font-semibold tabular-nums text-[var(--color-text)]">
           {total}
         </span>
       </div>

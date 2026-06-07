@@ -19,9 +19,9 @@ import {
 } from './register/consigneeRegister'
 import {
   buildResursRegisterLookup,
-  lookupLossinfo,
+  lookupResurs,
 } from './register/resursRegister'
-import { buildTidRegisterLookup, lookupTidWindow } from './register/tidRegister'
+import { applyTidLookup, buildTidRegisterLookup } from './register/tidRegister'
 import { deliveryDateFromLastningsId } from './getDeliveryDate'
 import { buildEkipageConsigneeSummary, buildEkipageSummary } from './utils/ekipageSummary'
 import type {
@@ -199,19 +199,13 @@ function transformInputRow(
   row['Latest Requested Date (Unloading Location)'] =
     deliveryDateFromLastningsId(row['Lastnings-ID'])
 
-  row.Lossinfo = lookupLossinfo(
+  row.Resurs = lookupResurs(
     resursLookup,
     row['Consigne address'],
     row['Latest Requested Date (Unloading Location)'],
   )
 
-  const { starttid, sluttid } = lookupTidWindow(
-    tidLookup,
-    row['Consigne address'],
-    row['Latest Requested Date (Unloading Location)'],
-  )
-  row.Starttid = starttid
-  row.Sluttid = sluttid
+  applyTidLookup(tidLookup, row)
 
   if (row['Lastnings-ID'].trim().toUpperCase() === 'FHBG') {
     row.Quantity = '1'

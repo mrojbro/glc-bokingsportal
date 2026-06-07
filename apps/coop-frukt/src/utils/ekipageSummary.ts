@@ -36,7 +36,7 @@ export function buildEkipageSummary(
 
 export function formatSummaryWeight(kg: number): string {
   return kg.toLocaleString('sv-SE', {
-    minimumFractionDigits: 0,
+    minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })
 }
