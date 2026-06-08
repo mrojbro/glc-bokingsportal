@@ -1022,9 +1022,9 @@
     "lastningspostort": "Agnesberg",
     "sunday": "",
     "monday": "",
-    "tuesday": "211",
+    "tuesday": "1013",
     "wednesday": "",
-    "thursday": "211",
+    "thursday": "1013",
     "friday": "",
     "saturday": "211"
   },
@@ -1169,9 +1169,9 @@
     "lastningspostort": "Agnesberg",
     "sunday": "",
     "monday": "",
-    "tuesday": "211",
+    "tuesday": "1013",
     "wednesday": "",
-    "thursday": "211",
+    "thursday": "1013",
     "friday": "",
     "saturday": "211"
   },
@@ -1358,11 +1358,11 @@
     "lastningspostort": "Agnesberg",
     "sunday": "",
     "monday": "Samlast",
-    "tuesday": "",
+    "tuesday": "211",
     "wednesday": "",
-    "thursday": "",
+    "thursday": "211",
     "friday": "",
-    "saturday": ""
+    "saturday": "211"
   },
   {
     "consignee": "Coop Mjörnbotorget",
@@ -1525,12 +1525,12 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1280",
-    "tuesday": "1280",
-    "wednesday": "1280",
-    "thursday": "1280",
-    "friday": "1280",
-    "saturday": "1280"
+    "monday": "Samlast",
+    "tuesday": "Samlast",
+    "wednesday": "Samlast",
+    "thursday": "Samlast",
+    "friday": "Samlast",
+    "saturday": "Samlast"
   },
   {
     "consignee": "Coop Strömslund.",

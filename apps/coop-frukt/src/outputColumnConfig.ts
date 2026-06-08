@@ -36,8 +36,6 @@ export const OUTPUT_COLUMN_DISPLAY: Record<
   Resurs: { width: 70, hidden: false },
   Littera: { width: 140, hidden: false },
   Lossinfo: { width: 70, hidden: true },
-  Starttid: { width: 70, hidden: false },
-  Sluttid: { width: 70, hidden: false },
   'Lastnings-ID': { width: 80, hidden: false },
   Lastningsnamn: { width: 120, hidden: false },
   Lastningsadress: { width: 140, hidden: true },

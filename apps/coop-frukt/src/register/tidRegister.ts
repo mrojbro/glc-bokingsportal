@@ -1,5 +1,4 @@
 import { normalizeConsigneeKey } from './consigneeRegister'
-import { tidWindowFromCenter, BLANK_TID_OUTPUT } from '../utils/timeOfDay'
 import { weekdayKeyFromIsoDate } from '../utils/weekdayFromDate'
 import type { OutputRow } from '../types'
 import type { TidRegisterEntry } from '../types/tidRegister'
@@ -94,45 +93,16 @@ export function lookupTid(
   return entry[weekday]?.trim() ?? ''
 }
 
-export function lookupTidCenterTime(
-  lookup: ReadonlyMap<string, TidRegisterEntry>,
-  consigneAddress: string,
-  deliveryDateIso: string,
-): string {
-  return lookupTid(lookup, consigneAddress, deliveryDateIso)
-}
-
-export function lookupTidWindow(
-  lookup: ReadonlyMap<string, TidRegisterEntry>,
-  consigneAddress: string,
-  deliveryDateIso: string,
-  butiksnr = '',
-): { starttid: string; sluttid: string; center: string } {
-  const center = lookupTid(lookup, consigneAddress, deliveryDateIso, butiksnr)
-  if (!center) {
-    return {
-      center: '',
-      starttid: BLANK_TID_OUTPUT,
-      sluttid: BLANK_TID_OUTPUT,
-    }
-  }
-  const window = tidWindowFromCenter(center)
-  return { center, ...window }
-}
-
-/** Apply tid-register lookup to output row (Leveranstid + Starttid/Sluttid). */
+/** Apply tid-register lookup to output row (Leveranstid). */
 export function applyTidLookup(
   lookup: ReadonlyMap<string, TidRegisterEntry>,
   row: OutputRow,
 ): void {
   const deliveryDate = row['Latest Requested Date (Unloading Location)']
-  const { center, starttid, sluttid } = lookupTidWindow(
+  row['Latest Requested Time (Unloading Location)'] = lookupTid(
     lookup,
     row['Consigne address'],
     deliveryDate,
     row.Butiksnr,
   )
-  row['Latest Requested Time (Unloading Location)'] = center
-  row.Starttid = starttid
-  row.Sluttid = sluttid
 }
