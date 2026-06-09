@@ -1,6 +1,9 @@
 import * as XLSX from 'xlsx'
 import { OUTPUT_COLUMNS } from './constants'
+import { normalizeLeveranstid } from './register/tidRegister'
 import type { OutputRow } from './types'
+
+const LEVERANSTID_COLUMN = 'Latest Requested Time (Unloading Location)' as const
 
 function exportTimestamp(): string {
   const d = new Date()
@@ -16,7 +19,10 @@ function exportTimestamp(): string {
 export function downloadOutputExcel(rows: OutputRow[], fileName?: string): void {
   const headerRow = [...OUTPUT_COLUMNS]
   const dataRows = rows.map((row) =>
-    OUTPUT_COLUMNS.map((col) => row[col] ?? ''),
+    OUTPUT_COLUMNS.map((col) => {
+      const value = row[col] ?? ''
+      return col === LEVERANSTID_COLUMN ? normalizeLeveranstid(value) : value
+    }),
   )
   const sheet = XLSX.utils.aoa_to_sheet([headerRow, ...dataRows])
   const workbook = XLSX.utils.book_new()

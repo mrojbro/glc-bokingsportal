@@ -1,29 +1,29 @@
 [
   {
     "butiksnr": "255900",
-    "butiksnamn": "STORA COOP KUNGSBACKA / NORRA MALMVÄGEN 82 / 434 42 KUNGSBACKA",
+    "butiksnamn": "STORA COOP KUNGSBACKA / NORRA MALMVÄGEN 82 / 43442 KUNGSBACKA",
     "sunday": "03:00:00",
     "monday": "03:00:00",
     "tuesday": "03:00:00",
     "wednesday": "03:00:00",
-    "thursday": "",
+    "thursday": "03:00:00",
     "friday": "03:00:00",
     "saturday": ""
   },
   {
     "butiksnr": "133900",
-    "butiksnamn": "STORA COOP KÅLLERED / VILDGÅSVÄGEN 27 / 428 36 KÅLLERED",
+    "butiksnamn": "STORA COOP KÅLLERED / EKENLEDEN 2P / 42836 KÅLLERED",
     "sunday": "04:00:00",
     "monday": "04:00:00",
     "tuesday": "04:00:00",
     "wednesday": "04:00:00",
-    "thursday": "",
+    "thursday": "04:00:00",
     "friday": "04:00:00",
     "saturday": ""
   },
   {
     "butiksnr": "255500",
-    "butiksnamn": "STORA COOP SISJÖN / GUSTAVSBERGSVÄGEN34 / 436 33 ASKIM",
+    "butiksnamn": "STORA COOP SISJÖN / GUSTAVSBERGSVÄGEN34 / 43633 ASKIM",
     "sunday": "05:00:00",
     "monday": "05:00:00",
     "tuesday": "05:00:00",
@@ -34,29 +34,29 @@
   },
   {
     "butiksnr": "126350",
-    "butiksnamn": "COOP ERIKSBERG / KOLHAMNSGATAN 7 / 418 75 GÖTEBORG",
+    "butiksnamn": "COOP ERIKSBERG / KOLHAMNSGATAN 7 / 41875 GÖTEBORG",
     "sunday": "05:30:00",
     "monday": "05:30:00",
     "tuesday": "05:30:00",
-    "wednesday": "",
+    "wednesday": "05:30:00",
     "thursday": "05:30:00",
     "friday": "05:30:00",
     "saturday": ""
   },
   {
     "butiksnr": "252600",
-    "butiksnamn": "STORA COOP BACKAPLAN / BACKAVÄGEN 2 / 417 30 GÖTEBORG",
+    "butiksnamn": "STORA COOP BACKAPLAN / BACKAVÄGEN 2 / 41730 GÖTEBORG",
     "sunday": "06:00:00",
     "monday": "06:00:00",
-    "tuesday": "",
+    "tuesday": "06:00:00",
     "wednesday": "06:00:00",
-    "thursday": "",
+    "thursday": "06:00:00",
     "friday": "06:00:00",
     "saturday": ""
   },
   {
     "butiksnr": "252500",
-    "butiksnamn": "STORA COOP BÄCKEBOL / EKENLEDEN 4 / 422 46 HISINGS BACKA",
+    "butiksnamn": "STORA COOP BÄCKEBOL / EKENLEDEN 4 / 42246 HISINGS BACKA",
     "sunday": "06:00:00",
     "monday": "06:00:00",
     "tuesday": "06:00:00",
@@ -67,43 +67,43 @@
   },
   {
     "butiksnr": "122000",
-    "butiksnamn": "COOP KONGAHÄLLA / ÄLVEBACKEN 39 / 442 48 KUNGÄLV",
+    "butiksnamn": "COOP KONGAHÄLLA / ÄLVEBACKEN 39 / 44248 KUNGÄLV",
     "sunday": "06:30:00",
     "monday": "06:30:00",
     "tuesday": "06:30:00",
-    "wednesday": "",
+    "wednesday": "06:30:00",
     "thursday": "06:30:00",
-    "friday": "",
+    "friday": "06:30:00",
     "saturday": ""
   },
   {
     "butiksnr": "133800",
-    "butiksnamn": "STORA COOP TORP / TORP 10, HERRESTAD TORP / 451 76 UDDEVALLA",
+    "butiksnamn": "STORA COOP TORP / TORP 10, HERRESTAD TORP / 45176 UDDEVALLA",
     "sunday": "08:15:00",
     "monday": "08:15:00",
     "tuesday": "08:15:00",
-    "wednesday": "",
+    "wednesday": "08:15:00",
     "thursday": "08:15:00",
     "friday": "08:15:00",
     "saturday": ""
   },
   {
     "butiksnr": "123000",
-    "butiksnamn": "COOP STENUNGSUND / STENUNGSUNDS TORG / 444 30 STENUNGSUND",
+    "butiksnamn": "COOP STENUNGSUND / STENUNGSUNDS TORG / 44430 STENUNGSUND",
     "sunday": "09:00:00",
     "monday": "09:00:00",
     "tuesday": "09:00:00",
-    "wednesday": "",
+    "wednesday": "09:00:00",
     "thursday": "09:00:00",
-    "friday": "",
+    "friday": "09:00:00",
     "saturday": ""
   },
   {
     "butiksnr": "133100",
-    "butiksnamn": "STORA COOP ÖVERBY / ÖVERBY CENTRUM / 461 70 TROLLHÄTTAN",
+    "butiksnamn": "STORA COOP ÖVERBY / ÖVERBY CENTRUM / 46170 TROLLHÄTTAN",
     "sunday": "09:15:00",
     "monday": "09:15:00",
-    "tuesday": "",
+    "tuesday": "09:15:00",
     "wednesday": "09:15:00",
     "thursday": "09:15:00",
     "friday": "09:15:00",
@@ -111,29 +111,29 @@
   },
   {
     "butiksnr": "133700",
-    "butiksnamn": "COOP KRONHJORTEN / FAKTORSGATAN 10 / 461 37 TROLLHÄTTAN",
+    "butiksnamn": "COOP KRONHJORTEN / FAKTORSGATAN 10 / 46137 TROLLHÄTTAN",
     "sunday": "09:30:00",
     "monday": "09:30:00",
-    "tuesday": "",
+    "tuesday": "09:30:00",
     "wednesday": "09:30:00",
-    "thursday": "",
+    "thursday": "09:30:00",
     "friday": "09:30:00",
     "saturday": ""
   },
   {
     "butiksnr": "135040",
-    "butiksnamn": "COOP ÄLVÄNGEN / GARVERIVÄGEN 4 / 446 37 ÄLVÄNGEN",
+    "butiksnamn": "COOP ÄLVÄNGEN / GARVERIVÄGEN 4 / 44637 ÄLVÄNGEN",
     "sunday": "10:30:00",
     "monday": "10:30:00",
-    "tuesday": "",
+    "tuesday": "10:30:00",
     "wednesday": "10:30:00",
-    "thursday": "",
+    "thursday": "10:30:00",
     "friday": "10:30:00",
     "saturday": ""
   },
   {
     "butiksnr": "126500",
-    "butiksnamn": "COOP ALINGSÅS / KUNGEGÅRDSGATAN 1A / 441 57 ALINGSÅS",
+    "butiksnamn": "COOP ALINGSÅS / KUNGEGÅRDSGATAN 1A / 44157 ALINGSÅS",
     "sunday": "",
     "monday": "12:00:00",
     "tuesday": "",
@@ -144,7 +144,7 @@
   },
   {
     "butiksnr": "136034",
-    "butiksnamn": "COOP GÖTEBORG ANDRA LÅNGGATAN / MÖLNDALSVÄGEN 1 / 413 27 GÖTEBORG",
+    "butiksnamn": "COOP GÖTEBORG ANDRA LÅNGGATAN / MÖLNDALSVÄGEN 1 / 41327 GÖTEBORG",
     "sunday": "",
     "monday": "",
     "tuesday": "13:00:00",
@@ -155,7 +155,7 @@
   },
   {
     "butiksnr": "125600",
-    "butiksnamn": "COOP AVENYN / KUNGPORTSAVENYEN 26 / 411 36 GÖTEBORG",
+    "butiksnamn": "COOP AVENYN / KUNGPORTSAVENYEN 26 / 41136 GÖTEBORG",
     "sunday": "",
     "monday": "11:30:00",
     "tuesday": "12:30:00",
@@ -177,7 +177,7 @@
   },
   {
     "butiksnr": "135110",
-    "butiksnamn": "COOP BENGTSFORS / STORGATAN 9 / 666 30 BENGTSFORS",
+    "butiksnamn": "COOP BENGTSFORS / STORGATAN 9 / 66630 BENGTSFORS",
     "sunday": "",
     "monday": "",
     "tuesday": "12:45:00",
@@ -188,7 +188,7 @@
   },
   {
     "butiksnr": "136044",
-    "butiksnamn": "COOP BOHUS / HALLEVADSGATAN 2 / 445 37 BOHUS",
+    "butiksnamn": "COOP BOHUS / GÖTEBORGSVÄGEN 219 / 44537 BOHUS",
     "sunday": "",
     "monday": "08:30:00",
     "tuesday": "",
@@ -199,7 +199,7 @@
   },
   {
     "butiksnr": "136621",
-    "butiksnamn": "COOP MALMÖN / STRANDVÄGEN 38 / 456 55 BOHUS-MALMÖN",
+    "butiksnamn": "COOP MALMÖN / STRANDVÄGEN 38 / 45655 BOHUS-MALMÖN",
     "sunday": "",
     "monday": "12:30:00",
     "tuesday": "",
@@ -210,7 +210,7 @@
   },
   {
     "butiksnr": "136594",
-    "butiksnamn": "COOP BRASTAD / LYSEKILSVÄGEN 3 / 454 31 BRASTAD",
+    "butiksnamn": "COOP BRASTAD / LYSEKILSVÄGEN 3 / 45431 BRASTAD",
     "sunday": "",
     "monday": "11:00:00",
     "tuesday": "",
@@ -221,7 +221,7 @@
   },
   {
     "butiksnr": "136690",
-    "butiksnamn": "COOP BÄCKEFORS / TORGGATAN 9 / 668 40 BÄCKEFORS",
+    "butiksnamn": "COOP BÄCKEFORS / TORGGATAN 9 / 66840 BÄCKEFORS",
     "sunday": "",
     "monday": "",
     "tuesday": "10:15:00",
@@ -232,7 +232,7 @@
   },
   {
     "butiksnr": "146475",
-    "butiksnamn": "COOP DALSJÖFORS / STORGATAN 28  / 516 31 DALSJÖFORS",
+    "butiksnamn": "COOP DALSJÖFORS / STORGATAN 28  / 51631 DALSJÖFORS",
     "sunday": "",
     "monday": "10:00:00",
     "tuesday": "",
@@ -243,7 +243,7 @@
   },
   {
     "butiksnr": "126314",
-    "butiksnamn": "COOP DR BEX GATA / DR BEX GATA 4 / 413 24 GÖTEBORG",
+    "butiksnamn": "COOP DR BEX GATA / DR BEX GATA 4 / 41324 GÖTEBORG",
     "sunday": "",
     "monday": "08:00:00",
     "tuesday": "06:00:00",
@@ -254,7 +254,7 @@
   },
   {
     "butiksnr": "136896",
-    "butiksnamn": "COOP ED / DELESGATAN 7  / 668 30 ED",
+    "butiksnamn": "COOP ED / DELESGATAN 7  / 66830 ED",
     "sunday": "",
     "monday": "",
     "tuesday": "11:15:00",
@@ -265,7 +265,7 @@
   },
   {
     "butiksnr": "136741",
-    "butiksnamn": "COOP FJÄLLBACKA / JASMINVÄGEN 2 / 457 40 FJÄLLBACKA",
+    "butiksnamn": "COOP FJÄLLBACKA / JASMINVÄGEN 2 / 45740 FJÄLLBACKA",
     "sunday": "",
     "monday": "10:45:00",
     "tuesday": "",
@@ -276,7 +276,7 @@
   },
   {
     "butiksnr": "126310",
-    "butiksnamn": "COOP FRIGGAGATAN / FRIGGAGATAN 10A / 411 01 GÖTEBORG",
+    "butiksnamn": "COOP FRIGGAGATAN / FRIGGAGATAN 10A / 41101 GÖTEBORG",
     "sunday": "",
     "monday": "06:30:00",
     "tuesday": "07:30:00",
@@ -287,7 +287,7 @@
   },
   {
     "butiksnr": "136141",
-    "butiksnamn": "COOP FÄRGELANDA / CENTRUMVÄGEN  / 458 30 FÄRGELANDA",
+    "butiksnamn": "COOP FÄRGELANDA / CENTRUMVÄGEN  / 45830 FÄRGELANDA",
     "sunday": "",
     "monday": "",
     "tuesday": "13:45:00",
@@ -298,7 +298,7 @@
   },
   {
     "butiksnr": "126406",
-    "butiksnamn": "COOP GAMLESTADEN / TRERIKSGATAN 2 / 415 14 GÖTEBORG",
+    "butiksnamn": "COOP GAMLESTADEN / TRERIKSGATAN 2 / 41514 GÖTEBORG",
     "sunday": "",
     "monday": "09:00:00",
     "tuesday": "09:00:00",
@@ -309,7 +309,7 @@
   },
   {
     "butiksnr": "136601",
-    "butiksnamn": "COOP GREBBESTAD / NEDRE LÅNGGATAN 11 / 457 72 GREBBESTAD",
+    "butiksnamn": "COOP GREBBESTAD / NEDRE LÅNGGATAN 11 / 45772 GREBBESTAD",
     "sunday": "",
     "monday": "09:45:00",
     "tuesday": "",
@@ -320,7 +320,7 @@
   },
   {
     "butiksnr": "136041",
-    "butiksnamn": "COOP UDDEVALLA GÖTEBORGSVÄGEN / PRÄSTGATAN 12 / 451 42 UDDEVALLA",
+    "butiksnamn": "COOP UDDEVALLA GÖTEBORGSVÄGEN / PRÄSTGATAN 12 / 45142 UDDEVALLA",
     "sunday": "",
     "monday": "12:30:00",
     "tuesday": "",
@@ -331,7 +331,7 @@
   },
   {
     "butiksnr": "136043",
-    "butiksnamn": "X:-TRA HISINGS BACKA / BACKA KYRKOGATA 1 / 422 58 HISING BACKA",
+    "butiksnamn": "X:-TRA HISINGS BACKA / BACKA KYRKOGATA 1 / 42258 HISING BACKA",
     "sunday": "",
     "monday": "06:00:00",
     "tuesday": "",
@@ -342,7 +342,7 @@
   },
   {
     "butiksnr": "136251",
-    "butiksnamn": "COOP HUNNEBOSTRAND / TORGGATAN 17 / 456 61 HUNNEBOSTRAND",
+    "butiksnamn": "COOP HUNNEBOSTRAND / TORGGATAN 17 / 45661 HUNNEBOSTRAND",
     "sunday": "",
     "monday": "12:30:00",
     "tuesday": "",
@@ -353,7 +353,7 @@
   },
   {
     "butiksnr": "136027",
-    "butiksnamn": "COOP GÖTEBORG MARKLANDSGATAN / SKÅNEGATAN 65 / 414 77 GÖTEBORG",
+    "butiksnamn": "COOP GÖTEBORG MARKLANDSGATAN / SKÅNEGATAN 65 / 41477 GÖTEBORG",
     "sunday": "",
     "monday": "09:00:00",
     "tuesday": "",
@@ -364,7 +364,7 @@
   },
   {
     "butiksnr": "136152",
-    "butiksnamn": "COOP HÖGSÄTER / GENAVÄGEN 41  / 458 70 HÖGSÄTER",
+    "butiksnamn": "COOP HÖGSÄTER / GENAVÄGEN 41  / 45870 HÖGSÄTER",
     "sunday": "",
     "monday": "",
     "tuesday": "13:00:00",
@@ -375,7 +375,7 @@
   },
   {
     "butiksnr": "136775",
-    "butiksnamn": "COOP HÖRNGATAN / HÖRNGATAN 14  / 461 50 TROLLHÄTTAN",
+    "butiksnamn": "COOP HÖRNGATAN / HÖRNGATAN 14  / 46150 TROLLHÄTTAN",
     "sunday": "",
     "monday": "12:00:00",
     "tuesday": "",
@@ -386,7 +386,7 @@
   },
   {
     "butiksnr": "136031",
-    "butiksnamn": "COOP KALLEBÄCK / NÄSBYCHAUSSÉN 70 / 412 75 GÖTEBORG",
+    "butiksnamn": "COOP KALLEBÄCK / NÄSBYCHAUSSÉN 70 / 41275 GÖTEBORG",
     "sunday": "",
     "monday": "07:00:00",
     "tuesday": "",
@@ -397,7 +397,7 @@
   },
   {
     "butiksnr": "136272",
-    "butiksnamn": "COOP KARLSTADSVÄGEN / KARLSTADSVÄGEN 23 / 662 37 ÅMÅL",
+    "butiksnamn": "COOP KARLSTADSVÄGEN / KARLSTADSVÄGEN 23 / 66237 ÅMÅL",
     "sunday": "",
     "monday": "",
     "tuesday": "11:15:00",
@@ -408,7 +408,7 @@
   },
   {
     "butiksnr": "135220",
-    "butiksnamn": "COOP KUNGSHAMN / VÄGGABACKEN / 456 33 KUNGSHAMN",
+    "butiksnamn": "COOP KUNGSHAMN / VÄGGABACKEN / 45633 KUNGSHAMN",
     "sunday": "",
     "monday": "14:30:00",
     "tuesday": "",
@@ -419,7 +419,7 @@
   },
   {
     "butiksnr": "126822",
-    "butiksnamn": "COOP KYRKBYTORGET / KYRKBYTORGET 3 / 418 73 GÖTEBORG",
+    "butiksnamn": "COOP KYRKBYTORGET / KYRKBYTORGET 3 / 41873 GÖTEBORG",
     "sunday": "",
     "monday": "",
     "tuesday": "08:30:00",
@@ -430,7 +430,7 @@
   },
   {
     "butiksnr": "126380",
-    "butiksnamn": "COOP KÄRINGBERGET / LÅNGEDRAGSVÄGEN 134 / 426 74 VÄSTRA FRÖLUNDA",
+    "butiksnamn": "COOP KÄRINGBERGET / LÅNGEDRAGSVÄGEN 134 / 42674 VÄSTRA FRÖLUNDA",
     "sunday": "",
     "monday": "10:00:00",
     "tuesday": "",
@@ -441,7 +441,7 @@
   },
   {
     "butiksnr": "126307",
-    "butiksnamn": "COOP LANDALA / KAPELLPLATSEN 4 / 411 31 GÖTEBORG",
+    "butiksnamn": "COOP LANDALA / KAPELLPLATSEN 4 / 41131 GÖTEBORG",
     "sunday": "",
     "monday": "11:00:00",
     "tuesday": "12:00:00",
@@ -452,7 +452,7 @@
   },
   {
     "butiksnr": "136039",
-    "butiksnamn": "X:-TRA TROLLHÄTTAN / SJÖGATAN 1 / 461 65 TROLLHÄTTAN",
+    "butiksnamn": "X:-TRA TROLLHÄTTAN / SJÖGATAN 1 / 46165 TROLLHÄTTAN",
     "sunday": "",
     "monday": "10:30:00",
     "tuesday": "",
@@ -463,7 +463,7 @@
   },
   {
     "butiksnr": "136040",
-    "butiksnamn": "X:-TRA LILLA EDET / REPSLAGAREGATAN 14 / 463 31 LILLA EDET",
+    "butiksnamn": "X:-TRA LILLA EDET / REPSLAGAREGATAN 14 / 46331 LILLA EDET",
     "sunday": "",
     "monday": "09:30:00",
     "tuesday": "",
@@ -474,7 +474,7 @@
   },
   {
     "butiksnr": "121100",
-    "butiksnamn": "COOP LUNDBY / WIESELGRENSPLATSEN 8 / 417 39 GÖTEBORG",
+    "butiksnamn": "COOP LUNDBY / WIESELGRENSPLATSEN 8 / 41739 GÖTEBORG",
     "sunday": "",
     "monday": "",
     "tuesday": "09:30:00",
@@ -485,7 +485,7 @@
   },
   {
     "butiksnr": "135030",
-    "butiksnamn": "COOP LYSEKIL / EKGATAN 1 / 453 37 LYSEKIL",
+    "butiksnamn": "COOP LYSEKIL / EKGATAN 1 / 45337 LYSEKIL",
     "sunday": "",
     "monday": "08:30:00",
     "tuesday": "",
@@ -496,7 +496,7 @@
   },
   {
     "butiksnr": "126398",
-    "butiksnamn": "COOP MARIAGATAN / MARIAGATAN 12-14 / 414 71 GÖTEBORG",
+    "butiksnamn": "COOP MARIAGATAN / MARIAGATAN 12-14 / 41471 GÖTEBORG",
     "sunday": "",
     "monday": "09:30:00",
     "tuesday": "08:00:00",
@@ -507,7 +507,7 @@
   },
   {
     "butiksnr": "126436",
-    "butiksnamn": "COOP MARSTRAND / ARVIDSVIK, RINGPLAN / 442 66 MARSTRAND",
+    "butiksnamn": "COOP MARSTRAND / ARVIDSVIK, RINGPLAN / 44266 MARSTRAND",
     "sunday": "",
     "monday": "",
     "tuesday": "08:00:00",
@@ -518,7 +518,7 @@
   },
   {
     "butiksnr": "136000",
-    "butiksnamn": "COOP MELLERUD / TELEFONGATAN 6 / 464 34 MELLERUD",
+    "butiksnamn": "COOP MELLERUD / TELEFONGATAN 6 / 46434 MELLERUD",
     "sunday": "",
     "monday": "09:00:00",
     "tuesday": "09:00:00",
@@ -529,7 +529,7 @@
   },
   {
     "butiksnr": "136045",
-    "butiksnamn": "COOP MJÖRNBOTORGET / MARIEGÄRDES VÄG 4 / 443 42 GRÅBO",
+    "butiksnamn": "COOP MJÖRNBOTORGET / MARIEGÄRDES VÄG 4 / 44342 GRÅBO",
     "sunday": "",
     "monday": "11:30:00",
     "tuesday": "",
@@ -540,7 +540,7 @@
   },
   {
     "butiksnr": "126326",
-    "butiksnamn": "COOP MUNKEBÄCKSTORG / MUNKEBÄCKSTORGET 1 / 416 73 GÖTEBORG",
+    "butiksnamn": "COOP MUNKEBÄCKSTORG / MUNKEBÄCKSTORGET 1 / 41673 GÖTEBORG",
     "sunday": "",
     "monday": "10:00:00",
     "tuesday": "10:00:00",
@@ -551,7 +551,7 @@
   },
   {
     "butiksnr": "136641",
-    "butiksnamn": "COOP MUNKEDAL / STRÖMSTADSVÄGEN 3 / 455 30 MUNKEDAL",
+    "butiksnamn": "COOP MUNKEDAL / STRÖMSTADSVÄGEN 3 / 45530 MUNKEDAL",
     "sunday": "",
     "monday": "11:30:00",
     "tuesday": "",
@@ -562,7 +562,7 @@
   },
   {
     "butiksnr": "136895",
-    "butiksnamn": "COOP MUSTADFORS / ENETSVÄGEN / 666 95 DALS-LÅNGED",
+    "butiksnamn": "COOP MUSTADFORS / ENETSVÄGEN / 66695 DALS-LÅNGED",
     "sunday": "",
     "monday": "",
     "tuesday": "14:00:00",
@@ -573,7 +573,7 @@
   },
   {
     "butiksnr": "136030",
-    "butiksnamn": "COOP GÖTEBORG MÖLNDALSVÄGEN / PARKGATAN 14 / 412 63 GÖTEBORG",
+    "butiksnamn": "COOP GÖTEBORG MÖLNDALSVÄGEN / PARKGATAN 14 / 41263 GÖTEBORG",
     "sunday": "",
     "monday": "08:30:00",
     "tuesday": "",
@@ -584,7 +584,7 @@
   },
   {
     "butiksnr": "125200",
-    "butiksnamn": "COOP MÖLNLYCKE / GUNNAR RUNFORS GRÄND 2 / 435 30 MÖLNLYCKE",
+    "butiksnamn": "COOP MÖLNLYCKE / GUNNAR RUNFORS GRÄND 2 / 43530 MÖLNLYCKE",
     "sunday": "",
     "monday": "11:00:00",
     "tuesday": "11:00:00",
@@ -595,7 +595,7 @@
   },
   {
     "butiksnr": "136035",
-    "butiksnamn": "COOP ODINSGATAN / STORGATAN 36 / 411 03 GÖTEBORG",
+    "butiksnamn": "COOP ODINSGATAN / STORGATAN 36 / 41103 GÖTEBORG",
     "sunday": "",
     "monday": "",
     "tuesday": "07:00:00",
@@ -606,7 +606,7 @@
   },
   {
     "butiksnr": "123200",
-    "butiksnamn": "COOP PARTILLE / PORTGÅNGEN 1 / 433 38 PARTILLE",
+    "butiksnamn": "COOP PARTILLE / PORTGÅNGEN 1 / 43338 PARTILLE",
     "sunday": "",
     "monday": "10:30:00",
     "tuesday": "10:30:00",
@@ -617,7 +617,7 @@
   },
   {
     "butiksnr": "135010",
-    "butiksnamn": "COOP ROSVIKSGATAN / ROSVIKSGATAN 3 / 453 30 LYSEKIL",
+    "butiksnamn": "COOP ROSVIKSGATAN / ROSVIKSGATAN 3 / 45330 LYSEKIL",
     "sunday": "",
     "monday": "09:45:00",
     "tuesday": "",
@@ -628,7 +628,7 @@
   },
   {
     "butiksnr": "136769",
-    "butiksnamn": "COOP SJUNTORP / TROLLHÄTTEVÄGEN 52 / 461 77 SJUNTORP",
+    "butiksnamn": "COOP SJUNTORP / TROLLHÄTTEVÄGEN 52 / 46177 SJUNTORP",
     "sunday": "",
     "monday": "09:00:00",
     "tuesday": "",
@@ -639,7 +639,7 @@
   },
   {
     "butiksnr": "136121",
-    "butiksnamn": "COOP SKOGSLYCKAN / SUNNANVINDSVÄGEN 10 / 451 60 UDDEVALLA",
+    "butiksnamn": "COOP SKOGSLYCKAN / SUNNANVINDSVÄGEN 10 / 45160 UDDEVALLA",
     "sunday": "",
     "monday": "12:15:00",
     "tuesday": "",
@@ -650,7 +650,7 @@
   },
   {
     "butiksnr": "136026",
-    "butiksnamn": "COOP SKÅNEGATAN / ALBREKTSVÄGEN 79-81 / 412 52 GÖTEBORG",
+    "butiksnamn": "COOP SKÅNEGATAN / ALBREKTSVÄGEN 79-81 / 41252 GÖTEBORG",
     "sunday": "",
     "monday": "",
     "tuesday": "06:30:00",
@@ -661,7 +661,7 @@
   },
   {
     "butiksnr": "136762",
-    "butiksnamn": "COOP STRÖMSLUND / ALBERTSVÄGEN 77 / 461 58 TROLLHÄTTAN",
+    "butiksnamn": "COOP STRÖMSLUND / ALBERTSVÄGEN 77 / 46158 TROLLHÄTTAN",
     "sunday": "",
     "monday": "13:00:00",
     "tuesday": "",
@@ -672,7 +672,7 @@
   },
   {
     "butiksnr": "131800",
-    "butiksnamn": "COOP STRÖMSTAD / OSLOVÄGEN 1 / 452 35 STRÖMSTAD",
+    "butiksnamn": "COOP STRÖMSTAD / OSLOVÄGEN 1 / 45235 STRÖMSTAD",
     "sunday": "",
     "monday": "10:00:00",
     "tuesday": "",
@@ -683,7 +683,7 @@
   },
   {
     "butiksnr": "136671",
-    "butiksnamn": "COOP STYRSÖ / HALSVIKSVÄGEN 6 / 430 84 STYRSÖ",
+    "butiksnamn": "COOP STYRSÖ / HALSVIKSVÄGEN 6 / 43084 STYRSÖ",
     "sunday": "",
     "monday": "08:30:00",
     "tuesday": "",
@@ -694,7 +694,7 @@
   },
   {
     "butiksnr": "126541",
-    "butiksnamn": "COOP SURTE / GÖTEBORGSVÄGEN 68 / 445 57 SURTE",
+    "butiksnamn": "COOP SURTE / GÖTEBORGSVÄGEN 68 / 44557 SURTE",
     "sunday": "",
     "monday": "08:00:00",
     "tuesday": "",
@@ -705,7 +705,7 @@
   },
   {
     "butiksnr": "135060",
-    "butiksnamn": "STORA COOP TANUMSHEDE / BREHOGSVÄGEN 5 / 457 32 TANUMSHEDE",
+    "butiksnamn": "STORA COOP TANUMSHEDE / BREHOGSVÄGEN 5 / 45732 TANUMSHEDE",
     "sunday": "",
     "monday": "09:30:00",
     "tuesday": "",
@@ -716,7 +716,7 @@
   },
   {
     "butiksnr": "126367",
-    "butiksnamn": "COOP TRÄTORGET / TRÄTORGET 1 / 416 79 GÖTEBORG",
+    "butiksnamn": "COOP TRÄTORGET / TRÄTORGET 1 / 41679 GÖTEBORG",
     "sunday": "",
     "monday": "09:30:00",
     "tuesday": "",
@@ -727,7 +727,7 @@
   },
   {
     "butiksnr": "136059",
-    "butiksnamn": "X:-TRA VÄNERSBORG / WENNERBERGSVÄGEN 27 / 462 51 VÄNERSBORG",
+    "butiksnamn": "X:-TRA VÄNERSBORG / WENNERBERGSVÄGEN 27 / 46251 VÄNERSBORG",
     "sunday": "",
     "monday": "14:15:00",
     "tuesday": "",
@@ -738,7 +738,7 @@
   },
   {
     "butiksnr": "135120",
-    "butiksnamn": "COOP ÅMÅL MELLANBROGATAN / MELLANBROGATAN 9 / 662 31 ÅMÅL",
+    "butiksnamn": "COOP ÅMÅL MELLANBROGATAN / MELLANBROGATAN 9 / 66231 ÅMÅL",
     "sunday": "",
     "monday": "",
     "tuesday": "09:45:00",
@@ -749,7 +749,7 @@
   },
   {
     "butiksnr": "136104",
-    "butiksnamn": "COOP ÅSENSBRUK / STORVÄGEN 32  / 464 40 ÅSENSBRUK",
+    "butiksnamn": "COOP ÅSENSBRUK / STORVÄGEN 32  / 46440 ÅSENSBRUK",
     "sunday": "",
     "monday": "",
     "tuesday": "08:00:00",
@@ -760,7 +760,7 @@
   },
   {
     "butiksnr": "123300",
-    "butiksnamn": "COOP ÖJERSJÖ / TALLVÄGEN 2 / 433 51 ÖJERSJÖ",
+    "butiksnamn": "COOP ÖJERSJÖ / TALLVÄGEN 2 / 43351 ÖJERSJÖ",
     "sunday": "",
     "monday": "10:00:00",
     "tuesday": "",
@@ -771,7 +771,7 @@
   },
   {
     "butiksnr": "252200",
-    "butiksnamn": "STORA COOP BORÅS / ENEDALSGATAN 10 / 504 52 BORÅS",
+    "butiksnamn": "STORA COOP BORÅS / ENEDALSGATAN 10 / 50452 BORÅS",
     "sunday": "",
     "monday": "08:00:00",
     "tuesday": "08:00:00",
@@ -782,7 +782,7 @@
   },
   {
     "butiksnr": "136029",
-    "butiksnamn": "X:-TRA HISINGEN / STACKMOLNSGATAN 2 / 418 42 GÖTEBORG",
+    "butiksnamn": "X:-TRA HISINGEN / STACKMOLNSGATAN 2 / 41842 GÖTEBORG",
     "sunday": "",
     "monday": "",
     "tuesday": "09:00:00",
@@ -793,7 +793,7 @@
   },
   {
     "butiksnr": "136028",
-    "butiksnamn": "X:-TRA SVENLJUNGA / RAMUNDERVÄGEN 52 / 512 53 SVENLJUNGA",
+    "butiksnamn": "X:-TRA SVENLJUNGA / RAMUNDERVÄGEN 52 / 51253 SVENLJUNGA",
     "sunday": "",
     "monday": "10:30:00",
     "tuesday": "",
@@ -804,7 +804,7 @@
   },
   {
     "butiksnr": "136635",
-    "butiksnamn": "X:-TRA LJUNGSKILE / VÄLLEBERGSVÄGEN / 459 30 LJUNGSKILE",
+    "butiksnamn": "X:-TRA LJUNGSKILE / VÄLLEBERGSVÄGEN / 45930 LJUNGSKILE",
     "sunday": "",
     "monday": "08:00:00",
     "tuesday": "",

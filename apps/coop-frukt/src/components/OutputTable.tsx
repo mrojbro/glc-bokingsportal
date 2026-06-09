@@ -6,6 +6,7 @@ import {
   getOutputColumnWidth,
   getVisibleOutputColumns,
 } from '../outputColumnConfig'
+import { LEVERANSTID_FALLBACK } from '../register/tidRegister'
 import type { OutputRow } from '../types'
 
 const ROW_NUM_WIDTH = 48
@@ -14,11 +15,16 @@ const ACTION_COL_WIDTH = 88
 /** Empty values here usually mean a missing tid- or resurs-register match. */
 const REGISTER_REMINDER_COLUMNS: OutputColumn[] = [
   'Latest Requested Time (Unloading Location)',
-  'Resurs',
+  'Lossinfo',
 ]
 
 function needsRegisterReminder(column: OutputColumn, value: string): boolean {
-  return REGISTER_REMINDER_COLUMNS.includes(column) && !value.trim()
+  if (!REGISTER_REMINDER_COLUMNS.includes(column)) return false
+  const trimmed = value.trim()
+  if (column === 'Latest Requested Time (Unloading Location)') {
+    return !trimmed || trimmed === LEVERANSTID_FALLBACK
+  }
+  return !trimmed
 }
 
 interface OutputTableProps {

@@ -91,11 +91,6 @@ export function TidRegisterEditor({
               </h3>
               {open && <RegisterActiveBadge />}
             </div>
-            <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-              <code className="text-[var(--color-accent)]">
-                apps/coop-frukt/src/data/register-tid.json
-              </code>
-            </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button

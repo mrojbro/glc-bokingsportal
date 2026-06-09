@@ -19,7 +19,7 @@ import {
 } from './register/consigneeRegister'
 import {
   buildResursRegisterLookup,
-  lookupResurs,
+  lookupLossinfo,
 } from './register/resursRegister'
 import { applyTidLookup, buildTidRegisterLookup } from './register/tidRegister'
 import { deliveryDateFromLastningsId } from './getDeliveryDate'
@@ -199,7 +199,7 @@ function transformInputRow(
   row['Latest Requested Date (Unloading Location)'] =
     deliveryDateFromLastningsId(row['Lastnings-ID'])
 
-  row.Resurs = lookupResurs(
+  row.Lossinfo = lookupLossinfo(
     resursLookup,
     row['Consigne address'],
     row['Latest Requested Date (Unloading Location)'],

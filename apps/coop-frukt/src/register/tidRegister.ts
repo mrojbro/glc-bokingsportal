@@ -3,6 +3,9 @@ import { weekdayKeyFromIsoDate } from '../utils/weekdayFromDate'
 import type { OutputRow } from '../types'
 import type { TidRegisterEntry } from '../types/tidRegister'
 
+/** Used when tid-register has no match — receiving system rejects blank Leveranstid. */
+export const LEVERANSTID_FALLBACK = '00:00:00'
+
 export type EditableTidRegisterEntry = TidRegisterEntry & { id: string }
 
 export function newTidRegisterEntryId(): string {
@@ -93,16 +96,17 @@ export function lookupTid(
   return entry[weekday]?.trim() ?? ''
 }
 
+export function normalizeLeveranstid(value: string): string {
+  return value.trim() || LEVERANSTID_FALLBACK
+}
+
 /** Apply tid-register lookup to output row (Leveranstid). */
 export function applyTidLookup(
   lookup: ReadonlyMap<string, TidRegisterEntry>,
   row: OutputRow,
 ): void {
   const deliveryDate = row['Latest Requested Date (Unloading Location)']
-  row['Latest Requested Time (Unloading Location)'] = lookupTid(
-    lookup,
-    row['Consigne address'],
-    deliveryDate,
-    row.Butiksnr,
+  row['Latest Requested Time (Unloading Location)'] = normalizeLeveranstid(
+    lookupTid(lookup, row['Consigne address'], deliveryDate, row.Butiksnr),
   )
 }

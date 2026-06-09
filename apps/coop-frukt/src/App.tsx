@@ -27,12 +27,13 @@ import {
 import {
   buildResursRegisterLookup,
   fromEditableResursRegister,
-  lookupResurs,
+  lookupLossinfo,
   toEditableResursRegister,
   type EditableResursRegisterEntry,
 } from './register/resursRegister'
 import {
   applyTidLookup,
+  normalizeLeveranstid,
   buildTidRegisterLookup,
   fromEditableTidRegister,
   toEditableTidRegister,
@@ -273,6 +274,9 @@ export default function App() {
         prev.map((row, i) => {
           if (i !== rowIndex) return row
           const next = { ...row, [column]: value }
+          if (column === 'Latest Requested Time (Unloading Location)') {
+            next[column] = normalizeLeveranstid(value)
+          }
           if (
             column === 'Consigne address' ||
             column === 'Latest Requested Date (Unloading Location)' ||
@@ -282,7 +286,7 @@ export default function App() {
             const resursLookup = buildResursRegisterLookup(
               fromEditableResursRegister(resursRegister),
             )
-            next.Resurs = lookupResurs(
+            next.Lossinfo = lookupLossinfo(
               resursLookup,
               next['Consigne address'],
               deliveryDate,

@@ -72,10 +72,10 @@ export function buildResursRegisterLookup(
 }
 
 /**
- * Resurs from resurs-register: match Consigne address to butiksnamn (or consignee),
+ * Lossinfo from resurs-register: match Consigne address to butiksnamn (or consignee),
  * then pick the weekday column from Leveransdatum (yyyy-mm-dd).
  */
-export function lookupResurs(
+export function lookupLossinfo(
   lookup: ReadonlyMap<string, ResursRegisterEntry>,
   consigneAddress: string,
   deliveryDateIso: string,
@@ -90,13 +90,4 @@ export function lookupResurs(
   if (!weekday) return ''
 
   return entry[weekday]?.trim() ?? ''
-}
-
-/** @deprecated Use lookupResurs — Lossinfo is no longer filled from the resurs register. */
-export function lookupLossinfo(
-  lookup: ReadonlyMap<string, ResursRegisterEntry>,
-  consigneAddress: string,
-  deliveryDateIso: string,
-): string {
-  return lookupResurs(lookup, consigneAddress, deliveryDateIso)
 }
