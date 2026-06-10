@@ -52,7 +52,6 @@ export const FIXED_OUTPUT_VALUES: Partial<Record<OutputColumn, string>> = {
   Kundnr: '119817',
   Märkning: '252500 Bäckebol',
   Kundkontakt: 'Olle Pettersson',
-  Tjänst: 'DISTTRP',
   'Term. Namn': 'Stora Coop Bäckebol',
   'Term. Adress': 'Transportgatan 19',
   'Term. Postnr': '422 46',

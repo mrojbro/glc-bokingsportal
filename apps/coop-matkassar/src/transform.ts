@@ -5,7 +5,7 @@ import {
 } from './constants'
 import { formatTelefonnr } from './formatTelefonnr'
 import { getTomorrowDate } from './getTomorrowDate'
-import { applyInbaringFields } from './applyInbaringFields'
+import { applyInbaringFields, applyTjanst } from './applyInbaringFields'
 import { litteraForDate } from './litteraForDate'
 import { normalizeHeaderName } from './normalizeHeader'
 import type { InputColumn } from './constants'
@@ -86,6 +86,7 @@ export function createBlankOutputRow(): OutputRow {
   const tomorrow = getTomorrowDate()
   row.Datum = tomorrow
   row.Littera = litteraForDate(tomorrow)
+  applyTjanst(row)
   return row
 }
 

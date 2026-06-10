@@ -1,6 +1,21 @@
 import { isInbaringAddress } from './inbaringRegister'
 import type { OutputRow } from './types'
 
+export const TJANST_INBARING = 'DISTTRP'
+export const TJANST_UTAN_TILLAGG = 'DISTTRP UTAN TILLÄGG'
+
+export function tjanstFromChaufforsinstruktion(
+  chaufforsinstruktion: string,
+): string {
+  return chaufforsinstruktion.includes('INBÄRNING!')
+    ? TJANST_INBARING
+    : TJANST_UTAN_TILLAGG
+}
+
+export function applyTjanst(row: OutputRow): void {
+  row.Tjänst = tjanstFromChaufforsinstruktion(row.Chaufförsinstruktion)
+}
+
 export function applyInbaringFields(
   row: OutputRow,
   options?: { meddelande?: string },
@@ -10,10 +25,9 @@ export function applyInbaringFields(
 
   if (inbaring) {
     row.Chaufförsinstruktion = 'INBÄRNING!'
-    return
-  }
-
-  if (row.Chaufförsinstruktion === 'INBÄRNING!') {
+  } else if (row.Chaufförsinstruktion === 'INBÄRNING!') {
     row.Chaufförsinstruktion = options?.meddelande ?? ''
   }
+
+  applyTjanst(row)
 }

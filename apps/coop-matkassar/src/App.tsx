@@ -11,7 +11,7 @@ import {
   parseInputText,
   type ParseInputResult,
 } from './parseInput'
-import { applyInbaringFields } from './applyInbaringFields'
+import { applyInbaringFields, applyTjanst } from './applyInbaringFields'
 import { createBlankOutputRow, transformInputRows } from './transform'
 import type { OutputColumn } from './constants'
 import type { OutputRow } from './types'
@@ -132,6 +132,8 @@ export default function App() {
           const next = { ...row, [column]: value }
           if (column === 'Mott. Adress') {
             applyInbaringFields(next)
+          } else if (column === 'Chaufförsinstruktion') {
+            applyTjanst(next)
           }
           return next
         }),
