@@ -1,4 +1,4 @@
-import { BOOKING_TOOLS, bookingToolHref } from './bookings'
+import { BOOKING_TOOLS, SUMMERING_TOOLS, bookingToolHref } from './bookings'
 
 function BookingCard({
   label,
@@ -24,7 +24,7 @@ function BookingCard({
         (ready ? 'text-[var(--color-text)]' : 'text-[var(--color-text-muted)]')
       }
     >
-      {label}
+      {label || '\u00A0'}
     </h2>
   )
 
@@ -60,6 +60,23 @@ export default function App() {
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
         <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {BOOKING_TOOLS.map((tool) => (
+            <BookingCard
+              key={tool.id}
+              label={tool.label}
+              href={bookingToolHref(tool.segment)}
+              status={tool.status}
+            />
+          ))}
+        </div>
+
+        <div
+          className="my-8 border-t border-[var(--color-border)]"
+          role="separator"
+          aria-hidden="true"
+        />
+
+        <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {SUMMERING_TOOLS.map((tool) => (
             <BookingCard
               key={tool.id}
               label={tool.label}

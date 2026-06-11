@@ -18,14 +18,47 @@ const BOOKING_TOOLS_UNSORTED: BookingTool[] = [
   },
   { id: 'coop-matkassar', label: 'Coop Matkassar', segment: 'coop-matkassar', status: 'ready' },
   { id: 'coop-frukt', label: 'Coop Frukt', segment: 'coop-frukt', status: 'ready' },
+  {
+    id: 'coop-distribution',
+    label: 'Coop Distribution',
+    segment: 'coop-distribution',
+    status: 'coming-soon',
+  },
   { id: 'comforta', label: 'Comforta', segment: 'comforta', status: 'coming-soon' },
   { id: 'lars-goran', label: 'Lars-Göran', segment: 'lars-goran', status: 'ready' },
+  { id: 'placeholder-1', label: '', segment: 'placeholder-1', status: 'coming-soon' },
 ]
 
-/** All booking tools linked from the portal (A–Ö by label). */
-export const BOOKING_TOOLS: BookingTool[] = [...BOOKING_TOOLS_UNSORTED].sort((a, b) =>
-  a.label.localeCompare(b.label, 'sv', { sensitivity: 'base' }),
-)
+/** All booking tools linked from the portal (A–Ö by label; empty slots last). */
+export const BOOKING_TOOLS: BookingTool[] = [...BOOKING_TOOLS_UNSORTED].sort((a, b) => {
+  const aEmpty = !a.label.trim()
+  const bEmpty = !b.label.trim()
+  if (aEmpty && !bEmpty) return 1
+  if (!aEmpty && bEmpty) return -1
+  return a.label.localeCompare(b.label, 'sv', { sensitivity: 'base' })
+})
+
+/** Greyed-out summary tools below the booking grid (not yet available). */
+export const SUMMERING_TOOLS: BookingTool[] = [
+  {
+    id: 'coop-summering',
+    label: 'Coop Summering',
+    segment: 'coop-summering',
+    status: 'coming-soon',
+  },
+  {
+    id: 'lokalt-summering',
+    label: 'Lokalt Summering',
+    segment: 'lokalt-summering',
+    status: 'coming-soon',
+  },
+  {
+    id: 'fjarr-summering',
+    label: 'Fjärr Summering',
+    segment: 'fjarr-summering',
+    status: 'coming-soon',
+  },
+]
 
 /** Direct dev-server URLs when using `npm run dev:vite` (avoids broken proxy on :5173). */
 const DEV_TOOL_ORIGINS: Record<string, string> = {
