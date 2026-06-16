@@ -55,7 +55,7 @@ function isEmptyDataRow(input: InputRow): boolean {
   )
 }
 
-export function transformInputRow(input: InputRow, tomorrow: string): OutputRow | null {
+export function transformInputRow(input: InputRow, deliveryDate: string): OutputRow | null {
   if (!matchesConsigneeFilter(input) || isEmptyDataRow(input)) return null
 
   const consignee = cellToString(input.Consignee)
@@ -64,7 +64,7 @@ export function transformInputRow(input: InputRow, tomorrow: string): OutputRow 
 
   const row = emptyOutputRow()
   applyFixedOutputValues(row)
-  row.Datum = tomorrow
+  row.Datum = deliveryDate
   row.Fraktsedel = cellToString(input['Shipment reference'])
   row['Mott. Namn'] = consignee
   row['Kolli vikt'] = formatOutputNumber(kolliVikt)
@@ -86,10 +86,13 @@ export function transformInputRow(input: InputRow, tomorrow: string): OutputRow 
   return row
 }
 
-export function transformInputRows(inputs: InputRow[]): OutputRow[] {
-  const tomorrow = getTomorrowDate()
+export function transformInputRows(
+  inputs: InputRow[],
+  deliveryDate?: string,
+): OutputRow[] {
+  const date = deliveryDate ?? getTomorrowDate()
   return inputs
-    .map((input) => transformInputRow(input, tomorrow))
+    .map((input) => transformInputRow(input, date))
     .filter((row): row is OutputRow => row !== null)
 }
 

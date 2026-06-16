@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
 import { downloadTidRegisterExcel } from '../exportTidRegisterExcel'
+import { getVisibleTidRegisterColumns } from '../tidRegisterColumnConfig'
 import {
   TID_REGISTER_COLUMNS,
-  REGISTER_TABLE_CLASS,
-  registerColumnIsFixed,
-  registerColumnStyle,
+  REGISTER_EDITOR_TABLE_CLASS,
+  registerEditorActionColumnStyle,
+  registerEditorColumnStyle,
 } from '../register/registerColumns'
 import {
   createEmptyTidRegisterEntry,
@@ -17,6 +18,10 @@ import type { TidRegisterEntry } from '../types/tidRegister'
 import {
   RegisterActiveBadge,
   RegisterPanelHeading,
+  REGISTER_EDITOR_ACTION_CELL_CLASS,
+  REGISTER_EDITOR_ACTION_HEADER_CLASS,
+  REGISTER_EDITOR_COPY_BUTTON_CLASS,
+  REGISTER_EDITOR_DELETE_BUTTON_CLASS,
   registerCardClassName,
   registerEditButtonClassName,
 } from './RegisterEditorChrome'
@@ -51,6 +56,7 @@ export function TidRegisterEditor({
   onToggleOpen,
 }: TidRegisterEditorProps) {
   const [search, setSearch] = useState('')
+  const visibleColumns = getVisibleTidRegisterColumns()
 
   const visibleEntries = useMemo(
     () => entries.filter((entry) => matchesSearch(entry, search)),
@@ -127,20 +133,28 @@ export function TidRegisterEditor({
         />
 
         <div className="overflow-hidden rounded-xl border border-[var(--color-border)]">
-          <div className="max-h-[420px] overflow-auto">
-            <table className={REGISTER_TABLE_CLASS}>
+          <div className="max-h-[420px] overflow-x-hidden overflow-y-auto">
+            <table className={REGISTER_EDITOR_TABLE_CLASS}>
+              <colgroup>
+                {visibleColumns.map((column) => (
+                  <col
+                    key={column.key}
+                    style={registerEditorColumnStyle(column, visibleColumns)}
+                  />
+                ))}
+                <col style={registerEditorActionColumnStyle()} />
+              </colgroup>
               <thead className="sticky top-0 z-10 bg-[var(--color-surface-elevated)]">
                 <tr className="border-b border-[var(--color-border)]">
-                  {REGISTER_COLUMNS.map((column) => (
+                  {visibleColumns.map((column) => (
                     <th
                       key={column.key}
-                      style={registerColumnStyle(column)}
-                      className="whitespace-nowrap px-2 py-2 font-medium text-[var(--color-text-muted)]"
+                      className="overflow-hidden whitespace-nowrap px-2 py-2 font-medium text-[var(--color-text-muted)]"
                     >
                       {column.label}
                     </th>
                   ))}
-                  <th className="sticky right-0 border-l border-[var(--color-border)] bg-[var(--color-surface-elevated)] px-2 py-2 font-medium text-[var(--color-text-muted)]">
+                  <th className={REGISTER_EDITOR_ACTION_HEADER_CLASS}>
                     Åtgärd
                   </th>
                 </tr>
@@ -149,7 +163,7 @@ export function TidRegisterEditor({
                 {visibleEntries.length === 0 ? (
                   <tr>
                     <td
-                      colSpan={REGISTER_COLUMNS.length + 1}
+                      colSpan={visibleColumns.length + 1}
                       className="px-3 py-6 text-center text-[var(--color-text-muted)]"
                     >
                       Inga rader matchar sökningen.
@@ -161,12 +175,8 @@ export function TidRegisterEditor({
                       key={entry.id}
                       className="border-b border-[var(--color-border-subtle)] hover:bg-[var(--color-surface-elevated)]/40"
                     >
-                      {REGISTER_COLUMNS.map((column) => (
-                        <td
-                          key={column.key}
-                          style={registerColumnStyle(column)}
-                          className="p-0"
-                        >
+                      {visibleColumns.map((column) => (
+                        <td key={column.key} className="overflow-hidden p-0">
                           <input
                             type="text"
                             value={entry[column.key as keyof RegisterEntryFields]}
@@ -177,24 +187,22 @@ export function TidRegisterEditor({
                                 e.target.value,
                               )
                             }
-                            className={`w-full min-w-0 border-0 bg-transparent px-2 py-1.5 text-[var(--color-text)] outline-none focus:bg-[var(--color-accent-dim)] ${
-                              registerColumnIsFixed(column) ? 'truncate' : ''
-                            }`}
+                            className="w-full min-w-0 truncate border-0 bg-transparent px-2 py-1.5 text-[var(--color-text)] outline-none focus:bg-[var(--color-accent-dim)]"
                           />
                         </td>
                       ))}
-                      <td className="sticky right-0 border-l border-[var(--color-border-subtle)] bg-[var(--color-surface-card)] px-2 py-1 whitespace-nowrap">
+                      <td className={REGISTER_EDITOR_ACTION_CELL_CLASS}>
                         <button
                           type="button"
                           onClick={() => duplicateRow(entry)}
-                          className="mr-2 rounded px-1.5 py-0.5 text-[var(--color-text-muted)] hover:bg-[var(--color-surface-elevated)] hover:text-[var(--color-text)]"
+                          className={REGISTER_EDITOR_COPY_BUTTON_CLASS}
                         >
                           Kopiera
                         </button>
                         <button
                           type="button"
                           onClick={() => removeRow(entry.id)}
-                          className="rounded px-1.5 py-0.5 text-[var(--color-danger)] hover:bg-[var(--color-danger)]/15"
+                          className={REGISTER_EDITOR_DELETE_BUTTON_CLASS}
                         >
                           Ta bort
                         </button>
@@ -205,6 +213,13 @@ export function TidRegisterEditor({
               </tbody>
             </table>
           </div>
+          <p className="border-t border-[var(--color-border-subtle)] px-3 py-2 text-xs text-[var(--color-text-muted)]">
+            Dolda kolumner styrs i{' '}
+            <code className="text-[var(--color-text)]">
+              src/tidRegisterColumnConfig.ts
+            </code>
+            . Nedladdning inkluderar alla kolumner.
+          </p>
         </div>
 
         <div className="flex flex-wrap gap-2">

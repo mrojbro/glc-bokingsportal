@@ -30,3 +30,15 @@ export function RegisterPanelHeading({ title }: { title: string }) {
     </div>
   )
 }
+
+export const REGISTER_EDITOR_ACTION_HEADER_CLASS =
+  'whitespace-nowrap border-l border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)]/80 px-2 py-2 font-medium text-[var(--color-text-muted)]'
+
+export const REGISTER_EDITOR_ACTION_CELL_CLASS =
+  'whitespace-nowrap border-l border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)]/35 px-2 py-1'
+
+export const REGISTER_EDITOR_COPY_BUTTON_CLASS =
+  'mr-2 rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-surface-card)]/70 px-2 py-0.5 text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-border)] hover:bg-[var(--color-surface-elevated)] hover:text-[var(--color-text)]'
+
+export const REGISTER_EDITOR_DELETE_BUTTON_CLASS =
+  'rounded-md border border-[var(--color-danger)]/25 bg-[var(--color-danger)]/10 px-2 py-0.5 text-[var(--color-danger)] transition-colors hover:border-[var(--color-danger)]/40 hover:bg-[var(--color-danger)]/20'

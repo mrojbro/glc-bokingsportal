@@ -300,14 +300,17 @@ function buildGlcRowsForCase(
  * Transform one input row into zero or more output rows.
  * Add new Trpsätt cases here; each case can push one or more rows.
  */
-export function transformInputRow(input: InputRow): OutputRow[] {
+export function transformInputRow(
+  input: InputRow,
+  deliveryDate?: string,
+): OutputRow[] {
   const trpsatt = cellToString(input.Trpsätt)
-  const tomorrow = getTomorrowDate()
+  const date = deliveryDate ?? getTomorrowDate()
   const results: OutputRow[] = []
 
   if (trpsatt.includes('GLC/Turbil/Gbg')) {
     results.push(
-      ...buildGlcRowsForCase(input, tomorrow, 'DISTTRP', 'Distribution'),
+      ...buildGlcRowsForCase(input, date, 'DISTTRP', 'Distribution'),
     )
   }
 
@@ -315,7 +318,7 @@ export function transformInputRow(input: InputRow): OutputRow[] {
     results.push(
       ...buildGlcRowsForCase(
         input,
-        tomorrow,
+        date,
         'PRODUKTIONSORDRAR - FAKTURERAS EJ',
         'Charter',
       ),
@@ -326,8 +329,11 @@ export function transformInputRow(input: InputRow): OutputRow[] {
 }
 
 /** Transform all input rows; one input row may yield multiple output rows. */
-export function transformInputRows(inputs: InputRow[]): OutputRow[] {
-  return inputs.flatMap(transformInputRow)
+export function transformInputRows(
+  inputs: InputRow[],
+  deliveryDate?: string,
+): OutputRow[] {
+  return inputs.flatMap((input) => transformInputRow(input, deliveryDate))
 }
 
 export function createBlankOutputRow(): OutputRow {

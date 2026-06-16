@@ -54,6 +54,52 @@ export function registerColumnStyle(
   return {}
 }
 
+/** Share of table width reserved for the action column (Kopiera + Ta bort). */
+export const REGISTER_EDITOR_ACTION_SHARE = 0.16
+
+/** Editor table fills the panel; column widths are computed from visible columns. */
+export const REGISTER_EDITOR_TABLE_CLASS =
+  'w-full max-w-full table-fixed border-collapse text-left text-xs'
+
+const REGISTER_EDITOR_COLUMN_WEIGHT: Partial<Record<string, number>> = {
+  butiksnamn: 4,
+  consignee: 3,
+  littera: 3,
+  lastningsnamn: 3,
+  lastningsadress: 3,
+}
+
+function registerEditorColumnWeight(column: RegisterColumnDef): number {
+  return (
+    REGISTER_EDITOR_COLUMN_WEIGHT[column.key] ??
+    (column.minWidth ? 2 : 1)
+  )
+}
+
+/** Share panel width across visible data columns (wider for name/address fields). */
+export function registerEditorColumnStyle(
+  column: RegisterColumnDef,
+  visibleColumns: readonly RegisterColumnDef[],
+): CSSProperties {
+  if (visibleColumns.length === 0) return {}
+
+  const dataShare = 1 - REGISTER_EDITOR_ACTION_SHARE
+  const totalWeight = visibleColumns.reduce(
+    (sum, col) => sum + registerEditorColumnWeight(col),
+    0,
+  )
+  const weight = registerEditorColumnWeight(column)
+  const share = weight / totalWeight
+
+  return {
+    width: `${dataShare * share * 100}%`,
+  }
+}
+
+export function registerEditorActionColumnStyle(): CSSProperties {
+  return { width: `${REGISTER_EDITOR_ACTION_SHARE * 100}%` }
+}
+
 /** Table grows with columns; parent scrolls horizontally instead of squeezing. */
 export const REGISTER_TABLE_CLASS =
   'w-max min-w-full border-collapse text-left text-xs'

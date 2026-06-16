@@ -24,7 +24,7 @@ if (!skipBuild) {
 }
 
 console.log(`Serving hub at http://localhost:${port}/\n`)
-console.log('Sub-apps: /kaka/  /ewerman/  (and kommer-snart stubs)\n')
+console.log('Sub-apps: /kaka/  /ewerman/  /lars-goran/  /coop-matkassar/  /coop-frukt/  /coop-tomgods/  (and kommer-snart stubs)\n')
 
 const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx'
 const child = spawn(npx, ['serve', 'dist', '-l', port], {

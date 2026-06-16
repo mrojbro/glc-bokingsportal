@@ -5,7 +5,9 @@ import { MottKolliViktChart } from './components/MottKolliViktChart'
 import { OutputSummary } from './components/OutputSummary'
 import { OutputTable } from './components/OutputTable'
 import { PasteInput } from './components/PasteInput'
+import { SaturdayDeliveryDialog } from './components/SaturdayDeliveryDialog'
 import { downloadOutputExcel } from './exportOutputExcel'
+import { getTomorrowDate, isTomorrowSaturday } from './getTomorrowDate'
 import {
   parseInputFile,
   parseInputText,
@@ -24,40 +26,85 @@ export default function App() {
   const [status, setStatus] = useState<string | null>(null)
   const [warning, setWarning] = useState<string | null>(null)
   const [inputRowCount, setInputRowCount] = useState(0)
+  const [pendingParse, setPendingParse] = useState<ParseInputResult | null>(null)
+  const [saturdayDialogOpen, setSaturdayDialogOpen] = useState(false)
 
-  const processParsedInput = useCallback((parsed: ParseInputResult) => {
-    if (parsed.parseError) {
-      setError(parsed.parseError)
-      return
-    }
+  const finishProcessing = useCallback(
+    (parsed: ParseInputResult, deliveryDate?: string) => {
+      if (parsed.parseError) {
+        setError(parsed.parseError)
+        return
+      }
 
-    if (parsed.missingColumns.length > 0) {
-      setError(parsed.parseError ?? `Saknade kolumner: ${parsed.missingColumns.join(', ')}`)
-      return
-    }
+      if (parsed.missingColumns.length > 0) {
+        setError(parsed.parseError ?? `Saknade kolumner: ${parsed.missingColumns.join(', ')}`)
+        return
+      }
 
-    if (parsed.rows.length === 0) {
-      setError('Indata innehåller inga datarader.')
-      return
-    }
+      if (parsed.rows.length === 0) {
+        setError('Indata innehåller inga datarader.')
+        return
+      }
 
-    setSourceLabel(parsed.fileLabel)
-    setInputRowCount(parsed.rows.length)
-    const transformed = transformInputRows(parsed.rows)
-    setOutputRows(transformed)
+      setSourceLabel(parsed.fileLabel)
+      setInputRowCount(parsed.rows.length)
+      const transformed = transformInputRows(parsed.rows, deliveryDate)
+      setOutputRows(transformed)
 
-    const removed = parsed.rows.length - transformed.length
-    if (transformed.length === 0) {
-      setStatus(
-        `${parsed.rows.length} indatarad(er) lästes in, men inga rader med Consignee Foodora/Trofo hittades.`,
-      )
-    } else {
-      setStatus(
-        `Transformering klar: ${parsed.rows.length} indatarad(er) → ${transformed.length} bokningsrad(er)` +
-          (removed > 0 ? ` (${removed} rader filtrerades bort).` : '.'),
-      )
-    }
-  }, [])
+      const removed = parsed.rows.length - transformed.length
+      if (transformed.length === 0) {
+        setStatus(
+          `${parsed.rows.length} indatarad(er) lästes in, men inga rader med Consignee Foodora/Trofo hittades.`,
+        )
+      } else {
+        setStatus(
+          `Transformering klar: ${parsed.rows.length} indatarad(er) → ${transformed.length} bokningsrad(er)` +
+            (removed > 0 ? ` (${removed} rader filtrerades bort).` : '.'),
+        )
+      }
+    },
+    [],
+  )
+
+  const tryProcessParsedInput = useCallback(
+    (parsed: ParseInputResult) => {
+      if (parsed.parseError) {
+        finishProcessing(parsed)
+        return
+      }
+
+      if (parsed.missingColumns.length > 0 || parsed.rows.length === 0) {
+        finishProcessing(parsed)
+        return
+      }
+
+      if (isTomorrowSaturday()) {
+        setPendingParse(parsed)
+        setSaturdayDialogOpen(true)
+        return
+      }
+
+      finishProcessing(parsed)
+    },
+    [finishProcessing],
+  )
+
+  const handleConfirmSaturdayDelivery = useCallback(() => {
+    if (!pendingParse) return
+    finishProcessing(pendingParse, getTomorrowDate())
+    setPendingParse(null)
+    setSaturdayDialogOpen(false)
+  }, [finishProcessing, pendingParse])
+
+  const handleConfirmCustomDeliveryDate = useCallback(
+    (isoDate: string) => {
+      if (!pendingParse) return
+      finishProcessing(pendingParse, isoDate)
+      setPendingParse(null)
+      setSaturdayDialogOpen(false)
+    },
+    [finishProcessing, pendingParse],
+  )
 
   const handleFileSelect = useCallback(
     async (file: File) => {
@@ -71,7 +118,7 @@ export default function App() {
 
       try {
         const parsed = await parseInputFile(file)
-        processParsedInput(parsed)
+        tryProcessParsedInput(parsed)
       } catch (err) {
         setError(
           err instanceof Error ? err.message : 'Kunde inte läsa filen.',
@@ -80,7 +127,7 @@ export default function App() {
         setIsLoading(false)
       }
     },
-    [processParsedInput],
+    [tryProcessParsedInput],
   )
 
   const handlePastedInputSubmit = useCallback(() => {
@@ -94,7 +141,7 @@ export default function App() {
 
     try {
       const parsed = parseInputText(pastedInput, 'Klistrad data')
-      processParsedInput(parsed)
+      tryProcessParsedInput(parsed)
     } catch (err) {
       setError(
         err instanceof Error ? err.message : 'Kunde inte läsa inklistrad data.',
@@ -102,7 +149,7 @@ export default function App() {
     } finally {
       setIsLoading(false)
     }
-  }, [pastedInput, processParsedInput])
+  }, [pastedInput, tryProcessParsedInput])
 
   const handleCellChange = useCallback(
     (rowIndex: number, column: OutputColumn, value: string) => {
@@ -264,6 +311,12 @@ export default function App() {
           )}
         </section>
       </main>
+
+      <SaturdayDeliveryDialog
+        open={saturdayDialogOpen}
+        onConfirmSaturday={handleConfirmSaturdayDelivery}
+        onConfirmDate={handleConfirmCustomDeliveryDate}
+      />
     </div>
   )
 }

@@ -18,6 +18,7 @@ const BOOKING_TOOLS_UNSORTED: BookingTool[] = [
   },
   { id: 'coop-matkassar', label: 'Coop Matkassar', segment: 'coop-matkassar', status: 'ready' },
   { id: 'coop-frukt', label: 'Coop Frukt', segment: 'coop-frukt', status: 'ready' },
+  { id: 'coop-tomgods', label: 'Coop Tomgods', segment: 'coop-tomgods', status: 'ready' },
   {
     id: 'coop-distribution',
     label: 'Coop Distribution',
@@ -26,17 +27,12 @@ const BOOKING_TOOLS_UNSORTED: BookingTool[] = [
   },
   { id: 'comforta', label: 'Comforta', segment: 'comforta', status: 'coming-soon' },
   { id: 'lars-goran', label: 'Lars-Göran', segment: 'lars-goran', status: 'ready' },
-  { id: 'placeholder-1', label: '', segment: 'placeholder-1', status: 'coming-soon' },
 ]
 
-/** All booking tools linked from the portal (A–Ö by label; empty slots last). */
-export const BOOKING_TOOLS: BookingTool[] = [...BOOKING_TOOLS_UNSORTED].sort((a, b) => {
-  const aEmpty = !a.label.trim()
-  const bEmpty = !b.label.trim()
-  if (aEmpty && !bEmpty) return 1
-  if (!aEmpty && bEmpty) return -1
-  return a.label.localeCompare(b.label, 'sv', { sensitivity: 'base' })
-})
+/** All booking tools linked from the portal (A–Ö by label). */
+export const BOOKING_TOOLS: BookingTool[] = [...BOOKING_TOOLS_UNSORTED]
+  .filter((tool) => tool.label.trim())
+  .sort((a, b) => a.label.localeCompare(b.label, 'sv', { sensitivity: 'base' }))
 
 /** Greyed-out summary tools below the booking grid (not yet available). */
 export const SUMMERING_TOOLS: BookingTool[] = [
@@ -67,6 +63,7 @@ const DEV_TOOL_ORIGINS: Record<string, string> = {
   'lars-goran': 'http://localhost:5176/lars-goran/',
   'coop-matkassar': 'http://localhost:5177/coop-matkassar/',
   'coop-frukt': 'http://localhost:5178/coop-frukt/',
+  'coop-tomgods': 'http://localhost:5179/coop-tomgods/',
 }
 
 export function bookingToolHref(segment: string): string {

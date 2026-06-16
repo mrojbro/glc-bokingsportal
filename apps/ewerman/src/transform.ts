@@ -3,7 +3,7 @@ import {
   KOLLI_ANTAL_DIVISOR,
   OUTPUT_COLUMNS,
 } from './constants'
-import { getTomorrowDate, getTomorrowDateCompact } from './getTomorrowDate'
+import { formatDateCompact, getTomorrowDate, getTomorrowDateCompact } from './getTomorrowDate'
 import { normalizeHeaderName } from './normalizeHeader'
 import { applyPostortTimes } from './postortRegister'
 import { splitPostnrOrt } from './splitPostnrOrt'
@@ -85,12 +85,17 @@ function buildFraktsedel(företagskod: string, tomorrowCompact: string): string 
 }
 
 /** One output row per unique (namn, adress, post) triple. */
-export function transformInputRows(inputs: InputRow[]): OutputRow[] {
+export function transformInputRows(
+  inputs: InputRow[],
+  deliveryDate?: string,
+): OutputRow[] {
   const seen = new Set<string>()
   const results: OutputRow[] = []
   const budgetViktByNamn = buildBudgetViktByNamn(inputs)
-  const tomorrow = getTomorrowDate()
-  const tomorrowCompact = getTomorrowDateCompact()
+  const date = deliveryDate ?? getTomorrowDate()
+  const dateCompact = deliveryDate
+    ? formatDateCompact(deliveryDate)
+    : getTomorrowDateCompact()
 
   for (const input of inputs) {
     const namn = cellToString(input['Leveransadress 1'])
@@ -111,10 +116,10 @@ export function transformInputRows(inputs: InputRow[]): OutputRow[] {
     row['Mott. Postnr'] = postnr
     row['Mott. Postort'] = postort
     applyPostortTimes(row)
-    row['Datum'] = tomorrow
+    row['Datum'] = date
     row.Fraktsedel = buildFraktsedel(
       cellToString(input['Företagskod']),
-      tomorrowCompact,
+      dateCompact,
     )
     const kolliVikt = budgetViktByNamn.get(namnKey(namn)) ?? 0
     row['Kolli vikt'] = formatOutputNumber(kolliVikt)
