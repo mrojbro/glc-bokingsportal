@@ -25,7 +25,7 @@ const BOOKING_TOOLS_UNSORTED: BookingTool[] = [
     segment: 'coop-distribution',
     status: 'coming-soon',
   },
-  { id: 'comforta', label: 'Comforta', segment: 'comforta', status: 'coming-soon' },
+  { id: 'comforta', label: 'Comforta', segment: 'comforta', status: 'ready' },
   { id: 'lars-goran', label: 'Lars-Göran', segment: 'lars-goran', status: 'ready' },
 ]
 
@@ -64,6 +64,7 @@ const DEV_TOOL_ORIGINS: Record<string, string> = {
   'coop-matkassar': 'http://localhost:5177/coop-matkassar/',
   'coop-frukt': 'http://localhost:5178/coop-frukt/',
   'coop-tomgods': 'http://localhost:5179/coop-tomgods/',
+  comforta: 'http://localhost:5180/comforta/',
 }
 
 export function bookingToolHref(segment: string): string {

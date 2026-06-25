@@ -4,10 +4,20 @@
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --color-surface: #0f1419;
   --color-surface-elevated: #161b22;
+  --color-surface-card: #1c2128;
   --color-border: #30363d;
+  --color-border-subtle: #21262d;
   --color-text: #e6edf3;
   --color-text-muted: #8b949e;
   --color-accent: #58a6ff;
+  --color-accent-dim: #1f6feb33;
+  --color-success: #3fb950;
+  --color-warning: #d29922;
+  --color-danger: #f85149;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -16,8 +26,27 @@ body {
   font-family: var(--font-sans);
   background: var(--color-surface);
   color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: var(--color-accent);
+#root {
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
 }

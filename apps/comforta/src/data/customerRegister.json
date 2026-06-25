@@ -1,0 +1,434 @@
+[
+  {
+    "mottagare": "Apple Hotel",
+    "adress": "Torpavallsgatan 6",
+    "postnr": "416 73",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "62712"
+  },
+  {
+    "mottagare": "Axelsons Institute",
+    "adress": "Odinsgatan 28",
+    "postnr": "411 03",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "33491"
+  },
+  {
+    "mottagare": "Bakels",
+    "adress": "Von Utfallsgatan 26",
+    "postnr": "415 05",
+    "postort": "Göteborg",
+    "kundnr": "124207",
+    "fakeKundnr": "83986"
+  },
+  {
+    "mottagare": "Banketten Draken",
+    "adress": "Heurlins Plats 2",
+    "postnr": "413 01",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "97363"
+  },
+  {
+    "mottagare": "Banketten The Weaver",
+    "adress": "Göteborgsvägen 91",
+    "postnr": "431 37",
+    "postort": "Mölndal",
+    "kundnr": "124206",
+    "fakeKundnr": "39508"
+  },
+  {
+    "mottagare": "Clarion H Karlatornet",
+    "adress": "Cassiopejagatan 8B",
+    "postnr": "417 55",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "71964"
+  },
+  {
+    "mottagare": "Clarion Hotel Draken",
+    "adress": "Järnbäraregatan 16",
+    "postnr": "413 01",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "78567"
+  },
+  {
+    "mottagare": "Clarion Hotel Karlatornet",
+    "adress": "Cassiopejagatan 8B",
+    "postnr": "417 55",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "71734"
+  },
+  {
+    "mottagare": "Clarion Hotel The Pier",
+    "adress": "Pumpgatan 3",
+    "postnr": "417 55",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "90535"
+  },
+  {
+    "mottagare": "Clarion Karlatornet (Lindström)",
+    "adress": "Cassiopejagatan 8B",
+    "postnr": "417 55",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "73596"
+  },
+  {
+    "mottagare": "Comfort Hotel Göteborg",
+    "adress": "Skeppsbroplatsen 1",
+    "postnr": "411 21",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "90537"
+  },
+  {
+    "mottagare": "Comfort Hotel Panorama",
+    "adress": "Eklandagatan  51",
+    "postnr": "412 61",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "32384"
+  },
+  {
+    "mottagare": "Draken",
+    "adress": "Järnbäraregatan 16",
+    "postnr": "413 01",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "98313"
+  },
+  {
+    "mottagare": "Draken (Lindström)",
+    "adress": "Järnbäraregatan 16",
+    "postnr": "413 01",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "50861"
+  },
+  {
+    "mottagare": "Draken Spa",
+    "adress": "Järnbäraregatan 16",
+    "postnr": "413 01",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "29575"
+  },
+  {
+    "mottagare": "Euroway",
+    "adress": "Importgatan  2b",
+    "postnr": "422 46",
+    "postort": "Hisings Backa",
+    "kundnr": "124206",
+    "fakeKundnr": "44247"
+  },
+  {
+    "mottagare": "Euroway Hotel",
+    "adress": "Importgatan  2b",
+    "postnr": "422 46",
+    "postort": "Hisings Backa",
+    "kundnr": "124206",
+    "fakeKundnr": "59241"
+  },
+  {
+    "mottagare": "Forenom Adolf Edelsvärdsgatan",
+    "adress": "Adolf Edelswärds gata 12",
+    "postnr": "414 51",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "54661"
+  },
+  {
+    "mottagare": "Forenom Adolf Edelswärdsgata",
+    "adress": "Adolf Edelswärds gata 12",
+    "postnr": "414 51",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "30975"
+  },
+  {
+    "mottagare": "Forenom Ar Lorents Gata",
+    "adress": "AR Lorents Gata 1",
+    "postnr": "414 51",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "97705"
+  },
+  {
+    "mottagare": "Forenom AR Lorentz Gata",
+    "adress": "AR Lorents Gata 1",
+    "postnr": "414 51",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "72953"
+  },
+  {
+    "mottagare": "Forenom Geiersgatan",
+    "adress": "Geijersgatan 1B",
+    "postnr": "411 34",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "89817"
+  },
+  {
+    "mottagare": "Forenom Geijersgatan",
+    "adress": "Geijersgatan 1B",
+    "postnr": "411 34",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "30554"
+  },
+  {
+    "mottagare": "Forenom Säve Hostel",
+    "adress": "Flyglottornas Väg",
+    "postnr": "417 46",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "18118"
+  },
+  {
+    "mottagare": "Göteborgs Mini-hotel",
+    "adress": "Tredje Långgatan 31",
+    "postnr": "400 32",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "22406"
+  },
+  {
+    "mottagare": "Home Hotel Mektagonen",
+    "adress": "Falkenbergsgatan 3",
+    "postnr": "412 85",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "16539"
+  },
+  {
+    "mottagare": "Hotel Allén",
+    "adress": "Parkgatan 10",
+    "postnr": "411 38",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "98709"
+  },
+  {
+    "mottagare": "Hotel Arena",
+    "adress": "Baldersvägen 4",
+    "postnr": "411 02",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "17932"
+  },
+  {
+    "mottagare": "Hotel Center",
+    "adress": "Stora Badhusgatan  28",
+    "postnr": "411 21",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "40245"
+  },
+  {
+    "mottagare": "Hotel Vasa",
+    "adress": "Viktoriagatan 6",
+    "postnr": "411 25",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "74102"
+  },
+  {
+    "mottagare": "Karlatornet Lägenheter",
+    "adress": "Cassiopejagatan 8B",
+    "postnr": "417 55",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "44868"
+  },
+  {
+    "mottagare": "Karlatornet R &  B",
+    "adress": "Cassiopejagatan 8B",
+    "postnr": "417 55",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "85562"
+  },
+  {
+    "mottagare": "Karlatornet Spa",
+    "adress": "Cassiopejagatan 8B",
+    "postnr": "417 55",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "53332"
+  },
+  {
+    "mottagare": "McCaughey Foods AB",
+    "adress": "Returvägen 5",
+    "postnr": "435 33",
+    "postort": "Mölnlycke",
+    "kundnr": "124207",
+    "fakeKundnr": "30592"
+  },
+  {
+    "mottagare": "Meliva Landvetter",
+    "adress": "Milstensvägen 2",
+    "postnr": "438 35",
+    "postort": "Landvetter",
+    "kundnr": "124207",
+    "fakeKundnr": "18823"
+  },
+  {
+    "mottagare": "Meliva Masthuggskajen",
+    "adress": "Första långgatan 16",
+    "postnr": "413 28",
+    "postort": "Göteborg",
+    "kundnr": "124207",
+    "fakeKundnr": "21918"
+  },
+  {
+    "mottagare": "Meliva Ugglan",
+    "adress": "Mölndalsvägen 77",
+    "postnr": "412 85",
+    "postort": "Göteborg",
+    "kundnr": "124207",
+    "fakeKundnr": "56201"
+  },
+  {
+    "mottagare": "Neoplan (Lindström)",
+    "adress": "Knipplekullen 3",
+    "postnr": "417 05",
+    "postort": "Göteborg",
+    "kundnr": "124207",
+    "fakeKundnr": "59656"
+  },
+  {
+    "mottagare": "Nordiska FHSK Kungälv",
+    "adress": "Olof Palmes väg 1",
+    "postnr": "442 31",
+    "postort": "Kungälv",
+    "kundnr": "124206",
+    "fakeKundnr": "89054"
+  },
+  {
+    "mottagare": "Quality Hotel 11",
+    "adress": "Maskingatan 11",
+    "postnr": "417 64",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "84238"
+  },
+  {
+    "mottagare": "Quality Hotel 11 Restaurang",
+    "adress": "Maskingatan 11",
+    "postnr": "417 64",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "59412"
+  },
+  {
+    "mottagare": "Quality Hotel 11(Lindström)",
+    "adress": "Maskingatan 11",
+    "postnr": "417 64",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "69128"
+  },
+  {
+    "mottagare": "Quality Hotel Panorama",
+    "adress": "Eklandagatan  51",
+    "postnr": "412 61",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "46216"
+  },
+  {
+    "mottagare": "Quality Hotel The Weaver",
+    "adress": "Göteborgsvägen 91",
+    "postnr": "431 37",
+    "postort": "Mölndal",
+    "kundnr": "124206",
+    "fakeKundnr": "89714"
+  },
+  {
+    "mottagare": "Restaurang Draken Brasseriet",
+    "adress": "Heurlins Plats 2",
+    "postnr": "413 01",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "12998"
+  },
+  {
+    "mottagare": "Restaurang Ogbg",
+    "adress": "Skeppsbroplatsen 1",
+    "postnr": "411 21",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "47969"
+  },
+  {
+    "mottagare": "The  Pier Restaurang",
+    "adress": "Pumpgatan 3",
+    "postnr": "417 55",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "19515"
+  },
+  {
+    "mottagare": "The Pier",
+    "adress": "Pumpgatan 3",
+    "postnr": "417 55",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "31485"
+  },
+  {
+    "mottagare": "The Pier (Lindström)",
+    "adress": "Pumpgatan 3",
+    "postnr": "417 55",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "85752"
+  },
+  {
+    "mottagare": "The Weaver",
+    "adress": "Göteborgsvägen 91",
+    "postnr": "431 37",
+    "postort": "Mölndal",
+    "kundnr": "124206",
+    "fakeKundnr": "49466"
+  },
+  {
+    "mottagare": "The Weaver (Lindström)",
+    "adress": "Göteborgsvägen 91",
+    "postnr": "431 37",
+    "postort": "Mölndal",
+    "kundnr": "124206",
+    "fakeKundnr": "98476"
+  },
+  {
+    "mottagare": "Wärtsilä",
+    "adress": "Kårebogatan 8",
+    "postnr": "418 78",
+    "postort": "Göteborg",
+    "kundnr": "124207",
+    "fakeKundnr": "33341"
+  },
+  {
+    "mottagare": "The Book",
+    "adress": "Lisebergsgatan 10",
+    "postnr": "412 63",
+    "postort": "Göteborg",
+    "kundnr": "124206",
+    "fakeKundnr": "80541"
+  },
+  {
+    "mottagare": "Neoplan",
+    "adress": "Knipplekullen 3",
+    "postnr": "417 05",
+    "postort": "Göteborg",
+    "kundnr": "124207",
+    "fakeKundnr": "59657"
+  }
+]

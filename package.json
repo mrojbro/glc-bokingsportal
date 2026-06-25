@@ -18,6 +18,7 @@
     "dev:coop-matkassar": "npm run dev -w @glc-bokingsportal/coop-matkassar",
     "dev:coop-frukt": "npm run dev -w @glc-bokingsportal/coop-frukt",
     "dev:coop-tomgods": "npm run dev -w @glc-bokingsportal/coop-tomgods",
+    "dev:comforta": "npm run dev -w @glc-bokingsportal/comforta",
     "build": "node scripts/build-all.mjs",
     "preview": "node scripts/preview-local.mjs"
   }
