@@ -77,8 +77,7 @@ export default function App() {
               Coop Tomgods — Bokning
             </h1>
             <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-              Välj leverantör, fyll i datum och antal — bygg bokningsrader manuellt.
-              All bearbetning sker lokalt.
+            All bearbetning sker lokalt i webbläsaren.
             </p>
           </div>
           <HubHomeLink />

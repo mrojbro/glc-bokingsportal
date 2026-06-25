@@ -1,5 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { LASTBARARTYP_OPTIONS } from '../constants'
+import {
+  formatPresetLabel,
+  getPresetsForLeverantor,
+  type LeverantorPreset,
+} from '../leverantorPresets'
 
 export interface AddRowFormValues {
   leverantor: string
@@ -31,6 +36,13 @@ function isValidIsoDate(value: string): boolean {
   )
 }
 
+function swedishWeekdayFromIsoDate(isoDate: string): string {
+  const [year, month, day] = isoDate.split('-').map(Number)
+  const date = new Date(year, month - 1, day)
+  const weekday = date.toLocaleDateString('sv-SE', { weekday: 'long' })
+  return weekday.charAt(0).toUpperCase() + weekday.slice(1)
+}
+
 export function AddRowDialog({
   open,
   leverantor,
@@ -42,6 +54,19 @@ export function AddRowDialog({
   const [antalLastbarare, setAntalLastbarare] = useState('')
   const [antalPpl, setAntalPpl] = useState('')
   const [lastbarartyp, setLastbarartyp] = useState<string>(LASTBARARTYP_OPTIONS[0])
+  const [selectedPresetIndex, setSelectedPresetIndex] = useState<number | null>(null)
+
+  const presets = useMemo(
+    () => (open ? getPresetsForLeverantor(leverantor) : []),
+    [open, leverantor],
+  )
+
+  const applyPreset = (preset: LeverantorPreset, index: number) => {
+    setAntalLastbarare(String(preset.antalLastbarare))
+    setAntalPpl(String(preset.antalPpl))
+    setLastbarartyp(preset.lastbarartyp)
+    setSelectedPresetIndex(index)
+  }
 
   useEffect(() => {
     if (open) {
@@ -49,6 +74,7 @@ export function AddRowDialog({
       setAntalLastbarare('')
       setAntalPpl('')
       setLastbarartyp(LASTBARARTYP_OPTIONS[0])
+      setSelectedPresetIndex(null)
     }
   }, [open, defaultDate])
 
@@ -79,21 +105,51 @@ export function AddRowDialog({
         </p>
 
         <div className="mt-4 space-y-4">
-          <label className="block text-sm font-medium text-[var(--color-text)]">
-            Datum
-            <input
-              type="date"
-              lang="sv-SE"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className={inputClassName}
-            />
-          </label>
-          {validDate && (
-            <p className="text-xs text-[var(--color-text-muted)]">
-              Format i export:{' '}
-              <span className="font-medium text-[var(--color-text)]">{date}</span>
-            </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="block text-sm font-medium text-[var(--color-text)]">
+              Datum
+              <input
+                type="date"
+                lang="sv-SE"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className={inputClassName}
+              />
+            </label>
+            <div className="block text-sm font-medium text-[var(--color-text)]">
+              Veckodag
+              <div
+                className="mt-1.5 flex min-h-[42px] items-center rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm font-medium text-[var(--color-text)]"
+                aria-live="polite"
+              >
+                {validDate ? swedishWeekdayFromIsoDate(date) : '—'}
+              </div>
+            </div>
+          </div>
+
+          {presets.length > 0 && (
+            <fieldset>
+              <legend className="text-sm font-medium text-[var(--color-text)]">
+                Fördefinerat
+              </legend>
+              <div className="mt-2 flex flex-col gap-2">
+                {presets.map((preset, index) => (
+                  <button
+                    key={`${preset.leverantor}-${preset.antalLastbarare}-${preset.lastbarartyp}-${preset.antalPpl}`}
+                    type="button"
+                    onClick={() => applyPreset(preset, index)}
+                    className={[
+                      'rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors',
+                      selectedPresetIndex === index
+                        ? 'border-[var(--color-accent)] bg-[var(--color-accent-dim)] text-[var(--color-accent)]'
+                        : 'border-[var(--color-border)] bg-[var(--color-surface-card)] text-[var(--color-text)] hover:border-[#484f58]',
+                    ].join(' ')}
+                  >
+                    {formatPresetLabel(preset)}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
           )}
 
           <div className="grid gap-4 sm:grid-cols-2">
@@ -104,7 +160,10 @@ export function AddRowDialog({
                 min={1}
                 step={1}
                 value={antalLastbarare}
-                onChange={(e) => setAntalLastbarare(e.target.value)}
+                onChange={(e) => {
+                  setAntalLastbarare(e.target.value)
+                  setSelectedPresetIndex(null)
+                }}
                 className={inputClassName}
               />
             </label>
@@ -115,7 +174,10 @@ export function AddRowDialog({
                 min={0}
                 step={1}
                 value={antalPpl}
-                onChange={(e) => setAntalPpl(e.target.value)}
+                onChange={(e) => {
+                  setAntalPpl(e.target.value)
+                  setSelectedPresetIndex(null)
+                }}
                 className={inputClassName}
               />
             </label>
@@ -130,7 +192,10 @@ export function AddRowDialog({
                 <button
                   key={typ}
                   type="button"
-                  onClick={() => setLastbarartyp(typ)}
+                  onClick={() => {
+                    setLastbarartyp(typ)
+                    setSelectedPresetIndex(null)
+                  }}
                   className={[
                     'rounded-lg border px-3 py-2 text-sm font-semibold transition-colors',
                     lastbarartyp === typ

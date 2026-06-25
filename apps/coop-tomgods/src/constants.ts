@@ -39,7 +39,7 @@ export const LEVERANTOR_REGISTER_OUTPUT_COLUMNS = [
 /** Constant values applied to every output row. */
 export const FIXED_OUTPUT_VALUES: Partial<Record<OutputColumn, string>> = {
   artikelbeskrivning: 'Palltransport',
-  uppamtningplats: 'CDC Angered',
+  uppamtningplats: 'CDC ANGERED',
   varuslagForeHamtdatum: 'ZDRY',
   varuslagEfterHamtdatum: 'ZDRY',
 }

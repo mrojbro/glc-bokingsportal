@@ -52,3 +52,10 @@ export function getTomorrowDate(): string {
   const { year, month, day } = tomorrowParts()
   return `${year}-${month}-${day}`
 }
+
+/** Today's date in local timezone, formatted yyyy-mm-dd. */
+export function getTodayDate(): string {
+  const d = new Date()
+  d.setHours(0, 0, 0, 0)
+  return formatIsoDate(d)
+}

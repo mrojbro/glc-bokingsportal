@@ -11,6 +11,7 @@ export const INPUT_COLUMNS = [
   '½PL F',
   'CP',
   'EUR',
+  'IBC',
   'EUR F',
   'FP F',
   'PP',

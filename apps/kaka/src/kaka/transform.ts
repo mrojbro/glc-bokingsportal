@@ -1,5 +1,5 @@
 import { OUTPUT_COLUMNS, type InputColumn } from './constants'
-import { getTomorrowDate } from './getTomorrowDate'
+import { getTodayDate, getTomorrowDate } from './getTomorrowDate'
 import { normalizeHeaderName } from './normalizeHeader'
 import { lookupTimes } from './timeRegister'
 import type { InputRow, OutputRow } from './types'
@@ -13,6 +13,19 @@ function emptyOutputRow(): OutputRow {
 function cellToString(value: string | number | undefined): string {
   if (value === undefined || value === null) return ''
   return String(value).trim()
+}
+
+function isPagensAb(input: InputRow): boolean {
+  return cellToString(input.Namn).includes('Pågens AB')
+}
+
+function applyPagensOverrides(row: OutputRow): void {
+  row.Littera = 'Pågens'
+  row.Resurs = '3054'
+  row['Term. Namn'] = 'Kåkå Staffanstorp'
+  row['Term. Adress'] = 'Västanvägen 83F'
+  row['Term. Postnr'] = '24532'
+  row['Term. Postort'] = 'Staffanstorp'
 }
 
 function buildChaufforsinstruktion(input: InputRow): string {
@@ -51,6 +64,7 @@ const FROZEN_KOLLI_RULES: KolliRule[] = [
 const CHILLED_KOLLI_RULES: KolliRule[] = [
   { column: 'C½pal', factor: 0.5 },
   { column: 'EUR', factor: 1 },
+  { column: 'IBC', factor: 1 },
   { column: 'RB', factor: 1 },
   { column: 'SRS', factor: 1 },
   { column: 'PP', factor: 1 },
@@ -195,7 +209,7 @@ function kolliFrozen(input: InputRow): KolliResult {
   return resolveKolli(input, FROZEN_KOLLI_RULES, 'FP F')
 }
 
-/** K-rows: C½pal / EUR / RB / SRS / PP; otherwise fallback to CP. */
+/** K-rows: C½pal / EUR / IBC / RB / SRS / PP; otherwise fallback to CP. */
 function kolliChilled(input: InputRow): KolliResult {
   return resolveKolli(input, CHILLED_KOLLI_RULES, 'CP')
 }
@@ -239,14 +253,15 @@ function weightVariants(input: InputRow): WeightVariant[] {
 
 function baseGlcRow(
   input: InputRow,
-  tomorrow: string,
+  deliveryDate: string,
   variant: WeightVariant,
 ): OutputRow {
   const kundnr = cellToString(input.Kundnr)
+  const dateForRow = isPagensAb(input) ? getTodayDate() : deliveryDate
   const row = emptyOutputRow()
 
   row.Kundnr = '112951'
-  row.Datum = tomorrow
+  row.Datum = dateForRow
   row.Kundkontakt = 'Tobias Danielsson'
   row['Term. Namn'] = 'GLC TERMINAL'
   row['Term. Adress'] = 'Gårdstens Industriväg 6'
@@ -266,27 +281,34 @@ function baseGlcRow(
   row['Gods sort1'] = computeGodsSort1(row['Gods antal1'])
   row['Kolli vikt'] = variant.kolliVikt
   row['Godsslag Temp'] = variant.godsslagTemp
-  const fraktsedelBase = kundnr ? `${kundnr}-${tomorrow.replace(/-/g, '')}` : ''
+  const fraktsedelBase = kundnr ? `${kundnr}-${dateForRow.replace(/-/g, '')}` : ''
   row.Fraktsedel = fraktsedelBase + variant.fraktsedelSuffix
+
+  if (isPagensAb(input)) {
+    applyPagensOverrides(row)
+  }
 
   return row
 }
 
 function buildGlcRowsForCase(
   input: InputRow,
-  tomorrow: string,
+  deliveryDate: string,
   tjanst: string,
   littera: string,
 ): OutputRow[] {
   return weightVariants(input).map((variant) => {
-    const row = baseGlcRow(input, tomorrow, variant)
+    const row = baseGlcRow(input, deliveryDate, variant)
     row.Tjänst = tjanst
-    row.Littera = littera
-    if (littera === 'Charter') {
+    if (!isPagensAb(input)) {
+      row.Littera = littera
+    }
+
+    if (littera === 'Charter' && !isPagensAb(input)) {
       row.Resurs = '163'
     }
 
-    const times = lookupTimes(littera, row['Mott. Namn'])
+    const times = lookupTimes(row.Littera, row['Mott. Namn'])
     if (times) {
       row.Startid = times.startid
       row.Sluttid = times.sluttid
