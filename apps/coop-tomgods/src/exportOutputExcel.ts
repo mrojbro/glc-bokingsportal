@@ -122,10 +122,10 @@ function buildColumnMappningSheet(): XLSX.WorkSheet {
 
 export function downloadOutputExcel(rows: OutputRow[], fileName?: string): void {
   const workbook = XLSX.utils.book_new()
-  XLSX.utils.book_append_sheet(workbook, buildFwoSheet(rows), 'FWO')
+  XLSX.utils.book_append_sheet(workbook, buildFwoSheet(rows), 'Order info')
   XLSX.utils.book_append_sheet(workbook, buildMetadataSheet(), 'Metadata')
   XLSX.utils.book_append_sheet(workbook, buildControlDataSheet(), 'Control data')
-  XLSX.utils.book_append_sheet(workbook, buildColumnMappningSheet(), 'Column mappning')
+  XLSX.utils.book_append_sheet(workbook, buildColumnMappningSheet(), 'Column mapping')
   const name = fileName ?? `coop-tomgods-export-${exportTimestamp()}.xlsx`
   XLSX.writeFile(workbook, name, { bookType: 'xlsx' })
 }
