@@ -282,7 +282,7 @@
   {
     "consignee": "Coop Göteborg Andra Långgatan",
     "butiksnr": "136034",
-    "butiksnamn": "COOP GÖTEBORG ANDRA LÅNGGATAN / MÖLNDALSVÄGEN 1 / 41327 GÖTEBORG",
+    "butiksnamn": "COOP ANDRA LÅNGGATAN / MÖLNDALSVÄGEN 1 / 41327 GÖTEBORG",
     "ekipage": "Ekipage 2",
     "tur": "Flytten",
     "littera": "Coop Göteborg Distribution",
@@ -296,7 +296,7 @@
   {
     "consignee": "Coop Högsbo",
     "butiksnr": "136027",
-    "butiksnamn": "COOP GÖTEBORG MARKLANDSGATAN / SKÅNEGATAN 65 / 41477 GÖTEBORG",
+    "butiksnamn": "COOP MARKLANDSGATAN / SKÅNEGATAN 65 / 41477 GÖTEBORG",
     "ekipage": "Ekipage 2",
     "tur": "Flytten",
     "littera": "Coop Göteborg Distribution",
@@ -310,7 +310,7 @@
   {
     "consignee": "Coop Göteborg Mölndalsvägen",
     "butiksnr": "136030",
-    "butiksnamn": "COOP GÖTEBORG MÖLNDALSVÄGEN / PARKGATAN 14 / 41263 GÖTEBORG",
+    "butiksnamn": "COOP MÖLNDALSVÄGEN / PARKGATAN 14 / 41263 GÖTEBORG",
     "ekipage": "Ekipage 2",
     "tur": "Flytten",
     "littera": "Coop Göteborg Distribution",
@@ -324,7 +324,7 @@
   {
     "consignee": "Coop Kallebäck",
     "butiksnr": "136031",
-    "butiksnamn": "COOP KALLEBÄCK / NÄSBYCHAUSSÉN 70 / 41275 GÖTEBORG",
+    "butiksnamn": "COOP KALLEBÄCK / OSTGATAN 11 / 41275 GÖTEBORG",
     "ekipage": "Ekipage 2",
     "tur": "Flytten",
     "littera": "Coop Göteborg Distribution",
@@ -422,7 +422,7 @@
   {
     "consignee": "Coop Mölndal Åby Katrinebergsgatan",
     "butiksnr": "136042",
-    "butiksnamn": "COOP MÖLNDAL ÅBY KATRINEBERGSGATAN / LEDUNGSVÄGEN 7 / 43161 MÖLNDA",
+    "butiksnamn": "COOP KATRINEBERGSGATAN / LEDUNGSVÄGEN 7 / 43161 MÖLNDAL",
     "ekipage": "Ekipage 2",
     "tur": "Flytten",
     "littera": "Coop Göteborg Distribution",
@@ -1150,7 +1150,7 @@
   {
     "consignee": "Coop Öjersjö",
     "butiksnr": "123300",
-    "butiksnamn": "COOP ÖJERSJÖ / TALLVÄGEN 2 / 43351 ÖJERSJÖ",
+    "butiksnamn": "COOP ÖJERSJÖ / HELGAS VÄG 6 / 43351 ÖJERSJÖ",
     "ekipage": "Ekipage 2",
     "tur": "GLC",
     "littera": "Coop Göteborg Distribution",

@@ -412,17 +412,17 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1280",
-    "tuesday": "1280",
-    "wednesday": "1280",
-    "thursday": "1280",
-    "friday": "1280",
+    "monday": "1281",
+    "tuesday": "1281",
+    "wednesday": "1281",
+    "thursday": "1281",
+    "friday": "1281",
     "saturday": ""
   },
   {
     "consignee": "Coop Göteborg Andra Långgatan",
     "butiksnr": "136034",
-    "butiksnamn": "COOP GÖTEBORG ANDRA LÅNGGATAN / MÖLNDALSVÄGEN 1 / 41327 GÖTEBORG",
+    "butiksnamn": "COOP ANDRA LÅNGGATAN / MÖLNDALSVÄGEN 1 / 41327 GÖTEBORG",
     "ekipage": "Ekipage 2",
     "typ": "Fruits (Flytten)",
     "tur": "Flytten",
@@ -443,7 +443,7 @@
   {
     "consignee": "Coop Högsbo",
     "butiksnr": "136027",
-    "butiksnamn": "COOP GÖTEBORG MARKLANDSGATAN / SKÅNEGATAN 65 / 41477 GÖTEBORG",
+    "butiksnamn": "COOP MARKLANDSGATAN / SKÅNEGATAN 65 / 41477 GÖTEBORG",
     "ekipage": "Ekipage 2",
     "typ": "Fruits (Flytten)",
     "tur": "Flytten",
@@ -464,7 +464,7 @@
   {
     "consignee": "Coop Göteborg Mölndalsvägen",
     "butiksnr": "136030",
-    "butiksnamn": "COOP GÖTEBORG MÖLNDALSVÄGEN / PARKGATAN 14 / 41263 GÖTEBORG",
+    "butiksnamn": "COOP MÖLNDALSVÄGEN / PARKGATAN 14 / 41263 GÖTEBORG",
     "ekipage": "Ekipage 2",
     "typ": "Fruits (Flytten)",
     "tur": "Flytten",
@@ -485,7 +485,7 @@
   {
     "consignee": "Coop Kallebäck",
     "butiksnr": "136031",
-    "butiksnamn": "COOP KALLEBÄCK / NÄSBYCHAUSSÉN 70 / 41275 GÖTEBORG",
+    "butiksnamn": "COOP KALLEBÄCK / OSTGATAN 11 / 41275 GÖTEBORG",
     "ekipage": "Ekipage 2",
     "typ": "Fruits (Flytten)",
     "tur": "Flytten",
@@ -632,7 +632,7 @@
   {
     "consignee": "Coop Mölndal Åby Katrinebergsgatan",
     "butiksnr": "136042",
-    "butiksnamn": "COOP MÖLNDAL ÅBY KATRINEBERGSGATAN / LEDUNGSVÄGEN 7 / 43161 MÖLNDA",
+    "butiksnamn": "COOP KATRINEBERGSGATAN / LEDUNGSVÄGEN 7 / 43161 MÖLNDAL",
     "ekipage": "Ekipage 2",
     "typ": "Fruits (Flytten)",
     "tur": "Flytten",
@@ -811,11 +811,11 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1538",
+    "monday": "Samlast",
     "tuesday": "",
-    "wednesday": "1538",
+    "wednesday": "Samlast",
     "thursday": "",
-    "friday": "1538",
+    "friday": "Samlast",
     "saturday": ""
   },
   {
@@ -853,11 +853,11 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1538",
+    "monday": "174",
     "tuesday": "",
-    "wednesday": "1538",
+    "wednesday": "174",
     "thursday": "",
-    "friday": "1538",
+    "friday": "174",
     "saturday": ""
   },
   {
@@ -874,11 +874,11 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1537",
+    "monday": "103",
     "tuesday": "1283",
     "wednesday": "",
     "thursday": "1283",
-    "friday": "1537",
+    "friday": "103",
     "saturday": ""
   },
   {
@@ -895,11 +895,11 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1537",
+    "monday": "103",
     "tuesday": "1283",
     "wednesday": "",
     "thursday": "1283",
-    "friday": "1537",
+    "friday": "103",
     "saturday": ""
   },
   {
@@ -958,11 +958,11 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1537",
+    "monday": "103",
     "tuesday": "",
-    "wednesday": "1537",
+    "wednesday": "103",
     "thursday": "",
-    "friday": "1537",
+    "friday": "103",
     "saturday": ""
   },
   {
@@ -1105,11 +1105,11 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1537",
+    "monday": "103",
     "tuesday": "",
-    "wednesday": "1537",
+    "wednesday": "103",
     "thursday": "",
-    "friday": "1537",
+    "friday": "103",
     "saturday": ""
   },
   {
@@ -1567,12 +1567,12 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "Samlast",
-    "tuesday": "Samlast",
-    "wednesday": "Samlast",
-    "thursday": "Samlast",
-    "friday": "Samlast",
-    "saturday": ""
+    "monday": "1081",
+    "tuesday": "1013",
+    "wednesday": "1081",
+    "thursday": "1013",
+    "friday": "1081",
+    "saturday": "1081"
   },
   {
     "consignee": "Coop Styrsö",
@@ -1756,11 +1756,11 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1537",
+    "monday": "103",
     "tuesday": "1283",
     "wednesday": "",
     "thursday": "1283",
-    "friday": "1537",
+    "friday": "103",
     "saturday": ""
   },
   {
@@ -1777,11 +1777,11 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1537",
+    "monday": "103",
     "tuesday": "1283",
     "wednesday": "",
     "thursday": "1283",
-    "friday": "1537",
+    "friday": "103",
     "saturday": ""
   },
   {
@@ -1861,11 +1861,11 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1537",
+    "monday": "103",
     "tuesday": "1283",
     "wednesday": "",
     "thursday": "1283",
-    "friday": "1537",
+    "friday": "103",
     "saturday": ""
   },
   {
@@ -1924,11 +1924,11 @@
     "lastningspostnr": "424 38",
     "lastningspostort": "Agnesberg",
     "sunday": "",
-    "monday": "1537",
+    "monday": "103",
     "tuesday": "",
-    "wednesday": "1537",
+    "wednesday": "103",
     "thursday": "",
-    "friday": "1537",
+    "friday": "103",
     "saturday": ""
   },
   {

@@ -144,7 +144,7 @@
   },
   {
     "butiksnr": "136034",
-    "butiksnamn": "COOP GÖTEBORG ANDRA LÅNGGATAN / MÖLNDALSVÄGEN 1 / 41327 GÖTEBORG",
+    "butiksnamn": "COOP ANDRA LÅNGGATAN / MÖLNDALSVÄGEN 1 / 41327 GÖTEBORG",
     "sunday": "",
     "monday": "",
     "tuesday": "13:00:00",
@@ -201,11 +201,11 @@
     "butiksnr": "136621",
     "butiksnamn": "COOP MALMÖN / STRANDVÄGEN 38 / 45655 BOHUS-MALMÖN",
     "sunday": "",
-    "monday": "12:30:00",
-    "tuesday": "",
-    "wednesday": "",
-    "thursday": "12:30:00",
-    "friday": "",
+    "monday": "08:00:00",
+    "tuesday": "08:00:00",
+    "wednesday": "08:00:00",
+    "thursday": "08:00:00",
+    "friday": "08:00:00",
     "saturday": ""
   },
   {
@@ -353,7 +353,7 @@
   },
   {
     "butiksnr": "136027",
-    "butiksnamn": "COOP GÖTEBORG MARKLANDSGATAN / SKÅNEGATAN 65 / 41477 GÖTEBORG",
+    "butiksnamn": "COOP MARKLANDSGATAN / SKÅNEGATAN 65 / 41477 GÖTEBORG",
     "sunday": "",
     "monday": "09:00:00",
     "tuesday": "",
@@ -386,7 +386,7 @@
   },
   {
     "butiksnr": "136031",
-    "butiksnamn": "COOP KALLEBÄCK / NÄSBYCHAUSSÉN 70 / 41275 GÖTEBORG",
+    "butiksnamn": "COOP KALLEBÄCK / OSTGATAN 11 / 41275 GÖTEBORG",
     "sunday": "",
     "monday": "07:00:00",
     "tuesday": "",
@@ -509,12 +509,12 @@
     "butiksnr": "126436",
     "butiksnamn": "COOP MARSTRAND / ARVIDSVIK, RINGPLAN / 44266 MARSTRAND",
     "sunday": "",
-    "monday": "",
-    "tuesday": "08:00:00",
-    "wednesday": "",
-    "thursday": "08:00:00",
-    "friday": "08:00:00",
-    "saturday": ""
+    "monday": "07:30:00",
+    "tuesday": "07:30:00",
+    "wednesday": "07:30:00",
+    "thursday": "07:30:00",
+    "friday": "07:30:00",
+    "saturday": "07:30:00"
   },
   {
     "butiksnr": "136000",
@@ -573,7 +573,7 @@
   },
   {
     "butiksnr": "136030",
-    "butiksnamn": "COOP GÖTEBORG MÖLNDALSVÄGEN / PARKGATAN 14 / 41263 GÖTEBORG",
+    "butiksnamn": "COOP MÖLNDALSVÄGEN / PARKGATAN 14 / 41263 GÖTEBORG",
     "sunday": "",
     "monday": "08:30:00",
     "tuesday": "",
@@ -674,12 +674,12 @@
     "butiksnr": "131800",
     "butiksnamn": "COOP STRÖMSTAD / OSLOVÄGEN 1 / 45235 STRÖMSTAD",
     "sunday": "",
-    "monday": "10:00:00",
-    "tuesday": "",
-    "wednesday": "",
-    "thursday": "10:00:00",
-    "friday": "",
-    "saturday": "10:30:00"
+    "monday": "05:30:00",
+    "tuesday": "05:30:00",
+    "wednesday": "05:30:00",
+    "thursday": "05:30:00",
+    "friday": "05:30:00",
+    "saturday": "05:30:00"
   },
   {
     "butiksnr": "136671",
