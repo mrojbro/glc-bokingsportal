@@ -5,6 +5,7 @@ import {
   getPresetsForLeverantor,
   type LeverantorPreset,
 } from '../leverantorPresets'
+import { EuDateField } from './EuDateField'
 
 export interface AddRowFormValues {
   leverantor: string
@@ -22,8 +23,10 @@ interface AddRowDialogProps {
   onCancel: () => void
 }
 
-const inputClassName =
-  'mt-1.5 w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm text-[var(--color-text)] outline-none focus:border-[var(--color-accent)]'
+const fieldInputClassName =
+  'w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm text-[var(--color-text)] outline-none focus:border-[var(--color-accent)]'
+
+const inputClassName = `mt-1.5 ${fieldInputClassName}`
 
 function isValidIsoDate(value: string): boolean {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false
@@ -108,12 +111,10 @@ export function AddRowDialog({
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block text-sm font-medium text-[var(--color-text)]">
               Datum
-              <input
-                type="date"
-                lang="sv-SE"
+              <EuDateField
                 value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className={inputClassName}
+                onChange={setDate}
+                inputClassName={fieldInputClassName}
               />
             </label>
             <div className="block text-sm font-medium text-[var(--color-text)]">
