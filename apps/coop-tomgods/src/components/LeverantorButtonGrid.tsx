@@ -3,6 +3,9 @@ import { getLeverantorRegisterOptions } from '../leverantorRegister'
 const buttonClassName =
   'flex h-full min-h-[4.5rem] items-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-card)] p-4 text-left transition hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-dim)]'
 
+const disabledButtonClassName =
+  'pointer-events-none flex h-full min-h-[4.5rem] items-center rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)] p-4 text-left opacity-50'
+
 interface LeverantorButtonGridProps {
   onSelect: (leverantor: string) => void
 }
@@ -32,6 +35,19 @@ export function LeverantorButtonGrid({ onSelect }: LeverantorButtonGridProps) {
             {entry.leverantor}
           </span>
         </button>
+      ))}
+      <div className={disabledButtonClassName} aria-disabled="true">
+        <span className="text-base font-semibold leading-snug text-[var(--color-text-muted)]">
+          Orkla Kungshamn
+        </span>
+      </div>
+      {Array.from({ length: 5 }, (_, index) => (
+        <div
+          key={`placeholder-${index}`}
+          className={disabledButtonClassName}
+          aria-disabled="true"
+          aria-hidden="true"
+        />
       ))}
     </div>
   )
