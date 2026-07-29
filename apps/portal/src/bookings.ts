@@ -40,7 +40,7 @@ export const SUMMERING_TOOLS: BookingTool[] = [
     id: 'coop-summering',
     label: 'Coop Summering',
     segment: 'coop-summering',
-    status: 'coming-soon',
+    status: 'ready',
   },
   {
     id: 'lokalt-summering',
@@ -65,6 +65,7 @@ const DEV_TOOL_ORIGINS: Record<string, string> = {
   'coop-frukt': 'http://localhost:5178/coop-frukt/',
   'coop-tomgods': 'http://localhost:5179/coop-tomgods/',
   comforta: 'http://localhost:5180/comforta/',
+  'coop-summering': 'http://localhost:5181/coop-summering/',
 }
 
 export function bookingToolHref(segment: string): string {
