@@ -213,7 +213,7 @@ function boldFraktsedelnummerPrefix(cell: ExcelJS.Cell): void {
 
 function autoFitColumns(sheet: ExcelJS.Worksheet): void {
   sheet.columns.forEach((column, index) => {
-    if (!column) return
+    if (!column?.eachCell) return
     const colName = T5_COLUMNS[index]
     let maxLength = colName?.length ?? 8
     column.eachCell({ includeEmpty: true }, (cell) => {
