@@ -89,6 +89,7 @@ export default function App() {
     if (errors.length > 0) {
       setError(errors.join(' '))
       setSummary(null)
+      setRecipientsDone(false)
       return
     }
 
@@ -104,11 +105,13 @@ export default function App() {
             : 'Klistra in data i minst en summeringskälla och skapa summering.',
       )
       setSummary(null)
+      setRecipientsDone(false)
       return
     }
 
     const pivot = computePivotSummary(allRows)
     setSummary(pivot)
+    setRecipientsDone(false)
     const sourceCount = pivotSources.filter((s) => (nextCounts[s.id] ?? 0) > 0).length
     setStatus(
       `Summering klar: ${allRows.length} rad(er) från ${sourceCount} källa(or)` +
@@ -258,10 +261,14 @@ export default function App() {
             3. Mottagare &amp; summering
           </h2>
           <div className="space-y-4">
-            <OutlookRecipients
-              done={recipientsDone}
-              onDoneChange={setRecipientsDone}
-            />
+            {summary &&
+              summary.rowLabels.length > 0 &&
+              summary.columnLabels.length > 0 && (
+                <OutlookRecipients
+                  done={recipientsDone}
+                  onDoneChange={setRecipientsDone}
+                />
+              )}
             <PivotSummaryTable
               summary={
                 summary ?? {

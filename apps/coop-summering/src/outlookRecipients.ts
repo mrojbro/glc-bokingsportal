@@ -12,9 +12,9 @@ export const OUTLOOK_RECIPIENTS = [
   'susanne.utriainen@glcse.onmicrosoft.com',
   'antonio.lucik@glc.se',
   'drilon.mulaku@glc.se',
-  'Distribution.GLC@glc.se',
-  'Luigi.Johannesson@glc.se',
-  'Elinor.Rosenback@glc.se',
+  'distribution.glc@glc.se',
+  'luigi.johannesson@glc.se',
+  'elinor.rosenback@glc.se',
   'stefan.abrahamsson@glc.se',
   'martin.rojbro@glc.se',
 ] as const
