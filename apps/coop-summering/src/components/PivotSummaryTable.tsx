@@ -5,14 +5,20 @@ import type { PivotSummary } from '../types'
 
 interface PivotSummaryTableProps {
   summary: PivotSummary
+  /** When false, Outlook copy is disabled (recipients not all marked). */
+  canCopyToOutlook?: boolean
 }
 
-export function PivotSummaryTable({ summary }: PivotSummaryTableProps) {
+export function PivotSummaryTable({
+  summary,
+  canCopyToOutlook = true,
+}: PivotSummaryTableProps) {
   const [copyStatus, setCopyStatus] = useState<string | null>(null)
 
   const hasData = summary.rowLabels.length > 0 && summary.columnLabels.length > 0
 
   const handleCopy = async () => {
+    if (!canCopyToOutlook) return
     try {
       await copyPivotForOutlook(summary)
       setCopyStatus('Kopierat — klistra in i Outlook (Ctrl+V).')
@@ -49,11 +55,24 @@ export function PivotSummaryTable({ summary }: PivotSummaryTableProps) {
         <button
           type="button"
           onClick={handleCopy}
-          className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0d1117] transition-opacity hover:opacity-90"
+          disabled={!canCopyToOutlook}
+          title={
+            canCopyToOutlook
+              ? 'Kopiera tabellen till urklipp'
+              : 'Markera alla mottagare (gröna) innan du kopierar summeringen'
+          }
+          className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0d1117] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
         >
           Kopiera till Outlook
         </button>
       </div>
+
+      {!canCopyToOutlook && (
+        <p className="border-b border-[var(--color-border-subtle)] px-4 py-2 text-xs text-[var(--color-warning)]">
+          Kopiera mottagarna först (alla måste vara gröna) innan summeringen kan
+          kopieras.
+        </p>
+      )}
 
       {copyStatus && (
         <p className="border-b border-[var(--color-border-subtle)] px-4 py-2 text-xs text-[var(--color-accent)]">

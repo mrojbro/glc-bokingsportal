@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import { HubHomeLink } from '../../../shared/hub-link/HubHomeLink.tsx'
+import { OutlookRecipients } from './components/OutlookRecipients'
 import { PasteSource } from './components/PasteSource'
 import { PivotSummaryTable } from './components/PivotSummaryTable'
 import { computePivotSummary } from './computePivot'
@@ -27,6 +28,7 @@ export default function App() {
   const [t5Status, setT5Status] = useState<string | null>(null)
   const [t5Error, setT5Error] = useState<string | null>(null)
   const [t5Downloading, setT5Downloading] = useState(false)
+  const [recipientsDone, setRecipientsDone] = useState(false)
 
   const pivotSources = useMemo(
     () =>
@@ -253,20 +255,27 @@ export default function App() {
 
         <section>
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
-            3. Summeringstabell
+            3. Mottagare &amp; summering
           </h2>
-          <PivotSummaryTable
-            summary={
-              summary ?? {
-                rowLabels: [],
-                columnLabels: [],
-                values: {},
-                rowTotals: {},
-                columnTotals: {},
-                grandTotal: 0,
+          <div className="space-y-4">
+            <OutlookRecipients
+              done={recipientsDone}
+              onDoneChange={setRecipientsDone}
+            />
+            <PivotSummaryTable
+              summary={
+                summary ?? {
+                  rowLabels: [],
+                  columnLabels: [],
+                  values: {},
+                  rowTotals: {},
+                  columnTotals: {},
+                  grandTotal: 0,
+                }
               }
-            }
-          />
+              canCopyToOutlook={recipientsDone}
+            />
+          </div>
           {t5Rows.length > 0 && (
             <p className="mt-3 text-xs text-[var(--color-text-muted)]">
               Senaste T5-export: {t5Rows.length} rad(er) med låst rubrikrad och
