@@ -86,12 +86,12 @@ export const FUN_PORTAL_LINKS: ExternalPortalLink[] = [
   },
   {
     id: 'ring-ring',
-    label: 'Ring Ring',
+    label: 'Aliens existerar',
     href: 'https://www.youtube.com/watch?v=M-QbTGRuwmw',
   },
   {
     id: 'pineapple',
-    label: 'Pineapple',
+    label: 'Mjauuu',
     href: 'https://www.youtube.com/watch?v=Ct6BUPvE2sM',
   },
 ]

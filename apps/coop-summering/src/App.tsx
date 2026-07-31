@@ -5,7 +5,7 @@ import { OutlookRecipients } from './components/OutlookRecipients'
 import { PasteSource } from './components/PasteSource'
 import { PivotSummaryTable } from './components/PivotSummaryTable'
 import { computePivotSummary } from './computePivot'
-import { SOURCES, SOURCE_RULE_HINTS } from './constants'
+import { SOURCES } from './constants'
 import { downloadT5Excel } from './exportT5Excel'
 import { filterRowsForSource } from './filterRows'
 import {
@@ -234,7 +234,6 @@ export default function App() {
                 rowCountLabel={
                   source.kind === 'excel' ? 'rad(er) klara' : 'rad(er) i summering'
                 }
-                ruleHint={SOURCE_RULE_HINTS[source.id]}
               />
             ))}
           </div>
