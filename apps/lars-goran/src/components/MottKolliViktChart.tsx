@@ -3,7 +3,7 @@ import { formatSummaryNumber } from '../computeOutputSummary'
 import { computeTopMottByKolliVikt } from '../computeTopMottByKolliVikt'
 import type { OutputRow } from '../types'
 
-const BAR_COLORS = ['#58a6ff', '#3fb950', '#d29922', '#a371f7', '#39c5cf']
+const BAR_COLORS = ['#eb6e08', '#3fb950', '#d29922', '#a371f7', '#39c5cf']
 
 interface MottKolliViktChartProps {
   rows: OutputRow[]

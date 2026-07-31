@@ -43,7 +43,7 @@ export function PasteInput({
           type="button"
           onClick={onSubmit}
           disabled={!hasText || isLoading}
-          className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0d1117] transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
         >
           Bearbeta inklistrad data
         </button>

@@ -23,7 +23,7 @@ export function EkipagePdfPanel({
         type="button"
         onClick={onDownload}
         disabled={disabled}
-        className="mt-4 w-full rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0d1117] transition-opacity disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
+        className="mt-4 w-full rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
       >
         Ladda ner PDF
       </button>

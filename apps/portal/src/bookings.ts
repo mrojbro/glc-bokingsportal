@@ -17,7 +17,7 @@ const BOOKING_TOOLS_UNSORTED: BookingTool[] = [
     status: 'coming-soon',
   },
   { id: 'coop-matkassar', label: 'Coop Matkassar', segment: 'coop-matkassar', status: 'ready' },
-  { id: 'coop-frukt', label: 'Coop Frukt', segment: 'coop-frukt', status: 'ready' },
+  { id: 'coop-frukt', label: 'Coop Frukt', segment: 'coop-frukt', status: 'coming-soon' },
   { id: 'coop-tomgods', label: 'Coop Tomgods', segment: 'coop-tomgods', status: 'ready' },
   {
     id: 'coop-distribution',
@@ -53,6 +53,46 @@ export const SUMMERING_TOOLS: BookingTool[] = [
     label: 'Fjärr Summering',
     segment: 'fjarr-summering',
     status: 'coming-soon',
+  },
+]
+
+export interface ExternalPortalLink {
+  id: string
+  label: string
+  href: string
+}
+
+/** Fun / easter-egg links below summering tools. */
+export const FUN_PORTAL_LINKS: ExternalPortalLink[] = [
+  {
+    id: 'vaga-tryck-har',
+    label: 'Våga tryck här',
+    href: 'https://www.youtube.com/watch?v=Sagg08DrO5U',
+  },
+  {
+    id: 'vagar-du-trycka-har',
+    label: 'Vågar du trycka här?',
+    href: 'https://www.youtube.com/watch?v=-cLpZKVH07w',
+  },
+  {
+    id: 'garanterad-lottovinst',
+    label: 'Garanterad lottovinst',
+    href: 'https://www.youtube.com/watch?v=kxSOhBdwmc4',
+  },
+  {
+    id: 'jesus-lever',
+    label: 'Jesus lever',
+    href: 'https://www.youtube.com/watch?v=aTJncWndUB8',
+  },
+  {
+    id: 'ring-ring',
+    label: 'Ring Ring',
+    href: 'https://www.youtube.com/watch?v=M-QbTGRuwmw',
+  },
+  {
+    id: 'pineapple',
+    label: 'Pineapple',
+    href: 'https://www.youtube.com/watch?v=Ct6BUPvE2sM',
   },
 ]
 

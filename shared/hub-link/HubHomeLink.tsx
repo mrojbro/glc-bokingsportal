@@ -1,10 +1,11 @@
 import { getHubHomeHref } from './getHubHomeHref'
+import './hub-home-link.css'
 
 function HomeIcon() {
   return (
     <svg
       aria-hidden
-      className="h-4 w-4 shrink-0"
+      className="hub-home-link__icon"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -25,7 +26,7 @@ export function HubHomeLink({ className = '' }: HubHomeLinkProps) {
   return (
     <a
       href={getHubHomeHref()}
-      className={`inline-flex items-center gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-card)] px-3 py-2 text-sm font-medium text-[var(--color-text)] transition-colors hover:border-[#484f58] hover:bg-[var(--color-surface-elevated)] ${className}`.trim()}
+      className={['hub-home-link', className].filter(Boolean).join(' ')}
       title="Tillbaka till portalen"
     >
       <HomeIcon />

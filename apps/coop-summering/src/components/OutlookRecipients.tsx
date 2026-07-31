@@ -70,9 +70,9 @@ export function OutlookRecipients({
 
   return (
     <div className="overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-card)]">
-      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--color-border)] px-4 py-3">
+      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--color-accent)]/30 bg-[var(--color-accent-dim)] px-4 py-3">
         <div>
-          <h3 className="text-sm font-semibold text-[var(--color-text)]">
+          <h3 className="text-sm font-semibold text-[var(--color-accent)]">
             Mottagare
           </h3>
           <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">
@@ -85,7 +85,7 @@ export function OutlookRecipients({
           <button
             type="button"
             onClick={handleCopyAll}
-            className="rounded-lg bg-[var(--color-accent)] px-3 py-1.5 text-sm font-semibold text-[#0d1117] transition-opacity hover:opacity-90"
+            className="rounded-lg bg-[var(--color-accent)] px-3 py-1.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
           >
             Kopiera alla
           </button>

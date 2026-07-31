@@ -1,13 +1,20 @@
-import { BOOKING_TOOLS, SUMMERING_TOOLS, bookingToolHref } from './bookings'
+import {
+  BOOKING_TOOLS,
+  FUN_PORTAL_LINKS,
+  SUMMERING_TOOLS,
+  bookingToolHref,
+} from './bookings'
 
 function BookingCard({
   label,
   href,
   status,
+  external = false,
 }: {
   label: string
   href: string
   status: 'ready' | 'coming-soon'
+  external?: boolean
 }) {
   const ready = status === 'ready'
 
@@ -37,7 +44,13 @@ function BookingCard({
   }
 
   return (
-    <a className={className} href={href}>
+    <a
+      className={className}
+      href={href}
+      {...(external
+        ? { target: '_blank', rel: 'noopener noreferrer' }
+        : {})}
+    >
       {title}
     </a>
   )
@@ -82,6 +95,24 @@ export default function App() {
               label={tool.label}
               href={bookingToolHref(tool.segment)}
               status={tool.status}
+            />
+          ))}
+        </div>
+
+        <div
+          className="my-8 border-t border-[var(--color-border)]"
+          role="separator"
+          aria-hidden="true"
+        />
+
+        <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {FUN_PORTAL_LINKS.map((link) => (
+            <BookingCard
+              key={link.id}
+              label={link.label}
+              href={link.href}
+              status="ready"
+              external
             />
           ))}
         </div>

@@ -57,7 +57,7 @@ export function SaturdayDeliveryDialog({
               <button
                 type="button"
                 onClick={onConfirmSaturday}
-                className="flex-1 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0d1117] transition-opacity hover:opacity-90"
+                className="flex-1 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"
               >
                 Ja, lördag
               </button>
@@ -96,7 +96,7 @@ export function SaturdayDeliveryDialog({
                 type="button"
                 onClick={() => selectedDate && onConfirmDate(selectedDate)}
                 disabled={!selectedDate}
-                className="flex-1 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0d1117] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex-1 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 OK
               </button>

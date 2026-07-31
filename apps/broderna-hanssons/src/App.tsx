@@ -1,4 +1,4 @@
-const hubHref = import.meta.env.BASE_URL.replace(/\/[^/]+\/$/, '/')
+import { HubHomeLink } from '../../../shared/hub-link/HubHomeLink.tsx'
 
 export default function App() {
   return (
@@ -11,9 +11,9 @@ export default function App() {
         <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
           Detta verktyg är under utveckling och kommer snart.
         </p>
-        <a className="mt-6 inline-block text-sm font-medium hover:underline" href={hubHref}>
-          ← Tillbaka till portalen
-        </a>
+        <div className="mt-6 flex justify-center">
+          <HubHomeLink />
+        </div>
       </div>
     </div>
   )

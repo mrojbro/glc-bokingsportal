@@ -176,7 +176,7 @@ export function EuDateField({ value, onChange, inputClassName }: EuDateFieldProp
                   className={[
                     'rounded-md py-1.5 text-sm transition-colors',
                     isSelected
-                      ? 'bg-[var(--color-accent)] font-semibold text-[#0d1117]'
+                      ? 'bg-[var(--color-accent)] font-semibold text-white'
                       : isToday
                         ? 'border border-[var(--color-accent)]/60 text-[var(--color-accent)] hover:bg-[var(--color-accent-dim)]'
                         : 'text-[var(--color-text)] hover:bg-[var(--color-surface-card)]',

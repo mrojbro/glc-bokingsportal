@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import { HubHomeLink } from '../../../shared/hub-link/HubHomeLink.tsx'
+import { MessageDialog } from './components/MessageDialog'
 import { OutlookRecipients } from './components/OutlookRecipients'
 import { PasteSource } from './components/PasteSource'
 import { PivotSummaryTable } from './components/PivotSummaryTable'
@@ -29,6 +30,7 @@ export default function App() {
   const [t5Error, setT5Error] = useState<string | null>(null)
   const [t5Downloading, setT5Downloading] = useState(false)
   const [recipientsDone, setRecipientsDone] = useState(false)
+  const [popupMessage, setPopupMessage] = useState<string | null>(null)
 
   const pivotSources = useMemo(
     () =>
@@ -125,6 +127,17 @@ export default function App() {
     setT5Error(null)
     setT5Status(null)
 
+    const hasSummary =
+      summary != null &&
+      summary.rowLabels.length > 0 &&
+      summary.columnLabels.length > 0
+    if (!hasSummary) {
+      setPopupMessage(
+        'Ajabaja, skapa summering först.\n(Röjbro tillåter inte fritt tänkande)',
+      )
+      return
+    }
+
     const text = pastes[T5_SOURCE_ID] ?? ''
     if (!text.trim()) {
       setT5Error('Klistra in T5-data innan du laddar ner Excel.')
@@ -152,13 +165,18 @@ export default function App() {
     } finally {
       setT5Downloading(false)
     }
-  }, [pastes])
+  }, [pastes, summary])
 
   const canBuild = pivotSources.some((source) => (pastes[source.id] ?? '').trim())
   const canDownloadT5 = (pastes[T5_SOURCE_ID] ?? '').trim().length > 0
 
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">
+      <MessageDialog
+        open={popupMessage != null}
+        message={popupMessage ?? ''}
+        onClose={() => setPopupMessage(null)}
+      />
       <header className="border-b border-[var(--color-border)] bg-[var(--color-surface-elevated)]">
         <div className="mx-auto flex max-w-[1800px] flex-wrap items-start justify-between gap-4 px-4 py-5 sm:px-6">
           <div>
@@ -192,18 +210,6 @@ export default function App() {
                   source.kind === 'excel' ? 'rad(er) klara' : 'rad(er) i summering'
                 }
                 ruleHint={SOURCE_RULE_HINTS[source.id]}
-                action={
-                  source.id === T5_SOURCE_ID ? (
-                    <button
-                      type="button"
-                      onClick={handleDownloadT5}
-                      disabled={!canDownloadT5 || t5Downloading}
-                      className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0d1117] transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
-                    >
-                      {t5Downloading ? 'Skapar Excel…' : 'Ladda ner T5 Excel'}
-                    </button>
-                  ) : undefined
-                }
               />
             ))}
           </div>
@@ -212,9 +218,17 @@ export default function App() {
               type="button"
               onClick={handleBuildSummary}
               disabled={!canBuild}
-              className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0d1117] transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
             >
               Skapa summering
+            </button>
+            <button
+              type="button"
+              onClick={handleDownloadT5}
+              disabled={!canDownloadT5 || t5Downloading}
+              className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {t5Downloading ? 'Skapar Excel…' : 'Ladda ner T5 Excel'}
             </button>
           </div>
         </section>

@@ -29,7 +29,7 @@ export function EmailReminderDialog({
         <button
           type="button"
           onClick={onConfirm}
-          className="mt-5 w-full rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0d1117] transition-opacity hover:opacity-90"
+          className="mt-5 w-full rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"
         >
           OK
         </button>

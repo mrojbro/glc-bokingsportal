@@ -574,7 +574,7 @@ export default function App() {
               'rounded-lg px-4 py-2 text-sm font-semibold transition-all disabled:cursor-not-allowed ' +
               (xlsxWaitingForPdf
                 ? 'animate-pulse border-2 border-[var(--color-warning)] bg-[var(--color-warning)]/15 text-[var(--color-warning)]'
-                : 'bg-[var(--color-accent)] text-[#0d1117] disabled:opacity-40')
+                : 'bg-[var(--color-accent)] text-white disabled:opacity-40')
             }
           >
             Ladda ner .xlsx
