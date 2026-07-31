@@ -8,6 +8,10 @@ import { computePivotSummary } from './computePivot'
 import { SOURCES, SOURCE_RULE_HINTS } from './constants'
 import { downloadT5Excel } from './exportT5Excel'
 import { filterRowsForSource } from './filterRows'
+import {
+  collectRequestedDates,
+  matchRequestedDatesAcrossSources,
+} from './matchRequestedDates'
 import { parseInputText } from './parseInput'
 import { parseT5InputText } from './parseT5Input'
 import type { InputRow, PivotSummary } from './types'
@@ -64,6 +68,11 @@ export default function App() {
     const errors: string[] = []
     let filteredOutTotal = 0
     let parsedTotal = 0
+    const datesBySource: {
+      sourceId: string
+      label: string
+      dates: string[]
+    }[] = []
 
     for (const source of pivotSources) {
       const text = pastes[source.id] ?? ''
@@ -84,12 +93,28 @@ export default function App() {
       filteredOutTotal += filteredOut
       nextCounts[source.id] = kept.length
       allRows.push(...kept)
+
+      // Date check uses all parsed rows for #2 so Direkt can be excluded explicitly;
+      // #1 uses all parsed rows (same date column).
+      datesBySource.push({
+        sourceId: source.id,
+        label: source.label,
+        dates: collectRequestedDates(source.id, parsed.rows),
+      })
     }
 
     setRowCounts(nextCounts)
 
     if (errors.length > 0) {
       setError(errors.join(' '))
+      setSummary(null)
+      setRecipientsDone(false)
+      return
+    }
+
+    const dateMismatch = matchRequestedDatesAcrossSources(datesBySource)
+    if (dateMismatch) {
+      setError(dateMismatch)
       setSummary(null)
       setRecipientsDone(false)
       return

@@ -62,9 +62,9 @@ export const SOURCES: SourceConfig[] = [
 /** Short rule hint shown under each paste source. */
 export const SOURCE_RULE_HINTS: Record<string, string> = {
   'coop-eskilstuna-enkoping':
-    'Summerar endast Dry, Fresh/Chilled och Frozen.',
+    'Summerar endast Dry, Fresh/Chilled och Frozen. Datum (Latest Requested Date) måste matcha Nowaste.',
   'nowaste-helsingborg':
-    'Tillåter Fruits (Direkt/GLC/Flytten). Fruits (Direkt) räknas inte i summeringen.',
+    'Tillåter Fruits (Direkt/GLC/Flytten). Fruits (Direkt) räknas inte i summeringen eller datumkollen.',
   't5-coop':
     'Klistra in T5-data (kolumnordning spelar ingen roll). Ladda ner Excel med formatering.',
 }
