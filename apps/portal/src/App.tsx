@@ -1,9 +1,33 @@
+import { useState } from 'react'
 import {
   BOOKING_TOOLS,
   FUN_PORTAL_LINKS,
   SUMMERING_TOOLS,
   bookingToolHref,
+  type ExternalPortalLink,
 } from './bookings'
+
+function shuffle<T>(items: readonly T[]): T[] {
+  const next = [...items]
+  for (let i = next.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[next[i], next[j]] = [next[j], next[i]]
+  }
+  return next
+}
+
+/** Randomize labels and links independently on each page load. */
+function randomizeFunLinks(
+  links: readonly ExternalPortalLink[],
+): ExternalPortalLink[] {
+  const labels = shuffle(links.map((link) => link.label))
+  const hrefs = shuffle(links.map((link) => link.href))
+  return links.map((_, index) => ({
+    id: `fun-${index}`,
+    label: labels[index] ?? '',
+    href: hrefs[index] ?? '',
+  }))
+}
 
 function BookingCard({
   label,
@@ -57,6 +81,8 @@ function BookingCard({
 }
 
 export default function App() {
+  const [funLinks] = useState(() => randomizeFunLinks(FUN_PORTAL_LINKS))
+
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">
       <header className="border-b border-[var(--color-border)] bg-[var(--color-surface-elevated)]">
@@ -106,7 +132,7 @@ export default function App() {
         />
 
         <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {FUN_PORTAL_LINKS.map((link) => (
+          {funLinks.map((link) => (
             <BookingCard
               key={link.id}
               label={link.label}
