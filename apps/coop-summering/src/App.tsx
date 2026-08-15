@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { HubHomeLink } from '../../../shared/hub-link/HubHomeLink.tsx'
 import { MessageDialog } from './components/MessageDialog'
 import { OutlookRecipients } from './components/OutlookRecipients'
@@ -16,6 +16,7 @@ import { parseInputText } from './parseInput'
 import { parseT5InputText } from './parseT5Input'
 import type { InputRow, PivotSummary } from './types'
 import type { T5Row } from './t5Constants'
+import { uploadSummeringExcelFiles } from './uploadSummeringExcel'
 
 const T5_SOURCE_ID = 't5-coop'
 
@@ -37,6 +38,8 @@ export default function App() {
   const [popupMessage, setPopupMessage] = useState<string | null>(null)
   const [extraFilesPromptOpen, setExtraFilesPromptOpen] = useState(false)
   const [uploadHintOpen, setUploadHintOpen] = useState(false)
+  const [uploadingSummering, setUploadingSummering] = useState(false)
+  const uploadInputRef = useRef<HTMLInputElement>(null)
 
   const pivotSources = useMemo(
     () =>
@@ -167,6 +170,62 @@ export default function App() {
     setPopupMessage(null)
   }, [])
 
+  const handleLaddaUppSummeringClick = useCallback(() => {
+    setUploadHintOpen(false)
+    uploadInputRef.current?.click()
+  }, [])
+
+  const handleSummeringFilesSelected = useCallback(
+    async (fileList: FileList | null) => {
+      const files = fileList ? [...fileList] : []
+      if (uploadInputRef.current) uploadInputRef.current.value = ''
+      if (files.length === 0) return
+
+      setUploadingSummering(true)
+      setError(null)
+      setStatus(null)
+      try {
+        const result = await uploadSummeringExcelFiles(files)
+        handleResetForUpload()
+
+        setPastes((prev) => ({
+          ...prev,
+          ...result.pastes,
+        }))
+
+        if (result.errors.length > 0) {
+          setError(result.errors.join(' '))
+        }
+
+        if (result.assignedCount > 0) {
+          const parts: string[] = []
+          if (result.pastes['coop-eskilstuna-enkoping']) {
+            parts.push('Coop Eskilstuna-Enköping')
+          }
+          if (result.pastes['nowaste-helsingborg']) {
+            parts.push('Nowaste Helsingborg')
+          }
+          setStatus(
+            `Laddade upp ${result.assignedCount} Excel-fil(er)` +
+              (parts.length > 0 ? ` → ${parts.join(' + ')}` : '') +
+              '. Tryck Skapa summering när du är klar.',
+          )
+        } else if (result.errors.length === 0) {
+          setError('Inga filer kunde läsas in.')
+        }
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : 'Kunde inte ladda upp Excel-filerna.',
+        )
+      } finally {
+        setUploadingSummering(false)
+      }
+    },
+    [handleResetForUpload],
+  )
+
   const handleSkapaSummeringClick = useCallback(() => {
     setExtraFilesPromptOpen(true)
   }, [])
@@ -252,6 +311,23 @@ export default function App() {
         open={uploadHintOpen}
         message="Välj Ladda upp summering, all data nollställs"
         onClose={() => setUploadHintOpen(false)}
+        actions={[
+          {
+            label: 'OK',
+            onClick: () => {
+              setUploadHintOpen(false)
+              handleLaddaUppSummeringClick()
+            },
+          },
+        ]}
+      />
+      <input
+        ref={uploadInputRef}
+        type="file"
+        accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        multiple
+        className="hidden"
+        onChange={(e) => handleSummeringFilesSelected(e.target.files)}
       />
       <header className="border-b border-[var(--color-border)] bg-[var(--color-surface-elevated)]">
         <div className="mx-auto flex max-w-[1800px] flex-wrap items-start justify-between gap-4 px-4 py-5 sm:px-6">
@@ -291,10 +367,11 @@ export default function App() {
           <div className="mt-4 flex flex-wrap gap-3">
             <button
               type="button"
-              onClick={handleResetForUpload}
-              className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-card)] px-4 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-dim)]"
+              onClick={handleLaddaUppSummeringClick}
+              disabled={uploadingSummering}
+              className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-card)] px-4 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-dim)] disabled:cursor-not-allowed disabled:opacity-40"
             >
-              Ladda upp summering
+              {uploadingSummering ? 'Laddar upp…' : 'Ladda upp summering'}
             </button>
             <button
               type="button"
