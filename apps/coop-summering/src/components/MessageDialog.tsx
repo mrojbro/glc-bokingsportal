@@ -1,8 +1,16 @@
+interface DialogAction {
+  label: string
+  onClick: () => void
+  variant?: 'primary' | 'secondary'
+}
+
 interface MessageDialogProps {
   open: boolean
   title?: string
   message: string
   onClose: () => void
+  /** Custom actions; defaults to a single OK that calls onClose. */
+  actions?: DialogAction[]
 }
 
 export function MessageDialog({
@@ -10,8 +18,14 @@ export function MessageDialog({
   title,
   message,
   onClose,
+  actions,
 }: MessageDialogProps) {
   if (!open) return null
+
+  const resolvedActions: DialogAction[] =
+    actions && actions.length > 0
+      ? actions
+      : [{ label: 'OK', onClick: onClose, variant: 'primary' }]
 
   return (
     <div
@@ -40,13 +54,24 @@ export function MessageDialog({
         >
           {message}
         </p>
-        <button
-          type="button"
-          onClick={onClose}
-          className="mt-5 w-full rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+        <div
+          className={`mt-5 flex flex-wrap gap-2 ${resolvedActions.length > 1 ? '' : ''}`}
         >
-          OK
-        </button>
+          {resolvedActions.map((action) => (
+            <button
+              key={action.label}
+              type="button"
+              onClick={action.onClick}
+              className={
+                action.variant === 'secondary'
+                  ? 'flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-card)] px-4 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)]'
+                  : 'flex-1 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90'
+              }
+            >
+              {action.label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   )

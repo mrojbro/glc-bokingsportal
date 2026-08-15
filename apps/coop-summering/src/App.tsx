@@ -35,6 +35,8 @@ export default function App() {
   const [t5Downloading, setT5Downloading] = useState(false)
   const [recipientsDone, setRecipientsDone] = useState(false)
   const [popupMessage, setPopupMessage] = useState<string | null>(null)
+  const [extraFilesPromptOpen, setExtraFilesPromptOpen] = useState(false)
+  const [uploadHintOpen, setUploadHintOpen] = useState(false)
 
   const pivotSources = useMemo(
     () =>
@@ -148,6 +150,27 @@ export default function App() {
     )
   }, [pastes, pivotSources, rowCounts])
 
+  const handleResetForUpload = useCallback(() => {
+    setPastes(Object.fromEntries(SOURCES.map((source) => [source.id, ''])))
+    setRowCounts(
+      Object.fromEntries(SOURCES.map((source) => [source.id, null])),
+    )
+    setSummary(null)
+    setT5Rows([])
+    setError(null)
+    setStatus(null)
+    setT5Status(null)
+    setT5Error(null)
+    setRecipientsDone(false)
+    setExtraFilesPromptOpen(false)
+    setUploadHintOpen(false)
+    setPopupMessage(null)
+  }, [])
+
+  const handleSkapaSummeringClick = useCallback(() => {
+    setExtraFilesPromptOpen(true)
+  }, [])
+
   const handleDownloadT5 = useCallback(async () => {
     setT5Error(null)
     setT5Status(null)
@@ -202,6 +225,34 @@ export default function App() {
         message={popupMessage ?? ''}
         onClose={() => setPopupMessage(null)}
       />
+      <MessageDialog
+        open={extraFilesPromptOpen}
+        message="Några tilläggsfiler?"
+        onClose={() => setExtraFilesPromptOpen(false)}
+        actions={[
+          {
+            label: 'Ja',
+            variant: 'secondary',
+            onClick: () => {
+              setExtraFilesPromptOpen(false)
+              setUploadHintOpen(true)
+            },
+          },
+          {
+            label: 'Nej',
+            variant: 'primary',
+            onClick: () => {
+              setExtraFilesPromptOpen(false)
+              handleBuildSummary()
+            },
+          },
+        ]}
+      />
+      <MessageDialog
+        open={uploadHintOpen}
+        message="Välj Ladda upp summering, all data nollställs"
+        onClose={() => setUploadHintOpen(false)}
+      />
       <header className="border-b border-[var(--color-border)] bg-[var(--color-surface-elevated)]">
         <div className="mx-auto flex max-w-[1800px] flex-wrap items-start justify-between gap-4 px-4 py-5 sm:px-6">
           <div>
@@ -240,7 +291,14 @@ export default function App() {
           <div className="mt-4 flex flex-wrap gap-3">
             <button
               type="button"
-              onClick={handleBuildSummary}
+              onClick={handleResetForUpload}
+              className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-card)] px-4 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-dim)]"
+            >
+              Ladda upp summering
+            </button>
+            <button
+              type="button"
+              onClick={handleSkapaSummeringClick}
               disabled={!canBuild}
               className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
             >
