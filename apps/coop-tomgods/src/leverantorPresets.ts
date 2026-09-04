@@ -51,6 +51,12 @@ export const LEVERANTOR_PRESETS: LeverantorPreset[] = [
     lastbarartyp: 'EUR',
     antalPpl: 30,
   },
+  {
+    leverantor: 'Orkla Kungshamn',
+    antalLastbarare: 864,
+    lastbarartyp: 'EUR',
+    antalPpl: 48,
+  },
 ]
 
 function normalizeLeverantorKey(name: string): string {

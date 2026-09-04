@@ -43,7 +43,12 @@ export const LEVERANTOR_REGISTER: LeverantorRegisterEntry[] = [
     mottagarnummer: '2003355062',
     leveransplats: '2003355062-1',
   },
-
+  {
+    leverantor: 'Orkla Kungshamn',
+    mottagarnamn: 'Orkla Foods Sverige AB',
+    mottagarnummer: '1004445227',
+    leveransplats: '1004445227-6639',
+  },
 ]
 
 function normalizeLeverantorKey(name: string): string {
