@@ -20,7 +20,7 @@ export function LeverantorButtonGrid({ onSelect }: LeverantorButtonGridProps) {
   }
 
   return (
-    <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7">
+    <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 md:grid-cols-4">
       {options.map((entry) => (
         <button
           key={entry.leverantor}

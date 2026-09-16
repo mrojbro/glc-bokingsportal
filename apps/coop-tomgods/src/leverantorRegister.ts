@@ -49,6 +49,12 @@ export const LEVERANTOR_REGISTER: LeverantorRegisterEntry[] = [
     mottagarnummer: '1004445227',
     leveransplats: '1004445227-6639',
   },
+  {
+    leverantor: 'Liba Bröd',
+    mottagarnamn: 'Liba Bröd',
+    mottagarnummer: '2051737740',
+    leveransplats: '2051737740',
+  },
 ]
 
 function normalizeLeverantorKey(name: string): string {

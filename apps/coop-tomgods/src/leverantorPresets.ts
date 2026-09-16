@@ -57,6 +57,12 @@ export const LEVERANTOR_PRESETS: LeverantorPreset[] = [
     lastbarartyp: 'EUR',
     antalPpl: 48,
   },
+  {
+    leverantor: 'Liba Bröd',
+    antalLastbarare: 510,
+    lastbarartyp: 'EUR',
+    antalPpl: 30,
+  },
 ]
 
 function normalizeLeverantorKey(name: string): string {
