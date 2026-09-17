@@ -6,11 +6,17 @@ import tailwindcss from '@tailwindcss/vite'
 
 const appDir = path.dirname(fileURLToPath(import.meta.url))
 
+const hubDev = process.env.VITE_HUB_DEV === '1'
+
 export default defineConfig({
-  base: process.env.VITE_BASE_PATH || '/',
+  base: process.env.VITE_BASE_PATH || (hubDev ? '/broderna-hanssons/' : '/'),
   plugins: [react(), tailwindcss()],
   build: {
     outDir: process.env.OUT_DIR || path.join(appDir, 'dist'),
     emptyOutDir: true,
+  },
+  server: {
+    port: 5182,
+    strictPort: true,
   },
 })

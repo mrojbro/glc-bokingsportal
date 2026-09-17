@@ -6,10 +6,18 @@
   --color-surface-elevated: #202020;
   --color-surface-card: #242424;
   --color-border: #3a3a3a;
+  --color-border-subtle: #2a2a2a;
   --color-text: #ffffff;
   --color-text-muted: #b8b8b8;
   --color-accent: #eb6e08;
   --color-accent-dim: #2a2218;
+  --color-success: #4ade80;
+  --color-warning: #eab308;
+  --color-danger: #f87171;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -18,4 +26,27 @@ body {
   font-family: var(--font-sans);
   background: var(--color-surface);
   color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4a4a;
 }

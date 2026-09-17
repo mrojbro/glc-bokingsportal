@@ -25,5 +25,8 @@
   "include": [
     "src",
     "../../shared/hub-link"
+  ],
+  "exclude": [
+    "src/data/*.json"
   ]
 }
