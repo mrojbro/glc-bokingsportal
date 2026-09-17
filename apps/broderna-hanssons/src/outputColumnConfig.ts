@@ -9,9 +9,9 @@ export const OUTPUT_COLUMN_DISPLAY: Record<
   OutputColumn,
   OutputColumnDisplayConfig
 > = {
-  Kundnr: { width: 80, hidden: false },
+  Kundnr: { width: 80, hidden: true },
   Datum: { width: 90, hidden: false },
-  Märkning: { width: 110, hidden: false },
+  Märkning: { width: 110, hidden: true },
   Fraktsedel: { width: 130, hidden: false },
   Littera: { width: 180, hidden: false },
   Kundkontakt: { width: 140, hidden: true },
@@ -23,7 +23,7 @@ export const OUTPUT_COLUMN_DISPLAY: Record<
   'Term. Postort': { width: 110, hidden: true },
   'Mott. Nr': { width: 90, hidden: true },
   'Mott. Namn': { width: 160, hidden: false },
-  'Mott. Adress': { width: 160, hidden: false },
+  'Mott. Adress': { width: 160, hidden: true },
   'Mott. Postnr': { width: 90, hidden: false },
   'Mott. Postort': { width: 120, hidden: false },
   'Godsslag Temp': { width: 110, hidden: false },

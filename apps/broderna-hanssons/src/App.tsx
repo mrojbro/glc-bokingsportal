@@ -1,6 +1,8 @@
 import { useCallback, useMemo, useState } from 'react'
 import { HubHomeLink } from '../../../shared/hub-link/HubHomeLink.tsx'
+import { ConfirmDialog } from './components/ConfirmDialog'
 import { FileUpload } from './components/FileUpload'
+import { OutputSummary } from './components/OutputSummary'
 import { OutputTable } from './components/OutputTable'
 import { PasteInput } from './components/PasteInput'
 import { downloadOutputExcel } from './exportOutputExcel'
@@ -19,6 +21,10 @@ import { createBlankOutputRow, transformInputRows, applyGodsDerivedFields } from
 import type { OutputColumn } from './constants'
 import type { OutputRow } from './types'
 
+function isFrysgodsTemp(value: string): boolean {
+  return value.trim().toLocaleLowerCase('sv') === 'frysgods'
+}
+
 export default function App() {
   const [outputRows, setOutputRows] = useState<OutputRow[]>([])
   const [sourceLabel, setSourceLabel] = useState<string | null>(null)
@@ -28,6 +34,9 @@ export default function App() {
   const [status, setStatus] = useState<string | null>(null)
   const [warning, setWarning] = useState<string | null>(null)
   const [inputRowCount, setInputRowCount] = useState(0)
+  const [dialog, setDialog] = useState<
+    { type: 'temp'; rowIndex: number } | { type: 'download' } | null
+  >(null)
 
   const registerMatched = useMemo(
     () =>
@@ -148,10 +157,38 @@ export default function App() {
     setOutputRows((prev) => [...prev, createBlankOutputRow()])
   }, [])
 
+  const handleGodsslagTempClick = useCallback((rowIndex: number) => {
+    setDialog({ type: 'temp', rowIndex })
+  }, [])
+
   const handleDownload = useCallback(() => {
     if (outputRows.length === 0) return
-    downloadOutputExcel(outputRows)
-  }, [outputRows])
+    setDialog({ type: 'download' })
+  }, [outputRows.length])
+
+  const handleDialogYes = useCallback(() => {
+    if (dialog?.type === 'temp') {
+      const rowIndex = dialog.rowIndex
+      setOutputRows((prev) =>
+        prev.map((row, i) => {
+          if (i !== rowIndex) return row
+          return {
+            ...row,
+            'Godsslag Temp': isFrysgodsTemp(row['Godsslag Temp'])
+              ? 'Kylgods'
+              : 'Frysgods',
+          }
+        }),
+      )
+    } else if (dialog?.type === 'download') {
+      downloadOutputExcel(outputRows)
+    }
+    setDialog(null)
+  }, [dialog, outputRows])
+
+  const handleDialogNo = useCallback(() => {
+    setDialog(null)
+  }, [])
 
   const hasOutput = outputRows.length > 0
 
@@ -234,11 +271,20 @@ export default function App() {
           )}
         </section>
 
+        {hasOutput && (
+          <section>
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
+              3. Sammanfattning
+            </h2>
+            <OutputSummary rows={outputRows} />
+          </section>
+        )}
+
         {(hasOutput || inputRowCount > 0) && (
           <section>
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
-                3. Förhandsgranskning ({outputRows.length} rader)
+                4. Förhandsgranskning ({outputRows.length} rader)
               </h2>
               <div className="flex flex-wrap gap-2">
                 <button
@@ -254,6 +300,7 @@ export default function App() {
               rows={outputRows}
               registerMatched={registerMatched}
               onCellChange={handleCellChange}
+              onGodsslagTempClick={handleGodsslagTempClick}
               onDeleteRow={handleDeleteRow}
             />
             {outputRows.length === 0 && inputRowCount > 0 && (
@@ -267,7 +314,7 @@ export default function App() {
 
         <section>
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
-            4. Ladda ner
+            5. Ladda ner
           </h2>
           <button
             type="button"
@@ -284,6 +331,19 @@ export default function App() {
           )}
         </section>
       </main>
+      <ConfirmDialog
+        open={dialog != null}
+        message={
+          dialog?.type === 'download'
+            ? 'Alla frysbokningar ändrade?'
+            : dialog?.type === 'temp' &&
+                isFrysgodsTemp(outputRows[dialog.rowIndex]?.['Godsslag Temp'] ?? '')
+              ? 'Återställ temp?'
+              : 'Ändra temp?'
+        }
+        onYes={handleDialogYes}
+        onNo={handleDialogNo}
+      />
     </div>
   )
 }

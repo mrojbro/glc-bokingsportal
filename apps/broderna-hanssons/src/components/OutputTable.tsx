@@ -9,6 +9,7 @@ interface OutputTableProps {
   rows: OutputRow[]
   registerMatched?: boolean[]
   onCellChange: (rowIndex: number, column: OutputColumn, value: string) => void
+  onGodsslagTempClick: (rowIndex: number) => void
   onDeleteRow: (rowIndex: number) => void
 }
 
@@ -20,6 +21,7 @@ export function OutputTable({
   rows,
   registerMatched,
   onCellChange,
+  onGodsslagTempClick,
   onDeleteRow,
 }: OutputTableProps) {
   const visibleColumns = getVisibleOutputColumns()
@@ -85,14 +87,28 @@ export function OutputTable({
                       key={col}
                       className="overflow-hidden border-r border-[var(--color-border-subtle)] p-0"
                     >
-                      <input
-                        type="text"
-                        value={row[col]}
-                        onChange={(e) =>
-                          onCellChange(rowIndex, col, e.target.value)
-                        }
-                        className="w-full min-w-0 border-0 bg-transparent px-2 py-1.5 text-[var(--color-text)] outline-none focus:bg-[var(--color-accent-dim)] focus:ring-1 focus:ring-[var(--color-accent)]/50"
-                      />
+                      {col === 'Godsslag Temp' ? (
+                        <button
+                          type="button"
+                          onClick={() => onGodsslagTempClick(rowIndex)}
+                          className={
+                            row[col].trim().toLocaleLowerCase('sv') === 'frysgods'
+                              ? 'w-full min-w-0 border-0 bg-[#16324d] px-2 py-1.5 text-left font-semibold text-[#7ec8ff] outline-none hover:bg-[#1c3f61] focus:bg-[#1c3f61] focus:ring-1 focus:ring-[#7ec8ff]/50'
+                              : 'w-full min-w-0 border-0 bg-transparent px-2 py-1.5 text-left text-[var(--color-text)] outline-none hover:bg-[var(--color-accent-dim)] focus:bg-[var(--color-accent-dim)] focus:ring-1 focus:ring-[var(--color-accent)]/50'
+                          }
+                        >
+                          {row[col]}
+                        </button>
+                      ) : (
+                        <input
+                          type="text"
+                          value={row[col]}
+                          onChange={(e) =>
+                            onCellChange(rowIndex, col, e.target.value)
+                          }
+                          className="w-full min-w-0 border-0 bg-transparent px-2 py-1.5 text-[var(--color-text)] outline-none focus:bg-[var(--color-accent-dim)] focus:ring-1 focus:ring-[var(--color-accent)]/50"
+                        />
+                      )}
                     </td>
                   ))}
                   <td className={actionCellClass}>
