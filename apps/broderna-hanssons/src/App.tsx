@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { HubHomeLink } from '../../../shared/hub-link/HubHomeLink.tsx'
 import { FileUpload } from './components/FileUpload'
 import { OutputTable } from './components/OutputTable'
 import { PasteInput } from './components/PasteInput'
-import { PostnrRegisterEditor } from './components/PostnrRegisterEditor'
 import { downloadOutputExcel } from './exportOutputExcel'
 import {
   parseInputFile,
@@ -11,30 +10,16 @@ import {
   type ParseInputResult,
 } from './parseInput'
 import {
-  POSTNR_REGISTER,
-  applyTransportinstruktion,
-  buildPostnrRegisterLookup,
-  fromEditablePostnrRegister,
+  applyPostnrRewrite,
+  applyRegisterLookups,
+  lookupLitteraForRow,
   normalizePostnr,
-  toEditablePostnrRegister,
-  type EditablePostnrRegisterEntry,
 } from './postnrRegister'
-import {
-  applyRegisterToOutputRows,
-  createBlankOutputRow,
-  transformInputRows,
-} from './transform'
+import { createBlankOutputRow, transformInputRows, applyGodsDerivedFields } from './transform'
 import type { OutputColumn } from './constants'
 import type { OutputRow } from './types'
 
 export default function App() {
-  const initialRegister = useMemo(
-    () => toEditablePostnrRegister(POSTNR_REGISTER),
-    [],
-  )
-  const [register, setRegister] =
-    useState<EditablePostnrRegisterEntry[]>(initialRegister)
-  const [registerOpen, setRegisterOpen] = useState(false)
   const [outputRows, setOutputRows] = useState<OutputRow[]>([])
   const [sourceLabel, setSourceLabel] = useState<string | null>(null)
   const [pastedInput, setPastedInput] = useState('')
@@ -44,68 +29,50 @@ export default function App() {
   const [warning, setWarning] = useState<string | null>(null)
   const [inputRowCount, setInputRowCount] = useState(0)
 
-  const registerEntries = useMemo(
-    () => fromEditablePostnrRegister(register),
-    [register],
-  )
-  const registerLookup = useMemo(
-    () => buildPostnrRegisterLookup(registerEntries),
-    [registerEntries],
-  )
-
-  useEffect(() => {
-    setOutputRows((prev) =>
-      prev.length === 0 ? prev : applyRegisterToOutputRows(prev, registerEntries),
-    )
-  }, [registerEntries])
-
   const registerMatched = useMemo(
     () =>
       outputRows.map((row) => {
         const postnr = normalizePostnr(row['Mott. Postnr'])
         if (!postnr) return true
-        return row.Chaufförsinstruktion.trim() !== ''
+        return row.Chaufförsinstruktion.trim() !== '' && row.Littera.trim() !== ''
       }),
     [outputRows],
   )
 
   const unmatchedCount = registerMatched.filter((matched) => !matched).length
 
-  const finishProcessing = useCallback(
-    (parsed: ParseInputResult) => {
-      if (parsed.parseError) {
-        setError(parsed.parseError)
-        return
-      }
+  const finishProcessing = useCallback((parsed: ParseInputResult) => {
+    if (parsed.parseError) {
+      setError(parsed.parseError)
+      return
+    }
 
-      if (parsed.missingColumns.length > 0) {
-        setWarning(
-          `Följande indatakolumner saknas i indata: ${parsed.missingColumns.join(', ')}`,
-        )
-      }
+    if (parsed.missingColumns.length > 0) {
+      setWarning(
+        `Följande indatakolumner saknas i indata: ${parsed.missingColumns.join(', ')}`,
+      )
+    }
 
-      if (parsed.rows.length === 0) {
-        setError('Indata innehåller inga datarader.')
-        return
-      }
+    if (parsed.rows.length === 0) {
+      setError('Indata innehåller inga datarader.')
+      return
+    }
 
-      setSourceLabel(parsed.fileLabel)
-      setInputRowCount(parsed.rows.length)
-      const transformed = transformInputRows(parsed.rows, registerEntries)
-      setOutputRows(transformed)
+    setSourceLabel(parsed.fileLabel)
+    setInputRowCount(parsed.rows.length)
+    const transformed = transformInputRows(parsed.rows)
+    setOutputRows(transformed)
 
-      if (transformed.length === 0) {
-        setStatus(
-          `${parsed.rows.length} indatarad(er) lästes in, men inga rader kunde transformeras.`,
-        )
-      } else {
-        setStatus(
-          `Transformering klar: ${parsed.rows.length} indatarad(er) → ${transformed.length} utrad(er).`,
-        )
-      }
-    },
-    [registerEntries],
-  )
+    if (transformed.length === 0) {
+      setStatus(
+        `${parsed.rows.length} indatarad(er) lästes in, men inga rader kunde transformeras.`,
+      )
+    } else {
+      setStatus(
+        `Transformering klar: ${parsed.rows.length} indatarad(er) → ${transformed.length} utrad(er).`,
+      )
+    }
+  }, [])
 
   const handleFileSelect = useCallback(
     async (file: File) => {
@@ -158,14 +125,19 @@ export default function App() {
         prev.map((row, i) => {
           if (i !== rowIndex) return row
           const next = { ...row, [column]: value }
-          if (column === 'Mott. Postnr') {
-            applyTransportinstruktion(next, registerLookup)
+          if (column === 'Mott. Postnr' || column === 'Mott. Namn') {
+            applyPostnrRewrite(next)
+            applyRegisterLookups(next)
+          } else if (column === 'Chaufförsinstruktion') {
+            next.Littera = lookupLitteraForRow(next['Mott. Postnr'], value)
+          } else if (column === 'Godsslag' || column === 'Kolli antal') {
+            applyGodsDerivedFields(next)
           }
           return next
         }),
       )
     },
-    [registerLookup],
+    [],
   )
 
   const handleDeleteRow = useCallback((rowIndex: number) => {
@@ -202,19 +174,7 @@ export default function App() {
       <main className="mx-auto max-w-[1800px] space-y-6 px-4 py-6 sm:px-6">
         <section>
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
-            1. Register
-          </h2>
-          <PostnrRegisterEditor
-            entries={register}
-            onChange={setRegister}
-            open={registerOpen}
-            onToggleOpen={() => setRegisterOpen((open) => !open)}
-          />
-        </section>
-
-        <section>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
-            2. Ladda upp eller klistra in
+            1. Ladda upp eller klistra in
           </h2>
           <div className="grid gap-4 xl:grid-cols-2">
             <FileUpload
@@ -233,7 +193,7 @@ export default function App() {
 
         <section>
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
-            3. Status
+            2. Status
           </h2>
           {error && (
             <div
@@ -278,7 +238,7 @@ export default function App() {
           <section>
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
-                4. Förhandsgranskning ({outputRows.length} rader)
+                3. Förhandsgranskning ({outputRows.length} rader)
               </h2>
               <div className="flex flex-wrap gap-2">
                 <button
@@ -307,7 +267,7 @@ export default function App() {
 
         <section>
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
-            5. Ladda ner
+            4. Ladda ner
           </h2>
           <button
             type="button"

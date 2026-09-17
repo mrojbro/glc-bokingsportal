@@ -7,6 +7,10 @@ export const INPUT_COLUMNS = [
   'Angöring Adress - Sista',
   'Angöring Postnr - Sista',
   'Angöring Postort - Sista',
+  'Kollislag',
+  'Vikt',
+  'Kolli',
+  'Pallplats',
 ] as const
 
 /** Output column headers in exact Kåkå export order. */

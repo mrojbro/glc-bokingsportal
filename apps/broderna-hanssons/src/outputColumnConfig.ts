@@ -13,7 +13,7 @@ export const OUTPUT_COLUMN_DISPLAY: Record<
   Datum: { width: 90, hidden: false },
   Märkning: { width: 110, hidden: false },
   Fraktsedel: { width: 130, hidden: false },
-  Littera: { width: 110, hidden: true },
+  Littera: { width: 180, hidden: false },
   Kundkontakt: { width: 140, hidden: true },
   Tjänst: { width: 120, hidden: true },
   'Tjänst antal': { width: 90, hidden: true },
@@ -27,9 +27,9 @@ export const OUTPUT_COLUMN_DISPLAY: Record<
   'Mott. Postnr': { width: 90, hidden: false },
   'Mott. Postort': { width: 120, hidden: false },
   'Godsslag Temp': { width: 110, hidden: false },
-  Godsslag: { width: 80, hidden: true },
-  'Kolli antal': { width: 80, hidden: true },
-  'Kolli vikt': { width: 80, hidden: true },
+  Godsslag: { width: 100, hidden: false },
+  'Kolli antal': { width: 90, hidden: false },
+  'Kolli vikt': { width: 90, hidden: false },
   'Pall pallplats': { width: 110, hidden: true },
   Chaufförsinstruktion: { width: 180, hidden: false },
   Telefonnr: { width: 110, hidden: true },
@@ -37,8 +37,8 @@ export const OUTPUT_COLUMN_DISPLAY: Record<
   Startid: { width: 70, hidden: true },
   Sluttid: { width: 70, hidden: true },
   Resurs: { width: 90, hidden: true },
-  'Gods antal1': { width: 80, hidden: true },
-  'Gods sort1': { width: 80, hidden: true },
+  'Gods antal1': { width: 90, hidden: false },
+  'Gods sort1': { width: 80, hidden: false },
 }
 
 export function getVisibleOutputColumns(): OutputColumn[] {

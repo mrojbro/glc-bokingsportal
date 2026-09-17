@@ -1,0 +1,16 @@
+[
+  { "kollislag": "Bur (CLL)", "godsslag": "Pall" },
+  { "kollislag": "halvpall", "godsslag": "Halvpall" },
+  { "kollislag": "Halvpall EUR (HP)", "godsslag": "Halvpall" },
+  { "kollislag": "HELPALL", "godsslag": "Pall" },
+  { "kollislag": "Engångspall (OP)", "godsslag": "Pall" },
+  { "kollislag": "kolli", "godsslag": "Kolli" },
+  { "kollislag": "Kolli (KOL)", "godsslag": "Kolli" },
+  { "kollislag": "KRT", "godsslag": "Kolli" },
+  { "kollislag": "Pall EUR (EP)", "godsslag": "Pall" },
+  { "kollislag": "PL", "godsslag": "Pall" },
+  { "kollislag": "RC-Vagn", "godsslag": "Pall" },
+  { "kollislag": "Specialpall (OF)", "godsslag": "Pall" },
+  { "kollislag": "SRS-Halvpall (SRS2)", "godsslag": "Halvpall" },
+  { "kollislag": "SRS-Helpall (SRS1)", "godsslag": "Pall" }
+]

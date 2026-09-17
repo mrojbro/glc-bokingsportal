@@ -50,6 +50,15 @@ const HEADER_ALIASES: Record<string, InputColumn> = {
   'angöring adress': 'Angöring Adress - Sista',
   'angöring postnr': 'Angöring Postnr - Sista',
   'angöring postort': 'Angöring Postort - Sista',
+  kollinslag: 'Kollislag',
+  'kolli slag': 'Kollislag',
+  antal: 'Kolli',
+  kolliantal: 'Kolli',
+  'kolli antal': 'Kolli',
+  'antal kolli': 'Kolli',
+  'kollin antal': 'Kolli',
+  pallplats: 'Pallplats',
+  'pall plats': 'Pallplats',
 }
 
 /** Map a raw header to a known input column, if recognized. */

@@ -6,11 +6,8 @@ import {
   type OutputColumn,
 } from './constants'
 import { normalizeHeaderName } from './normalizeHeader'
-import {
-  applyTransportinstruktion,
-  type PostnrRegisterEntry,
-  buildPostnrRegisterLookup,
-} from './postnrRegister'
+import { POSTNR_REGISTER_LOOKUP, applyPostnrRewrite, applyRegisterLookups, normalizePostnr } from './postnrRegister'
+import { applyKolliHalvpallRule, formatDecimal2, lookupGodsslag, resolveGodsAntal1, resolveGodsSort1, resolveKolliAntal } from './godsslagRegister'
 import type { InputRow, OutputRow } from './types'
 
 function emptyOutputRow(): OutputRow {
@@ -25,7 +22,7 @@ function cellToString(value: string | number | undefined): string {
 }
 
 function formatPostnr(value: string | number | undefined): string {
-  return cellToString(value).replace(/\s+/g, '')
+  return normalizePostnr(cellToString(value))
 }
 
 function excelSerialToIso(serial: number): string {
@@ -35,6 +32,17 @@ function excelSerialToIso(serial: number): string {
   const month = String(date.getUTCMonth() + 1).padStart(2, '0')
   const day = String(date.getUTCDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
+}
+
+function expandYear(year: string): string {
+  if (year.length === 4) return year
+  const n = Number(year)
+  if (!Number.isFinite(n)) return year
+  return n >= 70 ? `19${year.padStart(2, '0')}` : `20${year.padStart(2, '0')}`
+}
+
+function toIsoDate(year: string, month: string, day: string): string {
+  return `${expandYear(year)}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
 }
 
 function formatDatum(value: string | number | undefined): string {
@@ -49,15 +57,25 @@ function formatDatum(value: string | number | undefined): string {
   if (isoMatch) return isoMatch[1]
 
   const serial = Number(raw.replace(',', '.'))
-  if (Number.isFinite(serial) && serial > 20000 && serial < 80000) {
+  if (
+    Number.isFinite(serial) &&
+    serial > 20000 &&
+    serial < 80000 &&
+    !/[./-]/.test(raw)
+  ) {
     return excelSerialToIso(serial)
   }
 
-  const dmy = raw.match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{4})/)
-  if (dmy) {
-    const day = dmy[1].padStart(2, '0')
-    const month = dmy[2].padStart(2, '0')
-    return `${dmy[3]}-${month}-${day}`
+  const parts = raw.match(/^(\d{1,2})([./-])(\d{1,2})\2(\d{2}|\d{4})(?:\b|$)/)
+  if (parts) {
+    const first = Number(parts[1])
+    const second = Number(parts[3])
+    const year = parts[4]
+    const separator = parts[2]
+    if (second > 12) return toIsoDate(year, parts[1], parts[3])
+    if (first > 12) return toIsoDate(year, parts[3], parts[1])
+    if (separator === '/') return toIsoDate(year, parts[1], parts[3])
+    return toIsoDate(year, parts[3], parts[1])
   }
 
   return raw
@@ -72,6 +90,11 @@ function applyFixedOutputValues(row: OutputRow): void {
 
 function isEmptyInputRow(input: InputRow): boolean {
   return INPUT_COLUMNS.every((col) => !cellToString(input[col]))
+}
+
+export function applyGodsDerivedFields(row: OutputRow): void {
+  row['Gods antal1'] = resolveGodsAntal1(row.Godsslag, row['Kolli antal'])
+  row['Gods sort1'] = resolveGodsSort1(row.Godsslag)
 }
 
 export function transformInputRow(
@@ -89,7 +112,22 @@ export function transformInputRow(
   row['Mott. Adress'] = cellToString(input['Angöring Adress - Sista'])
   row['Mott. Postnr'] = formatPostnr(input['Angöring Postnr - Sista'])
   row['Mott. Postort'] = cellToString(input['Angöring Postort - Sista'])
-  if (registerLookup) applyTransportinstruktion(row, registerLookup)
+  applyPostnrRewrite(row)
+  if (registerLookup) applyRegisterLookups(row, registerLookup)
+  const godsslag = applyKolliHalvpallRule(
+    lookupGodsslag(cellToString(input.Kollislag)),
+    input.Vikt,
+  )
+  row.Godsslag = godsslag.godsslag
+  row['Kolli antal'] = resolveKolliAntal(
+    input.Kolli,
+    input.Pallplats,
+    input.Vikt,
+    godsslag.godsslag,
+    godsslag.kolliAntal,
+  )
+  row['Kolli vikt'] = formatDecimal2(input.Vikt)
+  applyGodsDerivedFields(row)
   return row
 }
 
@@ -113,29 +151,12 @@ export function sortOutputRows(rows: OutputRow[]): OutputRow[] {
   })
 }
 
-export function transformInputRows(
-  inputs: InputRow[],
-  register?: readonly PostnrRegisterEntry[],
-): OutputRow[] {
-  const lookup = register ? buildPostnrRegisterLookup(register) : undefined
+export function transformInputRows(inputs: InputRow[]): OutputRow[] {
   const rows = inputs.flatMap((input) => {
-    const row = transformInputRow(input, lookup)
+    const row = transformInputRow(input, POSTNR_REGISTER_LOOKUP)
     return row ? [row] : []
   })
   return sortOutputRows(rows)
-}
-
-export function applyRegisterToOutputRows(
-  rows: OutputRow[],
-  register: readonly PostnrRegisterEntry[],
-): OutputRow[] {
-  const lookup = buildPostnrRegisterLookup(register)
-  const updated = rows.map((row) => {
-    const next = { ...row }
-    applyTransportinstruktion(next, lookup)
-    return next
-  })
-  return sortOutputRows(updated)
 }
 
 export function createBlankOutputRow(): OutputRow {
