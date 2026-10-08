@@ -1,10 +1,19 @@
-/** Ewerman input columns (Leveransadress fields). */
+/** Ewerman input columns from the current Excel layout. */
 export const INPUT_COLUMNS = [
-  'Leveransadress 1',
-  'Leveransadress 3',
-  'Leveransadress 4',
+  'Lastdatum',
+  'Kundnamn',
+  'Adress',
+  'Postnr',
+  'Ort',
   'Budget vikt',
-  'Företagskod',
+] as const
+
+export const REQUIRED_INPUT_COLUMNS = [
+  'Lastdatum',
+  'Kundnamn',
+  'Adress',
+  'Postnr',
+  'Ort',
 ] as const
 
 /** Same export columns as Kåkå Excel Transform. */

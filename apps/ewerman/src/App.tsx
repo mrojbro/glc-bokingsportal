@@ -7,14 +7,17 @@ import { OutputTable } from './components/OutputTable'
 import { PasteInput } from './components/PasteInput'
 import { SaturdayDeliveryDialog } from './components/SaturdayDeliveryDialog'
 import { downloadOutputExcel } from './exportOutputExcel'
-import { getTomorrowDate, isTomorrowSaturday } from './getTomorrowDate'
+import {
+  deliveryDateFromLastdatum,
+  isSaturdayIso,
+} from './getTomorrowDate'
+import { REQUIRED_INPUT_COLUMNS, type OutputColumn } from './constants'
 import {
   parseInputFile,
   parseInputText,
   type ParseInputResult,
 } from './parseInput'
 import { createBlankOutputRow, transformInputRows } from './transform'
-import type { OutputColumn } from './constants'
 import type { OutputRow } from './types'
 
 export default function App() {
@@ -36,12 +39,8 @@ export default function App() {
         return
       }
 
-      const requiredMissing = parsed.missingColumns.filter(
-        (col) =>
-          col === 'Leveransadress 1' ||
-          col === 'Leveransadress 3' ||
-          col === 'Leveransadress 4' ||
-          col === 'Företagskod',
+      const requiredMissing = parsed.missingColumns.filter((col) =>
+        (REQUIRED_INPUT_COLUMNS as readonly string[]).includes(col),
       )
       if (requiredMissing.length > 0) {
         setError(
@@ -88,19 +87,18 @@ export default function App() {
         return
       }
 
-      const requiredMissing = parsed.missingColumns.filter(
-        (col) =>
-          col === 'Leveransadress 1' ||
-          col === 'Leveransadress 3' ||
-          col === 'Leveransadress 4' ||
-          col === 'Företagskod',
+      const requiredMissing = parsed.missingColumns.filter((col) =>
+        (REQUIRED_INPUT_COLUMNS as readonly string[]).includes(col),
       )
       if (requiredMissing.length > 0 || parsed.rows.length === 0) {
         finishProcessing(parsed)
         return
       }
 
-      if (isTomorrowSaturday()) {
+      const landsOnSaturday = parsed.rows.some((row) =>
+        isSaturdayIso(deliveryDateFromLastdatum(row.Lastdatum)),
+      )
+      if (landsOnSaturday) {
         setPendingParse(parsed)
         setSaturdayDialogOpen(true)
         return
@@ -113,7 +111,7 @@ export default function App() {
 
   const handleConfirmSaturdayDelivery = useCallback(() => {
     if (!pendingParse) return
-    finishProcessing(pendingParse, getTomorrowDate())
+    finishProcessing(pendingParse)
     setPendingParse(null)
     setSaturdayDialogOpen(false)
   }, [finishProcessing, pendingParse])
@@ -307,8 +305,8 @@ export default function App() {
             />
             {outputRows.length === 0 && inputRowCount > 0 && (
               <p className="mt-3 text-sm text-[var(--color-text-muted)]">
-                Inga unika adresser hittades. Kontrollera kolumnerna Leveransadress
-                1, 3 och 4.
+                Inga unika adresser hittades. Kontrollera kolumnerna Kundnamn,
+                Adress, Postnr och Ort.
               </p>
             )}
           </section>

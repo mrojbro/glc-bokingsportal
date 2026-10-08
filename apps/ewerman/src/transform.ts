@@ -3,10 +3,14 @@ import {
   KOLLI_ANTAL_DIVISOR,
   OUTPUT_COLUMNS,
 } from './constants'
-import { formatDateCompact, getTomorrowDate, getTomorrowDateCompact } from './getTomorrowDate'
+import {
+  deliveryDateFromLastdatum,
+  formatDateCompact,
+  getTomorrowDate,
+} from './getTomorrowDate'
+import { codeFromKundnamn } from './kundkod'
 import { normalizeHeaderName } from './normalizeHeader'
 import { applyPostortTimes } from './postortRegister'
-import { splitPostnrOrt } from './splitPostnrOrt'
 import type { InputColumn, OutputColumn } from './constants'
 import type { InputRow, OutputRow } from './types'
 
@@ -32,8 +36,8 @@ function namnKey(namn: string): string {
   return namn.trim().toLowerCase()
 }
 
-function dedupeKey(namn: string, adress: string, postLine: string): string {
-  return `${namnKey(namn)}\x1f${adress.toLowerCase()}\x1f${postLine.toLowerCase()}`
+function dedupeKey(namn: string, adress: string, postnr: string, ort: string): string {
+  return `${namnKey(namn)}\x1f${adress.toLowerCase()}\x1f${postnr}\x1f${ort.toLowerCase()}`
 }
 
 function parseNumber(value: string | number | undefined): number {
@@ -55,7 +59,7 @@ function formatOutputNumber(value: number): string {
 function buildBudgetViktByNamn(inputs: InputRow[]): Map<string, number> {
   const sums = new Map<string, number>()
   for (const input of inputs) {
-    const namn = cellToString(input['Leveransadress 1'])
+    const namn = cellToString(input.Kundnamn)
     if (!namn) continue
     const key = namnKey(namn)
     const prev = sums.get(key) ?? 0
@@ -78,13 +82,20 @@ function applyKolliAntalFromVikt(row: OutputRow, kolliVikt: number): void {
   row['Gods antal1'] = formatted
 }
 
-function buildFraktsedel(företagskod: string, tomorrowCompact: string): string {
-  const kod = företagskod.trim()
-  if (!kod) return tomorrowCompact
-  return `${kod}-${tomorrowCompact}`
+function buildFraktsedel(kod: string, dateCompact: string): string {
+  if (!kod) return dateCompact
+  return `${kod}-${dateCompact}`
 }
 
-/** One output row per unique (namn, adress, post) triple. */
+function rowDeliveryDate(
+  input: InputRow,
+  overrideDate?: string,
+): string {
+  if (overrideDate) return overrideDate
+  return deliveryDateFromLastdatum(input.Lastdatum) || getTomorrowDate()
+}
+
+/** One output row per unique (namn, adress, postnr, ort) tuple. */
 export function transformInputRows(
   inputs: InputRow[],
   deliveryDate?: string,
@@ -92,34 +103,31 @@ export function transformInputRows(
   const seen = new Set<string>()
   const results: OutputRow[] = []
   const budgetViktByNamn = buildBudgetViktByNamn(inputs)
-  const date = deliveryDate ?? getTomorrowDate()
-  const dateCompact = deliveryDate
-    ? formatDateCompact(deliveryDate)
-    : getTomorrowDateCompact()
 
   for (const input of inputs) {
-    const namn = cellToString(input['Leveransadress 1'])
-    const adress = cellToString(input['Leveransadress 3'])
-    const postLine = cellToString(input['Leveransadress 4'])
+    const namn = cellToString(input.Kundnamn)
+    const adress = cellToString(input.Adress)
+    const postnr = cellToString(input.Postnr).replace(/\s+/g, '')
+    const ort = cellToString(input.Ort)
 
-    if (!namn && !adress && !postLine) continue
+    if (!namn && !adress && !postnr && !ort) continue
 
-    const key = dedupeKey(namn, adress, postLine)
+    const key = dedupeKey(namn, adress, postnr, ort)
     if (seen.has(key)) continue
     seen.add(key)
 
-    const { postnr, postort } = splitPostnrOrt(postLine)
+    const date = rowDeliveryDate(input, deliveryDate)
     const row = emptyOutputRow()
     applyFixedOutputValues(row)
     row['Mott. Namn'] = namn
     row['Mott. Adress'] = adress
     row['Mott. Postnr'] = postnr
-    row['Mott. Postort'] = postort
+    row['Mott. Postort'] = ort
     applyPostortTimes(row)
-    row['Datum'] = date
+    row.Datum = date
     row.Fraktsedel = buildFraktsedel(
-      cellToString(input['Företagskod']),
-      dateCompact,
+      codeFromKundnamn(namn),
+      formatDateCompact(date),
     )
     const kolliVikt = budgetViktByNamn.get(namnKey(namn)) ?? 0
     row['Kolli vikt'] = formatOutputNumber(kolliVikt)
@@ -134,7 +142,7 @@ export function createBlankOutputRow(): OutputRow {
   const row = emptyOutputRow()
   applyFixedOutputValues(row)
   applyPostortTimes(row)
-  row['Datum'] = getTomorrowDate()
+  row.Datum = getTomorrowDate()
   return row
 }
 
