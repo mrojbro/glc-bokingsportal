@@ -17,7 +17,11 @@ import {
   parseInputText,
   type ParseInputResult,
 } from './parseInput'
-import { createBlankOutputRow, transformInputRows } from './transform'
+import {
+  createBlankOutputRow,
+  isEmptyVikt,
+  transformInputRows,
+} from './transform'
 import type { OutputRow } from './types'
 
 export default function App() {
@@ -65,15 +69,26 @@ export default function App() {
       const transformed = transformInputRows(parsed.rows, deliveryDate)
       setOutputRows(transformed)
 
-      const removed = parsed.rows.length - transformed.length
+      const withVikt = parsed.rows.filter(
+        (row) => !isEmptyVikt(row['Budget vikt']),
+      ).length
+      const skippedEmptyVikt = parsed.rows.length - withVikt
+      const duplicates = withVikt - transformed.length
       if (transformed.length === 0) {
         setStatus(
-          `${parsed.rows.length} indatarad(er) lästes in, men inga unika leveransadresser hittades.`,
+          withVikt === 0
+            ? `${parsed.rows.length} indatarad(er) lästes in, men alla ignorerades (tom Vikt).`
+            : `${parsed.rows.length} indatarad(er) lästes in, men inga unika leveransadresser hittades.`,
         )
       } else {
+        const extras: string[] = []
+        if (skippedEmptyVikt > 0) {
+          extras.push(`${skippedEmptyVikt} utan Vikt ignorerade`)
+        }
+        if (duplicates > 0) extras.push(`${duplicates} dubbletter borttagna`)
         setStatus(
           `Transformering klar: ${parsed.rows.length} indatarad(er) → ${transformed.length} unika mottagare` +
-            (removed > 0 ? ` (${removed} dubbletter borttagna).` : '.'),
+            (extras.length > 0 ? ` (${extras.join(', ')}).` : '.'),
         )
       }
     },
@@ -95,8 +110,10 @@ export default function App() {
         return
       }
 
-      const landsOnSaturday = parsed.rows.some((row) =>
-        isSaturdayIso(deliveryDateFromLastdatum(row.Lastdatum)),
+      const landsOnSaturday = parsed.rows.some(
+        (row) =>
+          !isEmptyVikt(row['Budget vikt']) &&
+          isSaturdayIso(deliveryDateFromLastdatum(row.Lastdatum)),
       )
       if (landsOnSaturday) {
         setPendingParse(parsed)

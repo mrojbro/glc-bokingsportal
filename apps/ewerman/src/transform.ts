@@ -32,6 +32,12 @@ function cellToString(value: string | number | undefined): string {
   return String(value).trim()
 }
 
+/** True when the Vikt / Budget vikt cell is blank. */
+export function isEmptyVikt(value: string | number | undefined): boolean {
+  if (value === undefined || value === null) return true
+  return String(value).trim() === ''
+}
+
 function namnKey(namn: string): string {
   return namn.trim().toLowerCase()
 }
@@ -59,6 +65,7 @@ function formatOutputNumber(value: number): string {
 function buildBudgetViktByNamn(inputs: InputRow[]): Map<string, number> {
   const sums = new Map<string, number>()
   for (const input of inputs) {
+    if (isEmptyVikt(input['Budget vikt'])) continue
     const namn = cellToString(input.Kundnamn)
     if (!namn) continue
     const key = namnKey(namn)
@@ -105,6 +112,8 @@ export function transformInputRows(
   const budgetViktByNamn = buildBudgetViktByNamn(inputs)
 
   for (const input of inputs) {
+    if (isEmptyVikt(input['Budget vikt'])) continue
+
     const namn = cellToString(input.Kundnamn)
     const adress = cellToString(input.Adress)
     const postnr = cellToString(input.Postnr).replace(/\s+/g, '')
