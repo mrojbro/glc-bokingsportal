@@ -47,6 +47,10 @@ function applyLeverantorFields(row: OutputRow, leverantor: string): void {
   row.mottagarnamn = entry.mottagarnamn
   row.mottagarnummer = entry.mottagarnummer
   row.leveransplats = entry.leveransplats
+  if (entry.varuslag) {
+    row.varuslagForeHamtdatum = entry.varuslag
+    row.varuslagEfterHamtdatum = entry.varuslag
+  }
 }
 
 export interface ManualOutputRowInput {

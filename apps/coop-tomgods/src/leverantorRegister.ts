@@ -4,6 +4,10 @@ export interface LeverantorRegisterEntry {
   mottagarnamn: string
   mottagarnummer: string
   leveransplats: string
+  /** Overrides default ZDRY on both Varuslag columns when set. */
+  varuslag?: string
+  /** Shown below a separator, apart from the main button grid. */
+  separated?: boolean
 }
 
 export const LEVERANTOR_REGISTER: LeverantorRegisterEntry[] = [
@@ -14,10 +18,26 @@ export const LEVERANTOR_REGISTER: LeverantorRegisterEntry[] = [
     leveransplats: '580001',
   },
   {
+    leverantor: 'Coop Eskilstuna KYLT',
+    mottagarnamn: 'ESKILSTUNA DC DT/FT',
+    mottagarnummer: '580001',
+    leveransplats: '580001',
+    varuslag: 'ZFSH',
+    separated: true,
+  },
+  {
     leverantor: 'Coop Enköping',
     mottagarnamn: 'Coop Enköping',
     mottagarnummer: '50502',
     leveransplats: '50502',
+  },
+  {
+    leverantor: 'Coop Enköping FRYST',
+    mottagarnamn: 'Coop Enköping',
+    mottagarnummer: '50502',
+    leveransplats: '50502',
+    varuslag: 'ZFZN',
+    separated: true,
   },
   {
     leverantor: 'Carlsberg Falkenberg',
@@ -78,9 +98,29 @@ export function lookupLeverantor(
   })
 }
 
-/** All register entries for manual row picker (A–Ö). */
-export function getLeverantorRegisterOptions(): LeverantorRegisterEntry[] {
-  return [...LEVERANTOR_REGISTER].sort((a, b) =>
+function sortLeverantorOptions(
+  entries: LeverantorRegisterEntry[],
+): LeverantorRegisterEntry[] {
+  return [...entries].sort((a, b) =>
     a.leverantor.localeCompare(b.leverantor, 'sv', { sensitivity: 'base' }),
   )
+}
+
+/** Main grid buttons (A–Ö), excluding separated variants. */
+export function getMainLeverantorRegisterOptions(): LeverantorRegisterEntry[] {
+  return sortLeverantorOptions(
+    LEVERANTOR_REGISTER.filter((entry) => !entry.separated),
+  )
+}
+
+/** Buttons shown below the separator (A–Ö). */
+export function getSeparatedLeverantorRegisterOptions(): LeverantorRegisterEntry[] {
+  return sortLeverantorOptions(
+    LEVERANTOR_REGISTER.filter((entry) => entry.separated),
+  )
+}
+
+/** All register entries for manual row picker (A–Ö). */
+export function getLeverantorRegisterOptions(): LeverantorRegisterEntry[] {
+  return sortLeverantorOptions(LEVERANTOR_REGISTER)
 }
