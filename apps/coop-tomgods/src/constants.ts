@@ -50,5 +50,12 @@ export type Lastbarartyp = (typeof LASTBARARTYP_OPTIONS)[number]
 /** Vikt = Antal lastbärare × this factor. */
 export const VIKT_PER_LASTBARARE = 25
 
+/** Per-type kg for Coop Enköping FRYST / Coop Eskilstuna KYLT. TSK is unused. */
+export const TYPED_VIKT_PER_LASTBARARE: Partial<Record<Lastbarartyp, number>> = {
+  EUR: 250,
+  RLP: 200,
+  HLV: 150,
+}
+
 /** Volym = Antal lastbärare × this factor. */
 export const VOLYM_PER_LASTBARARE = 96

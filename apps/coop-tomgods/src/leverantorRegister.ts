@@ -1,3 +1,5 @@
+import type { Lastbarartyp } from './constants'
+
 /** Leverantör → mottagare. Edit this file to add or update entries. */
 export interface LeverantorRegisterEntry {
   leverantor: string
@@ -8,6 +10,8 @@ export interface LeverantorRegisterEntry {
   varuslag?: string
   /** Shown below a separator, apart from the main button grid. */
   separated?: boolean
+  /** Vikt by lastbärartyp (EUR 250 / RLP 200 / HLV 150); TSK disabled. */
+  typedVikt?: boolean
 }
 
 export const LEVERANTOR_REGISTER: LeverantorRegisterEntry[] = [
@@ -24,6 +28,7 @@ export const LEVERANTOR_REGISTER: LeverantorRegisterEntry[] = [
     leveransplats: '580001',
     varuslag: 'ZFSH',
     separated: true,
+    typedVikt: true,
   },
   {
     leverantor: 'Coop Enköping',
@@ -38,6 +43,7 @@ export const LEVERANTOR_REGISTER: LeverantorRegisterEntry[] = [
     leveransplats: '50502',
     varuslag: 'ZFZN',
     separated: true,
+    typedVikt: true,
   },
   {
     leverantor: 'Carlsberg Falkenberg',
@@ -96,6 +102,17 @@ export function lookupLeverantor(
     const entryKey = normalizeLeverantorKey(entry.leverantor)
     return key.includes(entryKey) || entryKey.includes(key)
   })
+}
+
+export function usesTypedVikt(leverantor: string): boolean {
+  return Boolean(lookupLeverantor(leverantor)?.typedVikt)
+}
+
+export function isLastbarartypDisabled(
+  leverantor: string,
+  typ: Lastbarartyp,
+): boolean {
+  return typ === 'TSK' && usesTypedVikt(leverantor)
 }
 
 function sortLeverantorOptions(

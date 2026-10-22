@@ -40,12 +40,6 @@ export const LEVERANTOR_PRESETS: LeverantorPreset[] = [
     antalPpl: 18,
   },
   {
-    leverantor: 'Coop Enköping FRYST',
-    antalLastbarare: 220,
-    lastbarartyp: 'RLP',
-    antalPpl: 18,
-  },
-  {
     leverantor: 'Mars Stenkullen',
     antalLastbarare: 510,
     lastbarartyp: 'EUR',

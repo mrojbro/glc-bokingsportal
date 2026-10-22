@@ -1,11 +1,13 @@
 import {
   FIXED_OUTPUT_VALUES,
   OUTPUT_COLUMNS,
+  TYPED_VIKT_PER_LASTBARARE,
   VIKT_PER_LASTBARARE,
   VOLYM_PER_LASTBARARE,
+  type Lastbarartyp,
   type OutputColumn,
 } from './constants'
-import { lookupLeverantor } from './leverantorRegister'
+import { lookupLeverantor, usesTypedVikt } from './leverantorRegister'
 import type { OutputRow } from './types'
 
 function emptyOutputRow(): OutputRow {
@@ -29,10 +31,21 @@ function parseNumber(value: string | number | undefined): number {
   return Number.isFinite(n) ? n : 0
 }
 
-function viktFromAntalLastbarare(value: string | number | undefined): string {
+function kgPerLastbarare(leverantor: string, lastbarartyp: string): number | undefined {
+  if (!usesTypedVikt(leverantor)) return VIKT_PER_LASTBARARE
+  return TYPED_VIKT_PER_LASTBARARE[lastbarartyp as Lastbarartyp]
+}
+
+function viktFromAntalLastbarare(
+  value: string | number | undefined,
+  leverantor: string,
+  lastbarartyp: string,
+): string {
   const antal = parseNumber(value)
   if (antal <= 0) return ''
-  return String(antal * VIKT_PER_LASTBARARE)
+  const kg = kgPerLastbarare(leverantor, lastbarartyp)
+  if (kg == null) return ''
+  return String(antal * kg)
 }
 
 function volymFromAntalLastbarare(value: string | number | undefined): string {
@@ -69,7 +82,11 @@ export function createManualOutputRow(input: ManualOutputRowInput): OutputRow {
   row.antalLastbarare = input.antalLastbarare
   row.antalPpl = input.antalPpl
   row.lastbarartyp = input.lastbarartyp
-  row.vikt = viktFromAntalLastbarare(input.antalLastbarare)
+  row.vikt = viktFromAntalLastbarare(
+    input.antalLastbarare,
+    input.leverantor,
+    input.lastbarartyp,
+  )
   row.volym = volymFromAntalLastbarare(input.antalLastbarare)
   applyLeverantorFields(row, input.leverantor)
   return row

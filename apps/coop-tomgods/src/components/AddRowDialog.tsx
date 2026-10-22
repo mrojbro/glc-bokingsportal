@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { LASTBARARTYP_OPTIONS } from '../constants'
+import { isLastbarartypDisabled } from '../leverantorRegister'
 import {
   formatPresetLabel,
   getPresetsForLeverantor,
@@ -87,7 +88,13 @@ export function AddRowDialog({
   const validAntal = Number.isFinite(antal) && antal > 0
   const validPpl = antalPpl.trim().length > 0
   const validDate = isValidIsoDate(date)
-  const canSubmit = Boolean(validDate && validAntal && validPpl && lastbarartyp)
+  const validLastbarartyp =
+    Boolean(lastbarartyp) &&
+    !isLastbarartypDisabled(
+      leverantor,
+      lastbarartyp as (typeof LASTBARARTYP_OPTIONS)[number],
+    )
+  const canSubmit = Boolean(validDate && validAntal && validPpl && validLastbarartyp)
 
   return (
     <div
@@ -189,24 +196,33 @@ export function AddRowDialog({
               Lastbärartyp
             </legend>
             <div className="mt-2 grid grid-cols-4 gap-2">
-              {LASTBARARTYP_OPTIONS.map((typ) => (
-                <button
-                  key={typ}
-                  type="button"
-                  onClick={() => {
-                    setLastbarartyp(typ)
-                    setSelectedPresetIndex(null)
-                  }}
-                  className={[
-                    'rounded-lg border px-3 py-2 text-sm font-semibold transition-colors',
-                    lastbarartyp === typ
-                      ? 'border-[var(--color-accent)] bg-[var(--color-accent-dim)] text-[var(--color-accent)]'
-                      : 'border-[var(--color-border)] bg-[var(--color-surface-card)] text-[var(--color-text)] hover:border-[#484f58]',
-                  ].join(' ')}
-                >
-                  {typ}
-                </button>
-              ))}
+              {LASTBARARTYP_OPTIONS.map((typ) => {
+                const disabled = isLastbarartypDisabled(leverantor, typ)
+                const selected = !disabled && lastbarartyp === typ
+                return (
+                  <button
+                    key={typ}
+                    type="button"
+                    disabled={disabled}
+                    aria-label={disabled ? 'Otillgänglig lastbärartyp' : typ}
+                    onClick={() => {
+                      if (disabled) return
+                      setLastbarartyp(typ)
+                      setSelectedPresetIndex(null)
+                    }}
+                    className={[
+                      'rounded-lg border px-3 py-2 text-sm font-semibold transition-colors',
+                      disabled
+                        ? 'cursor-not-allowed border-[var(--color-border)] bg-[var(--color-surface)] text-transparent'
+                        : selected
+                          ? 'border-[var(--color-accent)] bg-[var(--color-accent-dim)] text-[var(--color-accent)]'
+                          : 'border-[var(--color-border)] bg-[var(--color-surface-card)] text-[var(--color-text)] hover:border-[#484f58]',
+                    ].join(' ')}
+                  >
+                    {disabled ? '\u00a0' : typ}
+                  </button>
+                )
+              })}
             </div>
           </fieldset>
         </div>
