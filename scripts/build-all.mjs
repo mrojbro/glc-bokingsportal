@@ -19,6 +19,7 @@ const apps = [
   { name: 'comforta', segment: 'comforta' },
   { name: 'lars-goran', segment: 'lars-goran' },
   { name: 'coop-summering', segment: 'coop-summering' },
+  { name: 'coop-tider', segment: 'coop-tider' },
 ]
 
 fs.rmSync(distRoot, { recursive: true, force: true })

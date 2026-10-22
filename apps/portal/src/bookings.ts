@@ -5,6 +5,8 @@ export interface BookingTool {
   label: string
   segment: string
   status: BookingToolStatus
+  /** Coming-soon card with no visible label. */
+  blank?: boolean
 }
 
 const BOOKING_TOOLS_UNSORTED: BookingTool[] = [
@@ -17,25 +19,39 @@ const BOOKING_TOOLS_UNSORTED: BookingTool[] = [
     status: 'ready',
   },
   { id: 'coop-matkassar', label: 'Coop Matkassar', segment: 'coop-matkassar', status: 'ready' },
-  { id: 'coop-frukt', label: 'Coop Frukt', segment: 'coop-frukt', status: 'coming-soon' },
+  {
+    id: 'coop-frukt',
+    label: 'Coop Frukt',
+    segment: 'coop-frukt',
+    status: 'coming-soon',
+    blank: true,
+  },
   { id: 'coop-tomgods', label: 'Coop Tomgods', segment: 'coop-tomgods', status: 'ready' },
   {
     id: 'coop-distribution',
     label: 'Coop Distribution',
     segment: 'coop-distribution',
     status: 'coming-soon',
+    blank: true,
   },
   { id: 'comforta', label: 'Comforta', segment: 'comforta', status: 'ready' },
   { id: 'lars-goran', label: 'Lars-Göran', segment: 'lars-goran', status: 'ready' },
 ]
 
-/** All booking tools linked from the portal (A–Ö by label). */
-export const BOOKING_TOOLS: BookingTool[] = [...BOOKING_TOOLS_UNSORTED]
-  .filter((tool) => tool.label.trim())
-  .sort((a, b) => a.label.localeCompare(b.label, 'sv', { sensitivity: 'base' }))
+function sortPortalTools(tools: BookingTool[]): BookingTool[] {
+  return [...tools].sort((a, b) => {
+    if (Boolean(a.blank) !== Boolean(b.blank)) return a.blank ? 1 : -1
+    return a.label.localeCompare(b.label, 'sv', { sensitivity: 'base' })
+  })
+}
+
+/** All booking tools linked from the portal (A–Ö by label; blank cards last). */
+export const BOOKING_TOOLS: BookingTool[] = sortPortalTools(
+  BOOKING_TOOLS_UNSORTED.filter((tool) => tool.label.trim()),
+)
 
 /** Greyed-out summary tools below the booking grid (not yet available). */
-export const SUMMERING_TOOLS: BookingTool[] = [
+const SUMMERING_TOOLS_UNSORTED: BookingTool[] = [
   {
     id: 'coop-summering',
     label: 'Coop Summering',
@@ -47,14 +63,19 @@ export const SUMMERING_TOOLS: BookingTool[] = [
     label: 'Lokalt Summering',
     segment: 'lokalt-summering',
     status: 'coming-soon',
+    blank: true,
   },
   {
-    id: 'fjarr-summering',
-    label: 'Fjärr Summering',
-    segment: 'fjarr-summering',
-    status: 'coming-soon',
+    id: 'coop-tider',
+    label: 'Coop Tider',
+    segment: 'coop-tider',
+    status: 'ready',
   },
 ]
+
+export const SUMMERING_TOOLS: BookingTool[] = sortPortalTools(
+  SUMMERING_TOOLS_UNSORTED,
+)
 
 export interface ExternalPortalLink {
   id: string
@@ -107,6 +128,7 @@ const DEV_TOOL_ORIGINS: Record<string, string> = {
   comforta: 'http://localhost:5180/comforta/',
   'coop-summering': 'http://localhost:5181/coop-summering/',
   'broderna-hanssons': 'http://localhost:5182/broderna-hanssons/',
+  'coop-tider': 'http://localhost:5183/coop-tider/',
 }
 
 export function bookingToolHref(segment: string): string {

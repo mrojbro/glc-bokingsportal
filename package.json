@@ -21,6 +21,7 @@
     "dev:comforta": "npm run dev -w @glc-bokingsportal/comforta",
     "dev:coop-summering": "npm run dev -w @glc-bokingsportal/coop-summering",
     "dev:broderna-hanssons": "npm run dev -w @glc-bokingsportal/broderna-hanssons",
+    "dev:coop-tider": "npm run dev -w @glc-bokingsportal/coop-tider",
     "build": "node scripts/build-all.mjs",
     "preview": "node scripts/preview-local.mjs"
   }

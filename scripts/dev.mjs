@@ -16,6 +16,7 @@ const workspaces = [
   '@glc-bokingsportal/comforta',
   '@glc-bokingsportal/coop-summering',
   '@glc-bokingsportal/broderna-hanssons',
+  '@glc-bokingsportal/coop-tider',
 ]
 
 console.log('Starting GLC Bokingsportal (portal + ready tools)…\n')
@@ -29,6 +30,7 @@ console.log('Coop Tomgods:    http://localhost:5179/coop-tomgods/')
 console.log('Comforta:        http://localhost:5180/comforta/')
 console.log('Coop Summering:      http://localhost:5181/coop-summering/')
 console.log('Bröderna Hanssons:   http://localhost:5182/broderna-hanssons/')
+console.log('Coop Tider:          http://localhost:5183/coop-tider/')
 console.log('(Hub card links use these ports in dev:vite mode.)\n')
 
 const hubDevEnv = { VITE_HUB_DEV: '1' }

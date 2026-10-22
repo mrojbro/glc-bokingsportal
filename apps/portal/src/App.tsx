@@ -34,13 +34,16 @@ function BookingCard({
   href,
   status,
   external = false,
+  blank = false,
 }: {
   label: string
   href: string
   status: 'ready' | 'coming-soon'
   external?: boolean
+  blank?: boolean
 }) {
   const ready = status === 'ready'
+  const showLabel = ready || !blank
 
   const className =
     'flex h-full items-center rounded-2xl border p-5 text-left transition ' +
@@ -52,16 +55,20 @@ function BookingCard({
     <h2
       className={
         'text-lg font-semibold ' +
-        (ready ? 'text-[var(--color-text)]' : 'text-[var(--color-text-muted)]')
+        (showLabel
+          ? ready
+            ? 'text-[var(--color-text)]'
+            : 'text-[var(--color-text-muted)]'
+          : 'text-transparent')
       }
     >
-      {label || '\u00A0'}
+      {showLabel ? label : '\u00A0'}
     </h2>
   )
 
   if (!ready) {
     return (
-      <div className={className} aria-disabled="true">
+      <div className={className} aria-disabled="true" aria-label={label}>
         {title}
       </div>
     )
@@ -104,6 +111,7 @@ export default function App() {
               label={tool.label}
               href={bookingToolHref(tool.segment)}
               status={tool.status}
+              blank={tool.blank}
             />
           ))}
         </div>
@@ -121,6 +129,7 @@ export default function App() {
               label={tool.label}
               href={bookingToolHref(tool.segment)}
               status={tool.status}
+              blank={tool.blank}
             />
           ))}
         </div>
