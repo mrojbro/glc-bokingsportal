@@ -11,7 +11,13 @@ export interface BookingTool {
 
 const BOOKING_TOOLS_UNSORTED: BookingTool[] = [
   { id: 'kaka', label: 'Kåkå', segment: 'kaka', status: 'ready' },
-  { id: 'ewerman', label: 'Ewerman', segment: 'ewerman', status: 'ready' },
+  {
+    id: 'ewerman',
+    label: 'Ewerman',
+    segment: 'ewerman',
+    status: 'coming-soon',
+    blank: true,
+  },
   {
     id: 'broderna-hanssons',
     label: 'Bröderna Hanssons',
