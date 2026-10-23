@@ -21,6 +21,6 @@ export function downloadOutputExcel(rows: OutputRow[], fileName?: string): void 
   const sheet = XLSX.utils.aoa_to_sheet([headerRow, ...dataRows])
   const workbook = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(workbook, sheet, 'Export')
-  const name = fileName ?? `lars-goran-export-${exportTimestamp()}.xlsx`
+  const name = fileName ?? `PFrakt-Nowaste-export-${exportTimestamp()}.xlsx`
   XLSX.writeFile(workbook, name, { bookType: 'xlsx' })
 }

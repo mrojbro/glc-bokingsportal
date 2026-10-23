@@ -35,7 +35,7 @@ const BOOKING_TOOLS_UNSORTED: BookingTool[] = [
     blank: true,
   },
   { id: 'comforta', label: 'Comforta', segment: 'comforta', status: 'ready' },
-  { id: 'lars-goran', label: 'Lars-Göran', segment: 'lars-goran', status: 'ready' },
+  { id: 'lars-goran', label: 'PFrakt Nowaste', segment: 'lars-goran', status: 'ready' },
 ]
 
 function sortPortalTools(tools: BookingTool[]): BookingTool[] {

@@ -193,7 +193,7 @@ export default function App() {
         <div className="mx-auto flex max-w-[1800px] flex-wrap items-start justify-between gap-4 px-4 py-5 sm:px-6">
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-[var(--color-text)]">
-              Lars-Göran — Bokning
+              PFrakt Nowaste — Bokning
             </h1>
             <p className="mt-1 text-sm text-[var(--color-text-muted)]">
               All bearbetning sker lokalt i webbläsaren.
