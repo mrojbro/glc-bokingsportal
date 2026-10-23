@@ -47,6 +47,14 @@ export function defaultAlternateDeliveryDate(): string {
   return formatIsoDate(d)
 }
 
+/** Shift an ISO date (yyyy-mm-dd) by a number of calendar days. */
+export function shiftIsoDate(isoDate: string, days: number): string {
+  const [year, month, day] = isoDate.split('-').map(Number)
+  const date = new Date(year, month - 1, day)
+  date.setDate(date.getDate() + days)
+  return formatIsoDate(date)
+}
+
 /** Tomorrow's date in local timezone, formatted yyyy-mm-dd (Datum). */
 export function getTomorrowDate(): string {
   const { year, month, day } = tomorrowParts()

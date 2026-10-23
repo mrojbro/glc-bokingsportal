@@ -20,6 +20,9 @@ const CANONICAL_BY_NORMALIZED = new Map<string, InputColumn>(
 /** Aliases from messy HTML/Excel exports. */
 const ALIASES: Record<string, InputColumn> = {
   'shipment date': 'Shipment date',
+  carrier: 'Carrier',
+  åkeri: 'Carrier',
+  akeri: 'Carrier',
   consignee: 'Consignee',
   'consignee city': 'Consignee city',
   'shipment reference': 'Shipment reference',

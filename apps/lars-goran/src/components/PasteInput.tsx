@@ -23,7 +23,8 @@ export function PasteInput({
         </h3>
         <p className="mt-1 text-sm text-[var(--color-text-muted)]">
           Klistra in rader direkt från Excel eller annan tabell. Rubrikraden ska
-          innehålla Leveransadress 1, 3 och 4.
+          innehålla Carrier, Consignee, Consignee city, Shipment reference och
+          Weight (kg). Endast P-frakt Åkeri och GLC Distribution Gbg bokas.
         </p>
       </div>
 

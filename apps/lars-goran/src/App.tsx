@@ -13,8 +13,9 @@ import {
   parseInputText,
   type ParseInputResult,
 } from './parseInput'
+import { applyNowasteDeliveryWindow } from './nowastePostortWindows'
 import { createBlankOutputRow, transformInputRows } from './transform'
-import type { OutputColumn } from './constants'
+import { getKundnrSummaryGroups, type OutputColumn } from './constants'
 import type { OutputRow } from './types'
 
 export default function App() {
@@ -54,7 +55,7 @@ export default function App() {
       const removed = parsed.rows.length - transformed.length
       if (transformed.length === 0) {
         setStatus(
-          `${parsed.rows.length} indatarad(er) lästes in, men inga rader med Consignee Foodora/Trofo hittades.`,
+          `${parsed.rows.length} indatarad(er) lästes in, men inga rader med Carrier P-frakt Åkeri / GLC Distribution Gbg hittades.`,
         )
       } else {
         setStatus(
@@ -154,9 +155,18 @@ export default function App() {
   const handleCellChange = useCallback(
     (rowIndex: number, column: OutputColumn, value: string) => {
       setOutputRows((prev) =>
-        prev.map((row, i) =>
-          i === rowIndex ? { ...row, [column]: value } : row,
-        ),
+        prev.map((row, i) => {
+          if (i !== rowIndex) return row
+          const next = { ...row, [column]: value }
+          if (
+            column === 'Mott. Postort' ||
+            column === 'Mott. Namn' ||
+            column === 'Kundnr'
+          ) {
+            applyNowasteDeliveryWindow(next)
+          }
+          return next
+        }),
       )
     },
     [],
@@ -255,9 +265,26 @@ export default function App() {
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
               3. Sammanfattning
             </h2>
-            <div className="grid items-stretch gap-4 xl:grid-cols-2">
-              <OutputSummary rows={outputRows} />
-              <MottKolliViktChart rows={outputRows} />
+            <div className="grid items-stretch gap-4 md:grid-cols-2 2xl:grid-cols-4">
+              {getKundnrSummaryGroups().flatMap((group) => {
+                const rows = outputRows.filter(
+                  (row) => row.Kundnr.trim() === group.kundnr,
+                )
+                return [
+                  <OutputSummary
+                    key={`${group.kundnr}-godsslag`}
+                    rows={rows}
+                    title={`Sammanfattning · ${group.label}`}
+                    subtitle={`${group.kundnr} — rader, kolli antal och kolli vikt`}
+                  />,
+                  <MottKolliViktChart
+                    key={`${group.kundnr}-topp`}
+                    rows={rows}
+                    title={`Topp 5 · ${group.label}`}
+                    subtitle={`${group.kundnr} — kolli vikt per Mott. Namn`}
+                  />,
+                ]
+              })}
             </div>
           </section>
         )}
@@ -285,8 +312,9 @@ export default function App() {
             />
             {outputRows.length === 0 && inputRowCount > 0 && (
               <p className="mt-3 text-sm text-[var(--color-text-muted)]">
-                Inga bokningsrader skapades. Kontrollera Consignee (Foodora/Trofo) och
-                kolumnerna Shipment reference, Consignee city, Weight (kg).
+                Inga bokningsrader skapades. Kontrollera att Carrier är P-frakt
+                Åkeri eller GLC Distribution Gbg, och att kolumnerna Shipment
+                reference, Consignee city och Weight (kg) finns.
               </p>
             )}
           </section>

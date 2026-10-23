@@ -1,30 +1,30 @@
 import {
-  CONSIGNEE_KEYWORDS,
+  ALLOWED_CARRIERS,
+  CARRIER_OUTPUT_PRESETS,
+  DEFAULT_CARRIER,
   FIXED_OUTPUT_VALUES,
   OUTPUT_COLUMNS,
+  normalizeCarrierName,
+  type InputColumn,
   type OutputColumn,
 } from './constants'
-import { getTomorrowDate } from './getTomorrowDate'
+import { getTomorrowDate, shiftIsoDate } from './getTomorrowDate'
 import { normalizeHeaderName } from './normalizeHeader'
 import {
   kolliAntalFromViktAndAverage,
   lookupConsignee,
 } from './consigneeRegister'
+import {
+  applyNowasteDeliveryWindow,
+  NOWASTE_KUNDR,
+} from './nowastePostortWindows'
 import { parseWeightKg } from './parseWeightKg'
-import type { InputColumn } from './constants'
 import type { InputRow, OutputRow } from './types'
 
 function emptyOutputRow(): OutputRow {
   return Object.fromEntries(
     OUTPUT_COLUMNS.map((col) => [col, '']),
   ) as OutputRow
-}
-
-function applyFixedOutputValues(row: OutputRow): void {
-  for (const col of Object.keys(FIXED_OUTPUT_VALUES) as OutputColumn[]) {
-    const value = FIXED_OUTPUT_VALUES[col]
-    if (value !== undefined) row[col] = value
-  }
 }
 
 function cellToString(value: string | number | undefined): string {
@@ -40,11 +40,33 @@ function formatOutputNumber(value: number): string {
     : String(rounded).replace('.', ',')
 }
 
-/** Only rows where Consignee contains Foodora or Trofo. */
-export function matchesConsigneeFilter(input: InputRow): boolean {
-  const consignee = cellToString(input.Consignee).toLowerCase()
-  if (!consignee) return false
-  return CONSIGNEE_KEYWORDS.some((kw) => consignee.includes(kw))
+const ALLOWED_CARRIER_KEYS = new Set(
+  ALLOWED_CARRIERS.map((name) => normalizeCarrierName(name)),
+)
+
+const CARRIER_PRESET_BY_KEY = new Map(
+  ALLOWED_CARRIERS.map((name) => [normalizeCarrierName(name), name] as const),
+)
+
+/** Only rows whose Carrier is P-frakt Åkeri or GLC Distribution Gbg. */
+export function matchesCarrierFilter(input: InputRow): boolean {
+  const carrier = normalizeCarrierName(cellToString(input.Carrier))
+  if (!carrier) return false
+  return ALLOWED_CARRIER_KEYS.has(carrier)
+}
+
+function applyFixedOutputValues(row: OutputRow, carrierRaw?: string): void {
+  const carrierKey = normalizeCarrierName(cellToString(carrierRaw))
+  const carrierName =
+    (carrierKey && CARRIER_PRESET_BY_KEY.get(carrierKey)) || DEFAULT_CARRIER
+  const values = {
+    ...FIXED_OUTPUT_VALUES,
+    ...CARRIER_OUTPUT_PRESETS[carrierName],
+  }
+  for (const col of Object.keys(values) as OutputColumn[]) {
+    const value = values[col]
+    if (value !== undefined) row[col] = value
+  }
 }
 
 function isEmptyDataRow(input: InputRow): boolean {
@@ -55,16 +77,22 @@ function isEmptyDataRow(input: InputRow): boolean {
   )
 }
 
+/** Nowaste (115343) is always one calendar day before the Lars-Göran date. */
+function datumForKundnr(baseDate: string, kundnr: string): string {
+  if (kundnr.trim() === NOWASTE_KUNDR) return shiftIsoDate(baseDate, -1)
+  return baseDate
+}
+
 export function transformInputRow(input: InputRow, deliveryDate: string): OutputRow | null {
-  if (!matchesConsigneeFilter(input) || isEmptyDataRow(input)) return null
+  if (!matchesCarrierFilter(input) || isEmptyDataRow(input)) return null
 
   const consignee = cellToString(input.Consignee)
   const register = lookupConsignee(consignee)
   const kolliVikt = parseWeightKg(input['Weight (kg)'])
 
   const row = emptyOutputRow()
-  applyFixedOutputValues(row)
-  row.Datum = deliveryDate
+  applyFixedOutputValues(row, cellToString(input.Carrier))
+  row.Datum = datumForKundnr(deliveryDate, row.Kundnr)
   row.Fraktsedel = cellToString(input['Shipment reference'])
   row['Mott. Namn'] = consignee
   row['Kolli vikt'] = formatOutputNumber(kolliVikt)
@@ -83,6 +111,7 @@ export function transformInputRow(input: InputRow, deliveryDate: string): Output
     row['Mott. Postort'] = cellToString(input['Consignee city'])
   }
 
+  applyNowasteDeliveryWindow(row)
   return row
 }
 

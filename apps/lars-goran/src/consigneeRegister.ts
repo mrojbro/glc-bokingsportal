@@ -50,6 +50,34 @@ export const CONSIGNEE_REGISTER: ConsigneeRegisterEntry[] = [
     postort: 'Göteborg',
     average: 143,
   },
+  {
+    namn: 'Hemköp Mölndal Centrum',
+    adress: 'Broplatsen 10',
+    postnr: '431 31',
+    postort: 'Mölndal',
+    average: 0,
+  },
+  {
+    namn: 'Hemköp Billdal',
+    adress: 'Kungsporten 6B',
+    postnr: '427 50',
+    postort: 'Billdal',
+    average: 0,
+  },
+  {
+    namn: 'Ica Maxi Alingsås',
+    adress: 'Hemvägen 17',
+    postnr: '441 39',
+    postort: 'Alingsås',
+    average: 0,
+  },
+  {
+    namn: 'Mat & Mingel 2 AB',
+    adress: 'Hemvägen 19',
+    postnr: '441 39',
+    postort: 'Alingsås',
+    average: 0,
+  },
 ]
 
 /** Known spelling variants in PrimeLog exports. */

@@ -10,6 +10,7 @@ export interface ParseInputResult {
 }
 
 export const REQUIRED_COLUMNS: InputColumn[] = [
+  'Carrier',
   'Consignee',
   'Consignee city',
   'Shipment reference',
