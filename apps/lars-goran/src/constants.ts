@@ -81,7 +81,7 @@ export const CARRIER_OUTPUT_PRESETS: Record<
   },
   'GLC Distribution Gbg': {
     Kundnr: '115343',
-    Littera: 'Göteborg Distribution Kg',
+    Littera: 'Helsingborg-Distribution',
     Kundkontakt: 'Daniel Ryden',
     Tjänst: 'DISTTRP',
     'Term. Namn': 'Nowaste Helsingborg',
