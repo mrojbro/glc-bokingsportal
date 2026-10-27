@@ -69,14 +69,14 @@ export const CONSIGNEE_REGISTER: ConsigneeRegisterEntry[] = [
     adress: 'Hemvägen 17',
     postnr: '441 39',
     postort: 'Alingsås',
-    average: 0,
+    average: 250,
   },
   {
     namn: 'Mat & Mingel 2 AB',
     adress: 'Hemvägen 19',
     postnr: '441 39',
     postort: 'Alingsås',
-    average: 0,
+    average: 250,
   },
 ]
 
@@ -103,6 +103,17 @@ export function lookupConsignee(consignee: string): ConsigneeRegisterEntry | und
     const entryKey = normalizeConsigneeKey(entry.namn)
     return key.includes(entryKey) || entryKey.includes(key)
   })
+}
+
+const NOWASTE_DEFAULT_AVERAGE = 150
+
+/** Nowaste (115343): named averages, otherwise 150 kg. */
+export function nowasteKolliAverage(
+  consignee: string,
+  register = lookupConsignee(consignee),
+): number {
+  if (register && register.average > 0) return register.average
+  return NOWASTE_DEFAULT_AVERAGE
 }
 
 /** Kolli antal = kolli vikt ÷ average, rounded up. */

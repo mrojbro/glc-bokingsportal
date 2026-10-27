@@ -13,6 +13,7 @@ import { normalizeHeaderName } from './normalizeHeader'
 import {
   kolliAntalFromViktAndAverage,
   lookupConsignee,
+  nowasteKolliAverage,
 } from './consigneeRegister'
 import {
   applyNowasteDeliveryWindow,
@@ -47,6 +48,8 @@ const ALLOWED_CARRIER_KEYS = new Set(
 const CARRIER_PRESET_BY_KEY = new Map(
   ALLOWED_CARRIERS.map((name) => [normalizeCarrierName(name), name] as const),
 )
+
+const GLC_CARRIER_KEY = normalizeCarrierName('GLC Distribution Gbg')
 
 /** Only rows whose Carrier is P-frakt Åkeri or GLC Distribution Gbg. */
 export function matchesCarrierFilter(input: InputRow): boolean {
@@ -89,6 +92,10 @@ export function transformInputRow(input: InputRow, deliveryDate: string): Output
   const consignee = cellToString(input.Consignee)
   const register = lookupConsignee(consignee)
   const kolliVikt = parseWeightKg(input['Weight (kg)'])
+  const isGlc =
+    normalizeCarrierName(cellToString(input.Carrier)) === GLC_CARRIER_KEY
+
+  if (isGlc && kolliVikt <= 0) return null
 
   const row = emptyOutputRow()
   applyFixedOutputValues(row, cellToString(input.Carrier))
@@ -101,14 +108,19 @@ export function transformInputRow(input: InputRow, deliveryDate: string): Output
     row['Mott. Adress'] = register.adress
     row['Mott. Postnr'] = register.postnr
     row['Mott. Postort'] = register.postort
-    const kolliAntal = kolliAntalFromViktAndAverage(kolliVikt, register.average)
-    if (kolliAntal > 0) {
-      const antal = String(kolliAntal)
-      row['Kolli antal'] = antal
-      row['Gods antal1'] = antal
-    }
   } else {
     row['Mott. Postort'] = cellToString(input['Consignee city'])
+  }
+
+  const average =
+    row.Kundnr.trim() === NOWASTE_KUNDR
+      ? nowasteKolliAverage(consignee, register)
+      : (register?.average ?? 0)
+  const kolliAntal = kolliAntalFromViktAndAverage(kolliVikt, average)
+  if (kolliAntal > 0) {
+    const antal = String(kolliAntal)
+    row['Kolli antal'] = antal
+    row['Gods antal1'] = antal
   }
 
   applyNowasteDeliveryWindow(row)
