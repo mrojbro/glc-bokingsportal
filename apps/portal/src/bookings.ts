@@ -65,11 +65,10 @@ const SUMMERING_TOOLS_UNSORTED: BookingTool[] = [
     status: 'ready',
   },
   {
-    id: 'lokalt-summering',
-    label: 'Lokalt Summering',
-    segment: 'lokalt-summering',
-    status: 'coming-soon',
-    blank: true,
+    id: 'json',
+    label: 'JSON',
+    segment: 'json',
+    status: 'ready',
   },
   {
     id: 'coop-tider',
@@ -135,6 +134,7 @@ const DEV_TOOL_ORIGINS: Record<string, string> = {
   'coop-summering': 'http://localhost:5181/coop-summering/',
   'broderna-hanssons': 'http://localhost:5182/broderna-hanssons/',
   'coop-tider': 'http://localhost:5183/coop-tider/',
+  json: 'http://localhost:5184/json/',
 }
 
 export function bookingToolHref(segment: string): string {
