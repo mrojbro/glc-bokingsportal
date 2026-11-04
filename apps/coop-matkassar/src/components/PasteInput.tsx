@@ -23,7 +23,7 @@ export function PasteInput({
         </h3>
         <p className="mt-1 text-sm text-[var(--color-text-muted)]">
           Klistra in rader direkt från Excel. Rubrikraden ska innehålla Ordernr,
-          Kund, Gata, Postnr och Ort.
+          Kund och Gata. Postnr och Ort fylls från registret via Gata.
         </p>
       </div>
 
