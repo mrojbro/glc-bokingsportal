@@ -58,6 +58,43 @@ function detectDelimiter(firstLine: string): string {
   return semicolons > commas ? ';' : ','
 }
 
+function csvEscapeField(field: string, delimiter: string): string {
+  if (
+    field.includes('"') ||
+    field.includes(delimiter) ||
+    field.includes('\n') ||
+    field.includes('\r')
+  ) {
+    return `"${field.replace(/"/g, '""')}"`
+  }
+  return field
+}
+
+/**
+ * Coop routing CSVs sometimes wrap a whole row in quotes when Portkod
+ * contains quotes. SheetJS then puts the row in the first column and
+ * Kund/Gata/Ordernr stay empty, so the booking skips it.
+ */
+function repairFullyQuotedCsvLines(text: string, delimiter: string): string {
+  const lines = text.split(/\r?\n/)
+  const header = (lines[0] ?? '').replace(/^\uFEFF/, '')
+  const headerFieldCount = header.split(delimiter).length
+
+  return lines
+    .map((line, index) => {
+      if (index === 0) return line
+      if (!line.startsWith('"') || !line.endsWith('"') || line.length < 2) {
+        return line
+      }
+
+      const inner = line.slice(1, -1)
+      const fields = inner.split(delimiter).map((field) => field.replace(/""/g, '"'))
+      if (Math.abs(fields.length - headerFieldCount) > 1) return line
+      return fields.map((field) => csvEscapeField(field, delimiter)).join(delimiter)
+    })
+    .join('\n')
+}
+
 function rowsFromWorkbook(
   workbook: XLSX.WorkBook,
   fileLabel: string,
@@ -100,8 +137,9 @@ export function parseInputText(
 
   const firstLine = text.split(/\r?\n/)[0] ?? ''
   const delimiter = detectDelimiter(firstLine)
+  const repaired = repairFullyQuotedCsvLines(text, delimiter)
 
-  const workbook = XLSX.read(text, {
+  const workbook = XLSX.read(repaired, {
     type: 'string',
     raw: false,
     FS: delimiter,
