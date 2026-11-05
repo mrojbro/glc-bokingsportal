@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "import:inbaring": "node scripts/import-inbaring-register.mjs",
-    "import:mott-adress": "node scripts/import-mott-adress-register.mjs"
+    "import:inbaring": "node scripts/import-inbaring-register.mjs"
   },
   "dependencies": {
     "react": "^19.1.0",

@@ -6,7 +6,7 @@ import {
 import { formatTelefonnr } from './formatTelefonnr'
 import { getTomorrowDate } from './getTomorrowDate'
 import { applyInbaringFields, applyTjanst } from './applyInbaringFields'
-import { applyMottAdressRegister } from './mottAdressRegister'
+import { applyCityPostnrRegister } from './cityPostnrRegister'
 import { litteraForDate } from './litteraForDate'
 import { normalizeHeaderName } from './normalizeHeader'
 import type { InputColumn } from './constants'
@@ -67,7 +67,7 @@ export function transformInputRow(input: InputRow, tomorrow: string): OutputRow 
   row['Mott. Adress'] = cellToString(input.Gata)
   row['Mott. Postnr'] = cellToString(input.Postnr)
   row['Mott. Postort'] = cellToString(input.Ort)
-  applyMottAdressRegister(row)
+  applyCityPostnrRegister(row)
   row['Kolli vikt'] = formatOutputNumber(parseNumber(input.Bruttovikt))
   applyInbaringFields(row, { meddelande: cellToString(input.Meddelande) })
   row.Telefonnr = formatTelefonnr(cellToString(input.Telefonnummer))

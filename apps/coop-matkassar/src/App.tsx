@@ -12,7 +12,7 @@ import {
   type ParseInputResult,
 } from './parseInput'
 import { applyInbaringFields, applyTjanst } from './applyInbaringFields'
-import { applyMottAdressRegister } from './mottAdressRegister'
+import { applyCityPostnrRegister, lookupCityPostnr } from './cityPostnrRegister'
 import { createBlankOutputRow, transformInputRows } from './transform'
 import type { OutputColumn } from './constants'
 import type { OutputRow } from './types'
@@ -21,6 +21,7 @@ const REQUIRED_INPUT_COLUMNS = [
   'Ordernr',
   'Kund',
   'Gata',
+  'Ort',
 ] as const
 
 export default function App() {
@@ -60,21 +61,18 @@ export default function App() {
     setOutputRows(transformed)
 
     const warnParts: string[] = []
-    const extraMissing = parsed.missingColumns.filter(
-      (col) => col !== 'Postnr' && col !== 'Ort',
-    )
+    const extraMissing = parsed.missingColumns.filter((col) => col !== 'Postnr')
     if (extraMissing.length > 0) {
       warnParts.push(
         `Följande kolumner saknas i indata: ${extraMissing.join(', ')}`,
       )
     }
     const unmatched = transformed.filter(
-      (row) =>
-        row['Mott. Adress'] && !row['Mott. Postnr'] && !row['Mott. Postort'],
+      (row) => row['Mott. Postort'] && !lookupCityPostnr(row['Mott. Postort']),
     ).length
     if (unmatched > 0) {
       warnParts.push(
-        `${unmatched} rad(er) saknar träff i adressregistret för Gata / Mott. Adress.`,
+        `${unmatched} rad(er) saknar träff i stadsregistret för Ort / Mott. Postort.`,
       )
     }
     if (warnParts.length > 0) setWarning(warnParts.join(' '))
@@ -144,8 +142,9 @@ export default function App() {
           if (i !== rowIndex) return row
           const next = { ...row, [column]: value }
           if (column === 'Mott. Adress') {
-            applyMottAdressRegister(next)
             applyInbaringFields(next)
+          } else if (column === 'Mott. Postort') {
+            applyCityPostnrRegister(next)
           } else if (column === 'Chaufförsinstruktion') {
             applyTjanst(next)
           }
