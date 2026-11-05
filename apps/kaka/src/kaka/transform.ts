@@ -159,6 +159,13 @@ function lossningskodIsA(input: InputRow): boolean {
   return cellToString(input.Lossningskod).toUpperCase() === 'A'
 }
 
+/** Turbil: Lossningskod after A (B, C, …) uses Distribution Inbärning. */
+function litteraForTurbil(input: InputRow): string {
+  const kod = cellToString(input.Lossningskod).toLocaleUpperCase('sv')
+  if (kod && kod > 'A') return 'Distribution Inbärning'
+  return 'Distribution'
+}
+
 function godsslagByLossningskod(
   input: InputRow,
   ifA: string,
@@ -308,7 +315,11 @@ function buildGlcRowsForCase(
       row.Resurs = '163'
     }
 
-    const times = lookupTimes(row.Littera, row['Mott. Namn'])
+    const times =
+      lookupTimes(row.Littera, row['Mott. Namn']) ??
+      (row.Littera === 'Distribution Inbärning'
+        ? lookupTimes('Distribution', row['Mott. Namn'])
+        : undefined)
     if (times) {
       row.Startid = times.startid
       row.Sluttid = times.sluttid
@@ -332,7 +343,12 @@ export function transformInputRow(
 
   if (trpsatt.includes('GLC/Turbil/Gbg')) {
     results.push(
-      ...buildGlcRowsForCase(input, date, 'DISTTRP', 'Distribution'),
+      ...buildGlcRowsForCase(
+        input,
+        date,
+        'DISTTRP',
+        litteraForTurbil(input),
+      ),
     )
   }
 
